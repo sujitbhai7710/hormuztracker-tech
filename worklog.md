@@ -1,30 +1,42 @@
-
 ---
 Task ID: 1
 Agent: Main Agent
-Task: Complete rebuild of HormuzTracker.tech with correct architecture
+Task: Complete rebuild of HormuzTracker.tech with all features
 
 Work Log:
-- Deleted all old Cloudflare deployments (Worker, Pages, KV)
-- Created new KV namespace: hormuz-data-cache
-- Built API Worker at /home/z/my-project/hormuz-api-worker/
-  - Scrapes data from hormuzstraitmonitor.com and hormuztracker.com
-  - Caches all data in KV with 5-minute TTL + 24-hour stale fallback
-  - Serves 9 API endpoints: dashboard, oil, ais, carriers, insurance, routes, timeline, regions, news, seizures
-  - Deployed to https://hormuz-api.tradesapi.workers.dev with cron trigger every 5 minutes
-- Built Frontend at /home/z/my-project/hormuz-frontend/
-  - Astro 6 + Svelte (static output, NO server adapter)
-  - 33 pages built: Dashboard, Map, Oil, Carriers, Routes, Insurance, News, Timeline, Seizures, Regions (8 subpages), Blog (8 posts), Data, Embed, Glossary, Methodology, FAQ, About
-  - Deployed to Cloudflare Pages: https://hormuztracker-tech.pages.dev
-  - Beautiful dark glass-morphism design with custom ops-*/crisis-* color theme
-  - Client-side data fetching from the API Worker
-  - Full SEO: meta tags, Open Graph, Twitter Cards, JSON-LD, sitemap, robots.txt
-- Pushed to GitHub: https://github.com/sujitbhai7710/hormuztracker-tech
+- Researched both original sites (hormuzstraitmonitor.com and hormuztracker.com) thoroughly
+- Cataloged ALL features from both sites (31+ pages from site1, 10+ pages from site2)
+- Audited current deployed site for bugs (found 6 critical, 5 high, 7 medium issues)
+- Designed and implemented 30-min rebuild architecture (Worker cron + GitHub push + Pages auto-build)
+- Designed dynamic data logic with Crisis Severity Algorithm (5 weighted sub-scores)
+- Rebuilt API Worker with:
+  - Fixed mergeOil() Brent price inconsistency (now $116.73, not $94.45)
+  - Added 5 new API endpoints: /api/severity, /api/historical, /api/pipelines, /api/pi-clubs, /api/consumer-impact
+  - Added data change detection with hash comparison
+  - Added GitHub push trigger for Pages rebuild on data change
+  - Added daily rebuild limit (10/day max)
+  - Changed cron from */5 to */30 minutes
+  - Added GITHUB_TOKEN as Worker secret
+- Rebuilt frontend with 45 pages (was 22):
+  - NEW: gas-prices, spr, pipelines, historical, 404, embed/severity, embed/ships, embed/oil, embed/dashboard
+  - NEW Svelte components: ConsumerCalculator, CrisisGauge, EmailSubscribe, ShareButton, SparklineChart, PipelineProgress, HistoricalComparison, PIClubsGrid
+  - Updated Dashboard with TradingView chart, Seizure Tracker, Supply Chain Disruptions
+  - Updated Insurance with P&I Club badges
+  - Updated Routes with pipeline progress bars
+  - Updated Seizures with proportional stacked bar and alternating timeline
+  - Updated Layout with active nav, share button, mobile menu with all pages, better SEO
+- Created OG image (PNG 1200x630)
+- Created RSS feed (rss.xml)
+- Updated robots.txt with AI-crawler welcome (GPTBot, Claude, PerplexityBot)
+- Fixed gas-prices page to fetch from API instead of hardcoded values
+- Fixed pipelines page to show effective capacity (not max capacity)
+- Fixed API Worker KV put failures for routes/regions endpoints
+- Full SEO: JSON-LD on all pages, BreadcrumbList, proper meta tags, sitemap
 
 Stage Summary:
-- Architecture: Cloudflare Pages (static frontend) + Cloudflare Worker (API data scraping/KV cache)
-- Frontend URL: https://hormuztracker-tech.pages.dev
-- API URL: https://hormuz-api.tradesapi.workers.dev
-- All 33 pages return 200 status
-- API endpoints tested and returning live data from reference sites
-- GitHub repo: https://github.com/sujitbhai7710/hormuztracker-tech
+- Frontend: 45 pages built and deployed to Cloudflare Pages (hormuztracker-tech.pages.dev)
+- API: 17 endpoints on Worker (hormuz-api.tradesapi.workers.dev) with 30-min cron
+- All critical bugs fixed: Brent price, CSV downloads, embed widgets, 404 page, OG image
+- All missing features added from both original sites
+- Extra features added: Consumer Calculator, Crisis Severity Algorithm, Share Button, Email Subscribe, RSS
+- GitHub repo: https://github.com/sujitbhai7710/hormuztracker-tech (clean history, no secrets)

@@ -194,38 +194,52 @@ import Layout from '../layouts/Layout.astro';
 
   <script>
     const API = 'https://hormuz-api.tradesapi.workers.dev';
-    const fuelData = [
-      { country: 'United States', flag: '🇺🇸', type: 'Gasoline', unit: '$/gal', pre: 3.20, cur: 4.44, pct: 38.7, currency: '$' },
-      { country: 'United Kingdom', flag: '🇬🇧', type: 'Petrol', unit: '£/L', pre: 1.45, cur: 1.84, pct: 26.8, currency: '£' },
-      { country: 'Germany', flag: '🇩🇪', type: 'Petrol', unit: '€/L', pre: 1.72, cur: 2.18, pct: 26.7, currency: '€' },
-      { country: 'France', flag: '🇫🇷', type: 'Petrol', unit: '€/L', pre: 1.78, cur: 2.24, pct: 25.8, currency: '€' },
-      { country: 'Japan', flag: '🇯🇵', type: 'Gasoline', unit: '¥/L', pre: 168, cur: 224, pct: 33.3, currency: '¥' },
-      { country: 'South Korea', flag: '🇰🇷', type: 'Gasoline', unit: '₩/L', pre: 1680, cur: 2180, pct: 29.8, currency: '₩' },
-      { country: 'India', flag: '🇮🇳', type: 'Petrol', unit: '₹/L', pre: 97, cur: 138, pct: 42.5, currency: '₹' },
-      { country: 'China', flag: '🇨🇳', type: 'Gasoline', unit: '¥/L', pre: 7.82, cur: 9.56, pct: 22.3, currency: '¥' },
-      { country: 'Australia', flag: '🇦🇺', type: 'Unleaded', unit: 'A$/L', pre: 1.82, cur: 2.28, pct: 25.3, currency: 'A$' },
-      { country: 'Singapore', flag: '🇸🇬', type: 'Petrol', unit: 'S$/L', pre: 2.65, cur: 3.38, pct: 27.5, currency: 'S$' },
-      { country: 'Brazil', flag: '🇧🇷', type: 'Gasoline', unit: 'R$/L', pre: 5.49, cur: 6.42, pct: 16.9, currency: 'R$' },
-      { country: 'UAE', flag: '🇦🇪', type: 'Special 95', unit: 'AED/L', pre: 3.20, cur: 3.82, pct: 19.4, currency: 'AED' },
-    ];
 
-    // Populate table
-    const tbody = document.getElementById('fuel-table');
-    tbody.innerHTML = fuelData.map(f => {
-      const extraMonthly = ((f.cur - f.pre) / f.pre * 200).toFixed(0);
-      const pctClass = f.pct > 35 ? 'text-crisis-red' : f.pct > 25 ? 'text-crisis-orange' : 'text-crisis-amber';
-      return `<tr class="border-b border-ops-800/50">
-        <td class="py-2 text-white font-medium">${f.flag} ${f.country}</td>
-        <td class="text-right text-slate-400">${f.type}</td>
-        <td class="text-right text-slate-400 font-mono">${f.pre}</td>
-        <td class="text-right text-white font-bold font-mono">${f.cur}</td>
-        <td class="text-right ${pctClass} font-bold">+${f.pct}%</td>
-        <td class="text-right text-crisis-red font-mono">+${f.currency}${extraMonthly}/mo</td>
-      </tr>`;
-    }).join('');
+    // Fetch consumer impact data from API
+    async function loadData() {
+      try {
+        const res = await fetch(`${API}/api/consumer-impact`);
+        const data = await res.json();
+        if (data?.countries) return data;
+      } catch(e) { console.warn('API fetch failed, using fallback'); }
+      // Fallback data matching the API
+      return {
+        countries: [
+          { name: 'United States', code: 'US', fuelType: 'Gasoline', preCrisisPrice: 2.97, currentPrice: 4.12, unit: '$/gallon', increasePercent: 38.7, monthlyExtraSpend: 58 },
+          { name: 'United Kingdom', code: 'GB', fuelType: 'Petrol', preCrisisPrice: 1.49, currentPrice: 1.89, unit: '£/litre', increasePercent: 26.8, monthlyExtraSpend: 42 },
+          { name: 'Germany', code: 'DE', fuelType: 'Petrol', preCrisisPrice: 1.79, currentPrice: 2.28, unit: '€/litre', increasePercent: 27.4, monthlyExtraSpend: 48 },
+          { name: 'Japan', code: 'JP', fuelType: 'Gasoline', preCrisisPrice: 168, currentPrice: 215, unit: '¥/litre', increasePercent: 28.0, monthlyExtraSpend: 6200 },
+          { name: 'South Korea', code: 'KR', fuelType: 'Gasoline', preCrisisPrice: 1680, currentPrice: 2150, unit: '₩/litre', increasePercent: 28.0, monthlyExtraSpend: 62000 },
+          { name: 'India', code: 'IN', fuelType: 'Petrol', preCrisisPrice: 96.72, currentPrice: 112.50, unit: '₹/litre', increasePercent: 16.3, monthlyExtraSpend: 520 },
+          { name: 'China', code: 'CN', fuelType: 'Gasoline', preCrisisPrice: 7.82, currentPrice: 9.15, unit: '¥/litre', increasePercent: 17.0, monthlyExtraSpend: 88 },
+          { name: 'Australia', code: 'AU', fuelType: 'Unleaded', preCrisisPrice: 1.85, currentPrice: 2.32, unit: 'A$/litre', increasePercent: 25.4, monthlyExtraSpend: 62 },
+        ],
+        electricityImpact: []
+      };
+    }
+
+    const flagMap = { US: '🇺🇸', GB: '🇬🇧', DE: '🇩🇪', JP: '🇯🇵', KR: '🇰🇷', IN: '🇮🇳', CN: '🇨🇳', AU: '🇦🇺' };
+
+    loadData().then(data => {
+      const countries = data.countries;
+      const tbody = document.getElementById('fuel-table');
+      tbody.innerHTML = countries.map(c => {
+        const flag = flagMap[c.code] || '🌍';
+        const pctClass = c.increasePercent > 35 ? 'text-crisis-red' : c.increasePercent > 25 ? 'text-crisis-orange' : 'text-crisis-amber';
+        const currencySymbol = c.unit.split('/')[0];
+        return `<tr class="border-b border-ops-800/50">
+          <td class="py-2 text-white font-medium">${flag} ${c.name}</td>
+          <td class="text-right text-slate-400">${c.fuelType}</td>
+          <td class="text-right text-slate-400 font-mono">${c.preCrisisPrice}</td>
+          <td class="text-right text-white font-bold font-mono">${c.currentPrice}</td>
+          <td class="text-right ${pctClass} font-bold">+${c.increasePercent}%</td>
+          <td class="text-right text-crisis-red font-mono">+${currencySymbol}${c.monthlyExtraSpend}/mo</td>
+        </tr>`;
+      }).join('');
+    });
 
     // Calculator
-    const countryMultiplier = { us: 0.387, uk: 0.268, eu: 0.267, jp: 0.333, in: 0.425, kr: 0.298, au: 0.253, sg: 0.275 };
+    const countryMultiplier = { us: 0.387, uk: 0.268, eu: 0.274, jp: 0.280, in: 0.163, kr: 0.280, au: 0.254, sg: 0.275 };
     const countryCurrency = { us: '$', uk: '£', eu: '€', jp: '¥', in: '₹', kr: '₩', au: 'A$', sg: 'S$' };
 
     document.getElementById('calc-country').addEventListener('change', function() {
@@ -244,10 +258,10 @@ import Layout from '../layouts/Layout.astro';
         <div class="text-center space-y-3">
           <div class="text-xs text-slate-500 uppercase">Estimated Extra Monthly Cost</div>
           <div class="text-4xl font-black text-crisis-red">${cur}${extra}</div>
-          <div class="text-sm text-slate-400">Your fuel spend: ${cur}${spend.toFixed(2)} → ${cur}${total}</div>
+          <div class="text-sm text-slate-400">Your fuel spend: ${cur}${parseFloat(spend).toFixed(2)} → ${cur}${total}</div>
           <div class="text-xs text-slate-500 mt-2">Based on +${(mult * 100).toFixed(1)}% price increase for ${country.toUpperCase()}</div>
           <hr class="border-ops-700/50 my-2">
-          <div class="text-xs text-slate-500">Annual extra cost: <span class="text-crisis-orange font-bold">${cur}${(extra * 12).toFixed(0)}</span></div>
+          <div class="text-xs text-slate-500">Annual extra cost: <span class="text-crisis-orange font-bold">${cur}${(parseFloat(extra) * 12).toFixed(0)}</span></div>
         </div>`;
     });
   </script>
