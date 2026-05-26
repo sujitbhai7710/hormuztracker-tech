@@ -264,7 +264,7 @@ import Layout from '../layouts/Layout.astro';
           if (val == null) { el.textContent = '--'; return; }
           const up = val >= 0;
           el.textContent = `${up ? '+' : ''}${val.toFixed(2)}%`;
-          el.className = `text-sm mt-1 ${up ? 'text-crisis-green' : 'text-crisis-red'}`;
+          el.className = `text-sm mt-1 ${up ? 'text-crisis-red' : 'text-crisis-green'}`;
         };
         setChg('brent-change', oil.brentChangePercent);
         setChg('wti-change', oil.wtiChangePercent);
@@ -311,7 +311,9 @@ import Layout from '../layouts/Layout.astro';
         document.getElementById('hist-pct').textContent = '+' + pctChg(oil.brent, pre.brent);
 
         // Sparklines
-        if (oil.sparkline) {
+        if (oil.sparkline && Array.isArray(oil.sparkline) && oil.sparkline.length > 0) {
+          drawSparkline('spark-brent', oil.sparkline, '#f97316');
+        } else if (oil.sparkline && typeof oil.sparkline === 'object') {
           drawSparkline('spark-brent', oil.sparkline.brent || [], '#f97316');
           drawSparkline('spark-wti', oil.sparkline.wti || [], '#f59e0b');
           drawSparkline('spark-ttf', oil.sparkline.ttf || [], '#3b82f6');

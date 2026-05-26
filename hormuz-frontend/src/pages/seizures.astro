@@ -109,43 +109,49 @@ import Layout from '../layouts/Layout.astro';
     const API = 'https://hormuz-api.tradesapi.workers.dev';
     async function loadSeizures() {
       try {
-        const seizures = await fetch(`${API}/api/seizures`).then(r => r.json());
-        const held = seizures.filter(s => s.status === 'Held').length;
-        const released = seizures.filter(s => s.status === 'Released').length;
-        const iranCount = seizures.filter(s => s.entity.includes('Iran')).length;
-        const usUkCount = seizures.filter(s => s.entity.includes('US') || s.entity.includes('UK')).length;
-        const otherCount = seizures.length - iranCount - usUkCount;
+        const res = await fetch(`${API}/api/seizures`).then(r => r.json());
+        // API returns { seizures: [...], iranSeized, westSeized, currentlyHeld, total } or flat array
+        const data = res.seizures || (Array.isArray(res) ? res : []);
+        const iranCountFromApi = res.iranSeized;
+        const westCountFromApi = res.westSeized;
+        const heldFromApi = res.currentlyHeld;
 
-        document.getElementById('total-seizures').textContent = seizures.length;
-        document.getElementById('held-vessels').textContent = held;
-        document.getElementById('iran-seizures').textContent = iranCount;
-        document.getElementById('us-uk-seizures').textContent = usUkCount;
+        const held = data.filter(s => s.status === 'Held').length;
+        const released = data.filter(s => s.status === 'Released').length;
+        const iranCount = data.filter(s => s.entity && s.entity.includes('Iran')).length;
+        const usUkCount = data.filter(s => s.entity && (s.entity.includes('US') || s.entity.includes('UK'))).length;
+        const otherCount = data.length - iranCount - usUkCount;
+
+        document.getElementById('total-seizures').textContent = data.length;
+        document.getElementById('held-vessels').textContent = heldFromApi || held;
+        document.getElementById('iran-seizures').textContent = iranCountFromApi || iranCount;
+        document.getElementById('us-uk-seizures').textContent = westCountFromApi || usUkCount;
         document.getElementById('released-vessels').textContent = released;
-        document.getElementById('held-count').textContent = held;
+        document.getElementById('held-count').textContent = heldFromApi || held;
         document.getElementById('released-count').textContent = released;
 
         // Proportional stacked bar
-        const total = seizures.length || 1;
-        const iranPct = (iranCount / total * 100).toFixed(1);
-        const usUkPct = (usUkCount / total * 100).toFixed(1);
-        const otherPct = (otherCount / total * 100).toFixed(1);
+        const total = data.length || 1;
+        const displayIran = iranCountFromApi || iranCount;
+        const displayUsUk = westCountFromApi || usUkCount;
+        const iranPct = (displayIran / total * 100).toFixed(1);
+        const usUkPct = (displayUsUk / total * 100).toFixed(1);
+        const otherPct = (100 - parseFloat(iranPct) - parseFloat(usUkPct)).toFixed(1);
         document.getElementById('seizure-bar').innerHTML = `
           <div class="h-10 bg-ops-800 rounded-lg overflow-hidden flex">
             <div class="h-full bg-crisis-blue flex items-center justify-center" style="width:${iranPct}%">
-              <span class="text-xs text-white font-bold">${iranCount} Iran (${iranPct}%)</span>
+              <span class="text-xs text-white font-bold">${displayIran} Iran (${iranPct}%)</span>
             </div>
             <div class="h-full bg-crisis-green flex items-center justify-center" style="width:${usUkPct}%">
-              <span class="text-xs text-white font-bold">${usUkCount} US/UK (${usUkPct}%)</span>
+              <span class="text-xs text-white font-bold">${displayUsUk} US/UK (${usUkPct}%)</span>
             </div>
-            <div class="h-full bg-slate-500 flex items-center justify-center" style="width:${otherPct}%">
-              ${otherCount > 0 ? `<span class="text-xs text-white font-bold">${otherCount} Other</span>` : ''}
-            </div>
+            ${otherCount > 0 ? `<div class="h-full bg-slate-500 flex items-center justify-center" style="width:${otherPct}%"><span class="text-xs text-white font-bold">${otherCount} Other</span></div>` : ''}
           </div>`;
 
         // Alternating timeline
-        document.getElementById('seizure-timeline').innerHTML = seizures.map((s, i) => {
+        document.getElementById('seizure-timeline').innerHTML = data.map((s, i) => {
           const isLeft = i % 2 === 0;
-          const entityColor = s.entity.includes('Iran') ? 'bg-crisis-blue' : s.entity.includes('US') || s.entity.includes('UK') ? 'bg-crisis-green' : 'bg-slate-500';
+          const entityColor = s.entity && s.entity.includes('Iran') ? 'bg-crisis-blue' : s.entity && (s.entity.includes('US') || s.entity.includes('UK')) ? 'bg-crisis-green' : 'bg-slate-500';
           const statusClass = s.status === 'Held' ? 'bg-crisis-red/20 text-crisis-red' : 'bg-crisis-green/20 text-crisis-green';
           return `
           <div class="flex gap-4 animate-fade-in" style="animation-delay: ${i * 80}ms">
@@ -161,21 +167,21 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div class="glass-card p-3 card-hover">
                 <h3 class="text-sm font-bold text-white">${s.vessel}</h3>
-                <div class="text-xs text-slate-400 mt-1">${s.flag} flag · ${s.type}</div>
+                <div class="text-xs text-slate-400 mt-1">${s.flag || ''} ${s.type ? '· ' + s.type : ''}</div>
               </div>
             </div>
           </div>`;
         }).join('');
 
         // Table
-        document.getElementById('seizure-table').innerHTML = seizures.map(s => {
+        document.getElementById('seizure-table').innerHTML = data.map(s => {
           const statusClass = s.status === 'Held' ? 'bg-crisis-red/20 text-crisis-red' : 'bg-crisis-green/20 text-crisis-green';
           return `<tr class="border-b border-ops-800/50">
             <td class="py-2 text-slate-400 font-mono text-xs">${s.date}</td>
-            <td class="py-2 text-white text-xs">${s.entity}</td>
+            <td class="py-2 text-white text-xs">${s.entity || 'Unknown'}</td>
             <td class="py-2 text-white font-medium text-xs">${s.vessel}</td>
-            <td class="py-2 text-slate-400 text-xs">${s.flag}</td>
-            <td class="py-2 text-slate-400 text-xs">${s.type}</td>
+            <td class="py-2 text-slate-400 text-xs">${s.flag || '--'}</td>
+            <td class="py-2 text-slate-400 text-xs">${s.type || '--'}</td>
             <td class="py-2 text-center"><span class="px-2 py-0.5 rounded text-xs font-bold ${statusClass}">${s.status}</span></td>
           </tr>`;
         }).join('');

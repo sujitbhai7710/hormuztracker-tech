@@ -24,7 +24,8 @@ import Layout from '../../layouts/Layout.astro';
     const API = 'https://hormuz-api.tradesapi.workers.dev';
     async function loadRegions() {
       try {
-        const regions = await fetch(`${API}/api/regions`).then(r => r.json());
+        const res = await fetch(`${API}/api/regions`).then(r => r.json());
+        const regions = Array.isArray(res) ? res : (res.regions || []);
         const sevColors = { CRITICAL: 'border-l-crisis-red', HIGH: 'border-l-crisis-orange', MODERATE: 'border-l-crisis-amber', LOW: 'border-l-crisis-green' };
         const sevText = { CRITICAL: 'text-crisis-red', HIGH: 'text-crisis-orange', MODERATE: 'text-crisis-amber', LOW: 'text-crisis-green' };
 

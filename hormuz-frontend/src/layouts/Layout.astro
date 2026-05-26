@@ -10,7 +10,6 @@ export interface Props {
 }
 
 const { title = 'HormuzTracker.tech — Live Strait of Hormuz Crisis Monitor', description = 'Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.', path = '/', jsonLd } = Astro.props;
-const canonicalURL = new URL(path, Astro.site);
 const crisisStart = new Date('2026-02-28T00:00:00Z');
 const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
 const currentPath = path;
@@ -32,8 +31,10 @@ function isActive(href: string): string {
   <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring, Hormuz tracker, Strait closure" />
   <meta name="author" content="HormuzTracker.tech" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
+  <meta name="theme-color" content="#0a1628" />
 
-  <link rel="canonical" href={canonicalURL} />
+  <link rel="canonical" href={`https://hormuztracker.tech${path}`} />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="HormuzTracker.tech RSS Feed" href="/rss.xml" />
@@ -45,12 +46,12 @@ function isActive(href: string): string {
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:url" content={`https://hormuztracker.tech${path}`} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:site_name" content="HormuzTracker.tech" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://hormuztracker-tech.pages.dev/og-image.png" />
+  <meta property="og:image" content="https://hormuztracker.tech/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="HormuzTracker.tech — Strait of Hormuz Crisis Monitor" />
@@ -59,7 +60,7 @@ function isActive(href: string): string {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content="https://hormuztracker-tech.pages.dev/og-image.png" />
+  <meta name="twitter:image" content="https://hormuztracker.tech/og-image.png" />
 
   <!-- JSON-LD: Organization + WebApplication -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -75,7 +76,7 @@ function isActive(href: string): string {
       "@type": "Organization",
       "name": "HormuzTracker.tech",
       "url": "https://hormuztracker.tech",
-      "logo": "https://hormuztracker-tech.pages.dev/favicon.svg"
+      "logo": "https://hormuztracker.tech/favicon.svg"
     },
     "sameAs": []
   })} />
@@ -86,7 +87,7 @@ function isActive(href: string): string {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hormuztracker.tech" },
-      { "@type": "ListItem", "position": 2, "name": title.split('—')[0].trim(), "item": canonicalURL.toString() }
+      { "@type": "ListItem", "position": 2, "name": title.split('—')[0].trim(), "item": `https://hormuztracker.tech${path}` }
     ]
   })} />
 
@@ -156,6 +157,11 @@ function isActive(href: string): string {
               <a href="/methodology" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Methodology</a>
               <a href="/faq" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">FAQ</a>
               <a href="/about" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">About</a>
+              <hr class="my-1 border-ops-700/50" />
+              <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Legal</div>
+              <a href="/privacy" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Privacy Policy</a>
+              <a href="/terms" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Terms of Service</a>
+              <a href="/contact" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Contact</a>
             </div>
           </div>
         </div>
@@ -202,6 +208,11 @@ function isActive(href: string): string {
         <a href="/methodology" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Methodology</a>
         <a href="/faq" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">FAQ</a>
         <a href="/about" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">About</a>
+        <hr class="my-2 border-ops-700/50" />
+        <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Legal</div>
+        <a href="/privacy" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Privacy Policy</a>
+        <a href="/terms" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Terms of Service</a>
+        <a href="/contact" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Contact</a>
       </div>
     </div>
   </nav>
@@ -254,6 +265,9 @@ function isActive(href: string): string {
             <li><a href="/methodology" class="text-slate-500 hover:text-slate-300 transition-colors">Methodology</a></li>
             <li><a href="/faq" class="text-slate-500 hover:text-slate-300 transition-colors">FAQ</a></li>
             <li><a href="/about" class="text-slate-500 hover:text-slate-300 transition-colors">About</a></li>
+            <li><a href="/contact" class="text-slate-500 hover:text-slate-300 transition-colors">Contact</a></li>
+            <li><a href="/privacy" class="text-slate-500 hover:text-slate-300 transition-colors">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-slate-500 hover:text-slate-300 transition-colors">Terms of Service</a></li>
             <li><a href="/rss.xml" class="text-slate-500 hover:text-slate-300 transition-colors">RSS Feed</a></li>
           </ul>
         </div>
@@ -261,6 +275,9 @@ function isActive(href: string): string {
       <div class="mt-10 pt-6 border-t border-ops-800 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-xs text-slate-600">&copy; 2026 HormuzTracker.tech — Data for informational purposes only. Not financial or navigational advice.</p>
         <div class="flex items-center gap-4 text-xs text-slate-600">
+          <a href="/privacy" class="hover:text-slate-400 transition-colors">Privacy Policy</a>
+          <a href="/terms" class="hover:text-slate-400 transition-colors">Terms of Service</a>
+          <a href="/contact" class="hover:text-slate-400 transition-colors">Contact</a>
           <a href="/methodology" class="hover:text-slate-400 transition-colors">Methodology</a>
           <a href="/about" class="hover:text-slate-400 transition-colors">About</a>
           <a href="/rss.xml" class="hover:text-slate-400 transition-colors">RSS</a>

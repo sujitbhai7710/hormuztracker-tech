@@ -14,6 +14,7 @@ const FAQ_DATA = [
   { q: 'What diplomatic efforts are underway?', a: 'Oman initiated back-channel mediation in April, and China hosted an emergency summit in Beijing on May 24, 2026, bringing together Iran, Saudi Arabia, UAE, and Oman. The US-led Operation Freedom of Navigation has conducted three naval escort convoys. Iran has proposed a "safe transit corridor" but with conditions (sanctions relief, maritime claims recognition) that make acceptance unlikely in the near term.' },
   { q: 'How is the crisis affecting consumer gas prices?', a: 'US gasoline has risen approximately 38.7% from $3.20 to over $4.44 per gallon. UK petrol is up 26.8%, EU diesel up 31.2%, and India petrol up 42.5%. The price transmission typically takes 4-6 weeks from crude oil spikes to reach the pump, with pass-through rates varying by country due to different tax structures.' },
   { q: 'How reliable is the data on this site?', a: 'Data is aggregated from multiple established maritime intelligence sources including AISstream.io, oilpriceapi.com, and verified news agencies. Vessel position data represents a lower bound as ships may disable transponders. Oil prices may lag real-time markets by up to 5 minutes. See our Methodology page for detailed information on data sources, update frequency, and known limitations.' },
+  { q: 'What data does HormuzTracker.tech collect about me?', a: 'We collect minimal personal data. If you subscribe to email alerts, we store your email address. We use Google Analytics for anonymous usage statistics and Google AdSense for advertising, both of which may set cookies. We do not sell your personal data. You can exercise your data rights (access, deletion, correction) by contacting privacy@hormuztracker.tech. For full details, see our Privacy Policy and Terms of Service.' },
 ];
 ---
 
@@ -40,6 +41,26 @@ const FAQ_DATA = [
           </div>
         </div>
       ))}
+    </div>
+
+    <!-- Legal & Privacy Links -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Privacy & Legal</h2>
+      <p class="text-sm text-slate-400 leading-relaxed">For detailed information about how we handle your data and the terms governing use of this platform, please visit:</p>
+      <div class="flex flex-wrap gap-3 mt-3">
+        <a href="/privacy" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-ops-800/50 hover:bg-ops-800 text-slate-300 hover:text-white transition-all text-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          Privacy Policy
+        </a>
+        <a href="/terms" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-ops-800/50 hover:bg-ops-800 text-slate-300 hover:text-white transition-all text-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Terms of Service
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-ops-800/50 hover:bg-ops-800 text-slate-300 hover:text-white transition-all text-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Contact Us
+        </a>
+      </div>
     </div>
   </div>
 

@@ -167,9 +167,10 @@ import Layout from '../layouts/Layout.astro';
     const API = 'https://hormuz-api.tradesapi.workers.dev';
     async function loadCarriers() {
       try {
-        const carriers = await fetch(`${API}/api/carriers`).then(r => r.json());
+        const res = await fetch(`${API}/api/carriers`).then(r => r.json());
+        const carriers = Array.isArray(res) ? res : (res.carriers || []);
         let totalVessels = 0, totalTeu = 0;
-        const maxTeu = Math.max(...carriers.map(c => c.teuTrapped || 0));
+        const maxTeu = carriers.length > 0 ? Math.max(...carriers.map(c => c.teuTrapped || 0)) : 1;
 
         const html = carriers.map(c => {
           totalVessels += c.vesselsTrapped || 0;

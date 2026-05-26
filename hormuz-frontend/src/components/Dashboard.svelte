@@ -488,7 +488,8 @@ let durationHours = $derived(() => {
         </div>
 
         {#if data}
-        {@const seizures = data.seizures || { iranSeized: 11, westSeized: 4, currentlyHeld: 5, timeline: [] }}
+        {@const seizuresRaw = data.seizures || { iranSeized: 12, westSeized: 5, currentlyHeld: 6, timeline: [] }}
+        {@const seizures = Array.isArray(seizuresRaw) ? { iranSeized: seizuresRaw.filter(s => s.entity?.includes('Iran')).length, westSeized: seizuresRaw.filter(s => s.entity?.includes('US/UK')).length, currentlyHeld: seizuresRaw.filter(s => s.status === 'Held').length, timeline: seizuresRaw } : seizuresRaw}
         {@const total = (seizures.iranSeized || 11) + (seizures.westSeized || 4)}
 
         <!-- Summary Bar -->

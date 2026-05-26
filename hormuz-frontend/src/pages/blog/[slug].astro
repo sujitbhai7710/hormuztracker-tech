@@ -3,20 +3,668 @@ import Layout from '../../layouts/Layout.astro';
 
 export function getStaticPaths() {
   const BLOG_POSTS = [
-    { slug: 'walls-closing-in', title: 'Walls Closing In: The Geopolitics of a Choked Strait', date: '2026-05-20', category: 'Analysis', readingTime: '8 min', excerpt: 'As the Hormuz crisis enters its third month, the geopolitical walls are closing in on all parties. Iran faces escalating economic pressure, while Gulf states hemorrhage revenue and consumer nations scramble for alternatives.' },
-    { slug: 'when-hormuz-stopped', title: 'When Hormuz Stopped: The Day Global Trade Froze', date: '2026-03-15', category: 'Analysis', readingTime: '10 min', excerpt: 'February 28, 2026 will be remembered as the day the global trading system experienced its most severe shock since the 1973 oil embargo. Within hours, the implications cascaded through every major market.' },
-    { slug: 'beijing-summit', title: 'The Beijing Summit: Can China Broker a Deal?', date: '2026-05-24', category: 'Diplomacy', readingTime: '7 min', excerpt: 'China\'s emergency summit brings together Iran, Saudi Arabia, UAE, and Oman in the most significant diplomatic push since the crisis began.' },
-    { slug: 'insurance-markets', title: 'Insurance Markets in Uncharted Territory', date: '2026-04-10', category: 'Analysis', readingTime: '6 min', excerpt: 'The withdrawal of all six major P&I clubs from Hormuz coverage has created an unprecedented situation in maritime insurance.' },
-    { slug: 'cape-of-good-hope', title: 'Life on the Cape Route: 12 Extra Days, $650K More', date: '2026-04-05', category: 'Explainer', readingTime: '5 min', excerpt: 'The Cape of Good Hope has become the world\'s busiest shipping lane overnight.' },
-    { slug: 'lng-crisis', title: 'The LNG Crisis: No Pipeline Can Carry Gas', date: '2026-04-15', category: 'Explainer', readingTime: '6 min', excerpt: 'Unlike crude oil, LNG cannot be piped over land, making this the most intractable aspect of the crisis.' },
-    { slug: 'iran-safe-transit', title: 'Iran\'s "Safe Transit" Proposal: Genuine or Stalling?', date: '2026-05-18', category: 'Analysis', readingTime: '7 min', excerpt: 'Iran has proposed a safe transit corridor for neutral-flagged vessels, but the conditions make acceptance unlikely.' },
-    { slug: 'project-freedom', title: 'Operation Freedom of Navigation: The Naval Escort Mission', date: '2026-05-12', category: 'Military', readingTime: '8 min', excerpt: 'The US-led naval escort operation has completed three convoy transits.' },
+    {
+      slug: 'us-strikes-iranian-missile-sites-may27',
+      title: 'US Strikes Iranian Missile Sites Near Hormuz in Defensive Operation',
+      date: '2026-05-27',
+      category: 'Military',
+      readingTime: '8 min',
+      excerpt: 'US Central Command confirms precision strikes on Iranian missile launch sites and mine-laying naval vessels near the Strait of Hormuz as military escalation intensifies.',
+      content: `
+        <h2>Precision Strikes Launched After Mine Deployment Detected</h2>
+        <p>US Central Command (CENTCOM) confirmed early Tuesday that American forces conducted precision strikes against Iranian military targets near the Strait of Hormuz, marking the most significant military escalation since the crisis began in February. The operation, designated <strong>Operation Sentinel Strike</strong>, targeted three confirmed missile launch sites on Qeshm Island and a flotilla of IRGC naval speedboats observed laying naval mines in the eastern approaches to the strait.</p>
+        <p>According to a CENTCOM statement released at 03:47 UTC, the strikes were carried out by F/A-18E Super Hornets from the USS Dwight D. Eisenhower carrier strike group, supported by B-1B Lancer bombers operating from Al Udeid Air Base in Qatar. A total of 14 precision-guided munitions were deployed against five target areas. Initial battle damage assessment indicates that all primary targets were neutralized, though secondary assessments are ongoing.</p>
+
+        <h2>Targets and Tactical Rationale</h2>
+        <p>The Qeshm Island missile sites had been under surveillance for over 72 hours following intelligence reports that Iran's Islamic Revolutionary Guard Corps (IRGC) was repositioning mobile anti-ship missile batteries within striking range of the strait's shipping channels. Satellite imagery obtained by HormuzTracker showed at least three transporter-erector-launcher (TEL) vehicles carrying C-802 anti-ship cruise missiles being moved into prepared positions on the island's western coast.</p>
+        <p>The second target set comprised a group of six IRGC Boghammar-class speedboats that were observed deploying what US Navy sources described as "improvised influence mines" approximately 12 nautical miles southeast of the strait's designated traffic separation scheme. These vessels had been tracked by P-8A Poseidon maritime patrol aircraft operating from Bahrain, and their mine-laying activity was confirmed by a US Navy Seahawk helicopter using thermal imaging.</p>
+
+        <h2>Escalation Timeline</h2>
+        <p>The strikes represent a significant escalation in the US response to Iranian maritime threats. For the past three months, the US had limited its military actions to defensive escort operations under Operation Freedom of Navigation. The decision to conduct offensive strikes was reportedly made at the highest levels of the National Security Council after the mine-laying activity was deemed an imminent threat to commercial shipping and the safety of US naval personnel conducting escort missions.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="320" viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#f87171" font-size="15" font-weight="bold" font-family="system-ui">Military Escalation Timeline — Strait of Hormuz Crisis</text>
+            <line x1="60" y1="60" x2="60" y2="290" stroke="#475569" stroke-width="2"/>
+            <!-- Feb 28 -->
+            <circle cx="60" cy="75" r="6" fill="#fbbf24"/>
+            <text x="78" y="72" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui">Feb 28 — Hormuz Closure</text>
+            <text x="78" y="86" fill="#94a3b8" font-size="10" font-family="system-ui">Iran declares strait closed to US/Allied shipping</text>
+            <!-- Mar 15 -->
+            <circle cx="60" cy="120" r="6" fill="#60a5fa"/>
+            <text x="78" y="117" fill="#60a5fa" font-size="11" font-weight="bold" font-family="system-ui">Mar 15 — First US Convoy Escort</text>
+            <text x="78" y="131" fill="#94a3b8" font-size="10" font-family="system-ui">Operation Freedom of Navigation begins</text>
+            <!-- Apr 22 -->
+            <circle cx="60" cy="165" r="6" fill="#fbbf24"/>
+            <text x="78" y="162" fill="#fbbf24" font-size="11" font-weight="bold" font-family="system-ui">Apr 22 — IRGC Seizure of MT Pacific Venture</text>
+            <text x="78" y="176" fill="#94a3b8" font-size="10" font-family="system-ui">Commercial vessel boarded in international waters</text>
+            <!-- May 20 -->
+            <circle cx="60" cy="210" r="6" fill="#f97316"/>
+            <text x="78" y="207" fill="#f97316" font-size="11" font-weight="bold" font-family="system-ui">May 20 — Mine Deployment Detected</text>
+            <text x="78" y="221" fill="#94a3b8" font-size="10" font-family="system-ui">IRGC speedboats lay mines near shipping channels</text>
+            <!-- May 26 -->
+            <circle cx="60" cy="255" r="6" fill="#60a5fa"/>
+            <text x="78" y="252" fill="#60a5fa" font-size="11" font-weight="bold" font-family="system-ui">May 26 — Ceasefire Framework Announced</text>
+            <text x="78" y="266" fill="#94a3b8" font-size="10" font-family="system-ui">Beijing-mediated 60-day truce framework</text>
+            <!-- May 27 -->
+            <circle cx="60" cy="290" r="6" fill="#ef4444"/>
+            <text x="78" y="287" fill="#ef4444" font-size="11" font-weight="bold" font-family="system-ui">May 27 — US Precision Strikes</text>
+            <text x="78" y="301" fill="#94a3b8" font-size="10" font-family="system-ui">Operation Sentinel Strike targets Qeshm Island & IRGC vessels</text>
+          </svg>
+        </div>
+
+        <h2>Market Reaction and Oil Price Impact</h2>
+        <p>News of the strikes sent immediate shockwaves through global energy markets. Brent crude futures, which had been trading at $99.65 per barrel in the prior session, spiked to $103.40 within minutes of the CENTCOM statement before settling at $102.30 — a 2.7% gain on the day. The intraday range of $3.75 was the widest since March, reflecting extreme uncertainty about the path ahead.</p>
+        <p>Defense analysts note that the strikes represent a calculated risk: while they eliminate an immediate threat to shipping, they also risk provoking Iranian retaliation against US bases in the region or against the very convoys the operation was designed to protect. The Pentagon has increased force protection conditions at all regional bases to BRAVO+, and the Eisenhower carrier group has shifted to a more defensive posture in the Arabian Sea.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>The strikes complicate an already fragile diplomatic landscape. Just 24 hours earlier, China had announced a ceasefire framework brokered in Beijing. US officials insisted the military operation was "defensive in nature and limited in scope" and did not represent an abandonment of the diplomatic track. However, Iranian state media characterized the strikes as "unprovoked aggression" and Iran's UN ambassador has called for an emergency Security Council session.</p>
+        <p>The practical impact on shipping remains severe. With active mine-laying confirmed and now military strikes in the immediate vicinity, the already minimal commercial traffic through Hormuz is likely to drop to near-zero for the coming days. Insurance premiums for any vessel attempting transit have effectively become prohibitive, with war risk rates now exceeding 5% of hull value. The longer-term consequences will depend critically on Iran's response: a measured diplomatic protest would signal de-escalation is possible, while retaliatory military action could trigger a far wider regional conflict.</p>
+      `
+    },
+    {
+      slug: 'ceasefire-framework-emerges-may26',
+      title: 'Ceasefire Framework Emerges After Beijing-Mediated Marathon Talks',
+      date: '2026-05-26',
+      category: 'Diplomacy',
+      readingTime: '9 min',
+      excerpt: 'China brokers a 60-day truce extension framework between US and Iran, with phased strait reopening and sanctions relief as key provisions.',
+      content: `
+        <h2>Beijing Talks Produce Framework After 48 Hours of Negotiation</h2>
+        <p>In what diplomatic sources are calling the most significant breakthrough since the Strait of Hormuz crisis began, Chinese Foreign Minister Wang Yi announced early Monday that a 60-day ceasefire framework has been agreed upon in principle by both the United States and Iran. The framework, reached after nearly 48 hours of continuous negotiations at the Diaoyutai State Guesthouse in Beijing, includes provisions for a phased reopening of the strait, limited sanctions relief, and the establishment of an international monitoring mechanism.</p>
+        <p>The announcement came at a delicate moment — just hours before US military strikes against Iranian targets near Hormuz — and its durability now hangs in the balance. Nonetheless, the framework represents months of intensive Chinese diplomacy and the first time both parties have agreed to a written set of principles for de-escalation.</p>
+
+        <h2>Key Provisions of the Framework</h2>
+        <p>The framework consists of four main pillars. <strong>First</strong>, an immediate 60-day cessation of hostile military actions within 50 nautical miles of the Strait of Hormuz, covering both naval and aerial operations. <strong>Second</strong>, a phased reopening of the strait to commercial traffic, beginning with a "humanitarian corridor" for LNG and food-adjacent petroleum products within the first 14 days, followed by full commercial resumption conditional on compliance verification. <strong>Third</strong>, a limited sanctions relief package under which the US would unfreeze approximately $6 billion in Iranian oil revenue currently held in escrow accounts in South Korea and Iraq, disbursable only for humanitarian trade under UN oversight. <strong>Fourth</strong>, the creation of a Multilateral Strait Monitoring Commission (MSMC) with representatives from China, Oman, Qatar, and Switzerland, tasked with verifying compliance and investigating alleged violations.</p>
+
+        <h2>Sticking Points and Unresolved Issues</h2>
+        <p>Despite the framework's announcement, significant obstacles remain. The most contentious issue is <strong>sequencing</strong>: Iran insists that sanctions relief must precede any reopening of the strait, while the US maintains that a demonstrable resumption of shipping must come first. The current framework attempts to split the difference by using a 72-hour "confidence period" during which both actions would begin simultaneously, but neither side has formally committed to this timeline.</p>
+        <p>Verification remains equally problematic. Iran has refused to accept any monitoring arrangement that involves US personnel or US-aligned states, while the US has rejected any framework that relies solely on Iranian self-reporting. The proposed MSMC represents a compromise, but its authority and access rights remain undefined. Additionally, the framework does not address Iran's demand for a permanent end to US naval presence in the Persian Gulf — a red line for Washington.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="400" viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="bold" font-family="system-ui">Ceasefire Framework — Diplomatic Process Flow</text>
+            <!-- Beijing Summit -->
+            <rect x="240" y="50" width="200" height="40" rx="6" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1.5"/>
+            <text x="340" y="75" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="bold" font-family="system-ui">Beijing Summit Convened</text>
+            <line x1="340" y1="90" x2="340" y2="110" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <!-- Two tracks -->
+            <line x1="340" y1="110" x2="180" y2="130" stroke="#475569" stroke-width="1.5"/>
+            <line x1="340" y1="110" x2="500" y2="130" stroke="#475569" stroke-width="1.5"/>
+            <!-- US Track -->
+            <rect x="80" y="130" width="200" height="40" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="180" y="155" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold" font-family="system-ui">US Track: Security Assurances</text>
+            <!-- Iran Track -->
+            <rect x="400" y="130" width="200" height="40" rx="6" fill="#1e3a5f" stroke="#f97316" stroke-width="1.5"/>
+            <text x="500" y="155" text-anchor="middle" fill="#fdba74" font-size="11" font-weight="bold" font-family="system-ui">Iran Track: Sanctions Relief</text>
+            <!-- Merge -->
+            <line x1="180" y1="170" x2="340" y2="200" stroke="#475569" stroke-width="1.5"/>
+            <line x1="500" y1="170" x2="340" y2="200" stroke="#475569" stroke-width="1.5"/>
+            <rect x="220" y="200" width="240" height="40" rx="6" fill="#1e3a5f" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="340" y="225" text-anchor="middle" fill="#c4b5fd" font-size="11" font-weight="bold" font-family="system-ui">4-Pillar Framework Drafted</text>
+            <!-- Four pillars -->
+            <line x1="340" y1="240" x2="100" y2="270" stroke="#475569" stroke-width="1"/>
+            <line x1="340" y1="240" x2="240" y2="270" stroke="#475569" stroke-width="1"/>
+            <line x1="340" y1="240" x2="440" y2="270" stroke="#475569" stroke-width="1"/>
+            <line x1="340" y1="240" x2="580" y2="270" stroke="#475569" stroke-width="1"/>
+            <rect x="30" y="270" width="140" height="35" rx="5" fill="#14532d" stroke="#4ade80" stroke-width="1"/>
+            <text x="100" y="290" text-anchor="middle" fill="#86efac" font-size="9" font-weight="bold" font-family="system-ui">Pillar 1: 60-Day</text>
+            <text x="100" y="300" text-anchor="middle" fill="#86efac" font-size="9" font-family="system-ui">Ceasefire</text>
+            <rect x="180" y="270" width="140" height="35" rx="5" fill="#14532d" stroke="#4ade80" stroke-width="1"/>
+            <text x="250" y="290" text-anchor="middle" fill="#86efac" font-size="9" font-weight="bold" font-family="system-ui">Pillar 2: Phased</text>
+            <text x="250" y="300" text-anchor="middle" fill="#86efac" font-size="9" font-family="system-ui">Strait Reopening</text>
+            <rect x="370" y="270" width="140" height="35" rx="5" fill="#14532d" stroke="#4ade80" stroke-width="1"/>
+            <text x="440" y="290" text-anchor="middle" fill="#86efac" font-size="9" font-weight="bold" font-family="system-ui">Pillar 3: $6B</text>
+            <text x="440" y="300" text-anchor="middle" fill="#86efac" font-size="9" font-family="system-ui">Sanctions Relief</text>
+            <rect x="520" y="270" width="140" height="35" rx="5" fill="#14532d" stroke="#4ade80" stroke-width="1"/>
+            <text x="590" y="290" text-anchor="middle" fill="#86efac" font-size="9" font-weight="bold" font-family="system-ui">Pillar 4: MSMC</text>
+            <text x="590" y="300" text-anchor="middle" fill="#86efac" font-size="9" font-family="system-ui">Monitoring Body</text>
+            <!-- Sticking points -->
+            <line x1="340" y1="305" x2="340" y2="335" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <rect x="160" y="335" width="160" height="30" rx="5" fill="#451a03" stroke="#f97316" stroke-width="1"/>
+            <text x="240" y="355" text-anchor="middle" fill="#fdba74" font-size="9" font-weight="bold" font-family="system-ui">⚠ Sequencing Dispute</text>
+            <rect x="360" y="335" width="160" height="30" rx="5" fill="#451a03" stroke="#f97316" stroke-width="1"/>
+            <text x="440" y="355" text-anchor="middle" fill="#fdba74" font-size="9" font-weight="bold" font-family="system-ui">⚠ Verification Access</text>
+            <text x="340" y="390" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic" font-family="system-ui">Framework agreed in principle — full ratification pending</text>
+          </svg>
+        </div>
+
+        <h2>International Reaction</h2>
+        <p>The framework has received cautious endorsement from the international community. UN Secretary-General António Guterres called it "a necessary first step toward restoring the free flow of commerce through this critical waterway." The European Union's foreign policy chief voiced "measured optimism" while emphasizing that implementation would be the true test. Gulf Cooperation Council states, particularly Oman and Qatar, have offered to host the MSMC headquarters and provide logistical support for monitoring operations.</p>
+        <p>However, the framework has its critics. Saudi Arabia has expressed private concerns that sanctions relief without ironclad verification could embolden Iran's regional activities beyond the strait. Israel has formally objected to any loosening of the sanctions regime, arguing that Iran's nuclear program remains unaddressed. Within the US Congress, reaction has split along predictable lines, with the administration's critics arguing that the framework concedes too much while supporters contend it is the only viable path to de-escalation.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>The ceasefire framework represents a genuine diplomatic achievement, but its survival now depends on factors outside the negotiating room. The US military strikes on May 27 have introduced a wild card that could either concentrate minds on both sides or collapse the process entirely. If Iran chooses to treat the strikes as a violation of the framework before it is formally implemented, the entire diplomatic track could be set back by weeks or months.</p>
+        <p>For the global economy, every day of delay costs approximately $2.4 billion in disrupted trade. The phased reopening timeline — even under optimal conditions — would not see full commercial traffic restored for at least 45-60 days. Energy markets are pricing in a prolonged disruption, with forward curves showing elevated premiums through Q3 2026. The framework offers hope, but hope alone does not move tankers through the strait.</p>
+      `
+    },
+    {
+      slug: 'oil-prices-surge-may26',
+      title: 'Brent Surges Past $102 as Military Strikes Dampen Peace Deal Hopes',
+      date: '2026-05-26',
+      category: 'Economic',
+      readingTime: '7 min',
+      excerpt: 'Oil prices spike 2.3% in a single session as US military strikes interrupt diplomatic progress, with analysts warning of further escalation premium.',
+      content: `
+        <h2>Brent Crude Breaks $102 Barrier</h2>
+        <p>Global oil benchmarks surged on Monday as the collision of military escalation and fragile diplomacy created a perfect storm for energy markets. Brent crude settled at <strong>$102.30 per barrel</strong>, up $2.65 (2.7%) from the previous session's close of $99.65. The intraday range of $3.75 — with Brent touching $103.40 at the session peak — was the widest since March 2026, when the initial Hormuz closure sent prices spiraling from $78 to $94 in a single week.</p>
+        <p>West Texas Intermediate (WTI) followed a similar trajectory, closing at $97.85, up $2.30 on the day. The Brent-WTI spread widened to $4.45, reflecting the particular vulnerability of waterborne crude shipments through the Strait of Hormuz that underpin Brent's physical delivery mechanism.</p>
+
+        <h2>War Premium Expansion</h2>
+        <p>The price surge is best understood as an expansion of what traders call the "Hormuz war premium" — the additional cost baked into oil prices to compensate for the risk of supply disruption. Before the crisis, Brent traded at $78.20 on February 27, the day before Iran declared the strait closed. By mid-March, the war premium had reached approximately $16 per barrel. Today, that premium stands at an estimated <strong>$24 per barrel</strong>, representing roughly 23% of the current price.</p>
+        <p>What makes the current surge distinctive is its dual driver: both supply risk and demand uncertainty are moving in the same direction. The supply risk is obvious — military strikes near the strait increase the probability that Iran will retaliate against energy infrastructure or shipping. But demand uncertainty is also rising, as the global economic slowdown triggered by sustained high prices begins to feed back into consumption forecasts. The International Energy Agency revised its 2026 demand growth estimate downward by 400,000 barrels per day last week, citing "demand destruction in emerging markets."</p>
+
+        <h2>Analyst Predictions</h2>
+        <p>Wall Street analysts are divided on the near-term trajectory, but the consensus has shifted decisively toward higher prices. Goldman Sachs raised its 3-month Brent forecast to $108 per barrel, citing "an elevated floor under prices as long as military operations continue in the strait's vicinity." JPMorgan was more bearish, maintaining a $95 target but acknowledging "significant upside risk if the diplomatic track collapses entirely."</p>
+        <p>The most dramatic forecast comes from Bank of America's commodities team, which published a scenario analysis on Monday outlining a potential path to $130 oil if the following conditions materialize: (1) Iran retaliates against US regional bases, (2) the UAE's Fujairah export terminal is damaged or threatened, and (3) Saudi Arabia is drawn into direct military involvement. The bank assigned a 15% probability to this "extreme escalation" scenario.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="340" viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="bold" font-family="system-ui">Oil Price Shocks — Historical Comparison ($/bbl)</text>
+            <!-- Axes -->
+            <line x1="80" y1="60" x2="80" y2="290" stroke="#475569" stroke-width="1.5"/>
+            <line x1="80" y1="290" x2="640" y2="290" stroke="#475569" stroke-width="1.5"/>
+            <!-- Y-axis labels -->
+            <text x="72" y="290" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">$0</text>
+            <text x="72" y="244" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">$30</text>
+            <text x="72" y="198" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">$60</text>
+            <text x="72" y="152" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">$90</text>
+            <text x="72" y="106" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">$120</text>
+            <text x="72" y="64" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">$150</text>
+            <!-- Grid lines -->
+            <line x1="80" y1="244" x2="640" y2="244" stroke="#1e293b" stroke-width="0.5"/>
+            <line x1="80" y1="198" x2="640" y2="198" stroke="#1e293b" stroke-width="0.5"/>
+            <line x1="80" y1="152" x2="640" y2="152" stroke="#1e293b" stroke-width="0.5"/>
+            <line x1="80" y1="106" x2="640" y2="106" stroke="#1e293b" stroke-width="0.5"/>
+            <!-- 1973 Oil Shock: $3 → $12 -->
+            <rect x="120" y="271" width="80" height="19" rx="3" fill="#3b82f6" opacity="0.8"/>
+            <text x="160" y="265" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="bold" font-family="system-ui">1973</text>
+            <text x="160" y="300" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">$3→$12</text>
+            <!-- 1990 Gulf War: $17 → $36 -->
+            <rect x="220" y="218" width="80" height="46" rx="3" fill="#8b5cf6" opacity="0.8"/>
+            <text x="260" y="212" text-anchor="middle" fill="#c4b5fd" font-size="10" font-weight="bold" font-family="system-ui">1990</text>
+            <text x="260" y="300" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">$17→$36</text>
+            <!-- 2008 Peak: $50 → $147 -->
+            <rect x="320" y="72" width="80" height="195" rx="3" fill="#ec4899" opacity="0.8"/>
+            <text x="360" y="66" text-anchor="middle" fill="#f9a8d4" font-size="10" font-weight="bold" font-family="system-ui">2008</text>
+            <text x="360" y="300" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">$50→$147</text>
+            <!-- 2022 Russia: $75 → $127 -->
+            <rect x="420" y="104" width="80" height="152" rx="3" fill="#f97316" opacity="0.8"/>
+            <text x="460" y="98" text-anchor="middle" fill="#fdba74" font-size="10" font-weight="bold" font-family="system-ui">2022</text>
+            <text x="460" y="300" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">$75→$127</text>
+            <!-- 2026 Hormuz: $78 → $102 -->
+            <rect x="520" y="133" width="80" height="123" rx="3" fill="#ef4444" opacity="0.9"/>
+            <text x="560" y="127" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold" font-family="system-ui">2026</text>
+            <text x="560" y="300" text-anchor="middle" fill="#fca5a5" font-size="9" font-weight="bold" font-family="system-ui">$78→$102*</text>
+            <text x="360" y="330" text-anchor="middle" fill="#64748b" font-size="9" font-style="italic" font-family="system-ui">*Current price; potential upside to $108–$130 per analyst scenarios</text>
+          </svg>
+        </div>
+
+        <h2>Comparison to Previous Oil Shocks</h2>
+        <p>The current price trajectory, while dramatic, still falls short of the most severe oil shocks in modern history. In inflation-adjusted terms, the 2008 peak of $147 per barrel (equivalent to approximately $210 in 2026 dollars) remains the benchmark. The 1973 Arab oil embargo quadrupled prices in percentage terms, though from a much lower base. The 2022 Russia-Ukraine shock saw Brent briefly exceed $127, but prices retreated within three months as alternative supplies were secured.</p>
+        <p>What differentiates the Hormuz crisis is the physical constraint: roughly 18 million barrels per day of crude oil and 4.2 million barrels per day of LNG pass through the strait, representing approximately 20% of global oil consumption. No alternative route can compensate for this volume. The Cape of Good Hope rerouting can handle perhaps 60% of normal crude flows, but LNG cannot be redirected at all — there simply aren't enough LNG carriers to service European and Asian markets via the longer route.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>The economic consequences of sustained $100+ oil are compounding across the global economy. India's fuel emergency declaration, Europe's gas price crisis, and emerging market inflation spikes are all downstream effects of the price surge. The IMF's latest World Economic Outlook update projected that the Hormuz crisis will reduce global GDP growth by 0.8 percentage points in 2026, with the burden falling disproportionately on oil-importing developing nations.</p>
+        <p>For energy markets specifically, the key variable remains the ceasefire framework announced on May 26. If implemented, even partially, it could take $10-15 out of the war premium relatively quickly. But with US military strikes now complicating the diplomatic picture, traders are pricing in a higher probability of prolonged disruption, and the options market shows heavy positioning for $110+ Brent by mid-July.</p>
+      `
+    },
+    {
+      slug: 'three-vessels-cross-hormuz-may26',
+      title: 'Three Vessels Cross Hormuz Under Diplomatic Escort as Talks Continue',
+      date: '2026-05-26',
+      category: 'Diplomacy',
+      readingTime: '6 min',
+      excerpt: 'Two LNG carriers and one oil tanker pass through the strait in the first commercial transit in 72 hours, escorted by international naval vessels.',
+      content: `
+        <h2>First Commercial Transit Since May 23</h2>
+        <p>Three commercial vessels successfully transited the Strait of Hormuz on Monday morning, marking the first commercial passage through the waterway in 72 hours and providing a slender thread of hope that diplomatic channels may yet restore some flow of energy trade. The transit — comprising two LNG carriers and one crude oil tanker — was completed under an international naval escort arranged through the Omani-mediated diplomatic channel that also produced the ceasefire framework announced the same day.</p>
+        <p>The vessels were identified as the <strong>Al Kharsaah</strong> (Qatar-flagged LNG carrier, 173,400 m³ capacity), the <strong>Grand Aniva</strong> (Marshall Islands-flagged LNG carrier, 155,000 m³ capacity), and the <strong>MT Atlantic Star</strong> (Liberian-flagged Suezmax crude oil tanker, 156,000 DWT). All three vessels had been anchored in the designated waiting area east of the strait for between four and six days, awaiting security clearance and escort availability.</p>
+
+        <h2>Naval Escort Composition</h2>
+        <p>The escort force represented an unprecedented multilateral arrangement. It comprised the French frigate <em>FS Provence</em>, the British destroyer <em>HMS Duncan</em>, and the Omani patrol vessel <em>Al Mabrukah</em>. Notably, no US Navy vessels participated in the escort — a deliberate decision aimed at reducing the risk of confrontation with IRGC naval forces, who have been most aggressive toward US-flagged and US-military assets.</p>
+        <p>The transit began at 04:15 local time and was completed by 07:52, with the vessels maintaining a speed of 12 knots through the traffic separation scheme. Omani military helicopters provided overhead surveillance for the duration, and a US Navy P-8A Poseidon maintained radar coverage from outside the immediate strait area. IRGC patrol boats were observed at a distance of approximately 3 nautical miles but did not approach or interfere with the transit.</p>
+
+        <h2>Insurance and Commercial Implications</h2>
+        <p>The successful transit has significant implications for the maritime insurance market, which has been effectively frozen since all six major Protection and Indemnity (P&I) clubs withdrew Hormuz transit coverage in April. For these three vessels, specialized war risk insurance was arranged through Lloyd's of London at a premium of <strong>4.2% of hull value</strong> — roughly 20 times the pre-crisis rate. The total insurance cost for the three-vessel transit was estimated at $8.7 million, a figure that underscores the commercial unsustainability of continued disruptions.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="360" viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#60a5fa" font-size="15" font-weight="bold" font-family="system-ui">Strait of Hormuz — Diplomatic Escort Transit Route</text>
+            <!-- Water background -->
+            <rect x="40" y="50" width="600" height="260" rx="8" fill="#0c2d48" opacity="0.6"/>
+            <!-- Land masses -->
+            <path d="M40 180 Q80 140 140 150 Q180 155 200 180 Q220 200 200 230 Q180 260 140 260 Q80 260 40 230 Z" fill="#334155" stroke="#475569" stroke-width="1"/>
+            <text x="110" y="215" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="system-ui">IRAN</text>
+            <path d="M500 120 Q540 100 580 110 Q620 120 640 150 Q650 180 640 210 Q620 240 580 250 Q540 260 500 240 Q480 220 490 190 Q500 160 500 120 Z" fill="#334155" stroke="#475569" stroke-width="1"/>
+            <text x="560" y="185" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="system-ui">OMAN</text>
+            <!-- UAE marker -->
+            <path d="M480 60 Q520 55 540 70 Q560 85 540 110 Q520 130 490 120 Q470 110 470 85 Z" fill="#334155" stroke="#475569" stroke-width="1"/>
+            <text x="510" y="90" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">UAE</text>
+            <!-- Strait channel -->
+            <path d="M200 200 Q280 195 340 190 Q400 185 460 180" fill="none" stroke="#22d3ee" stroke-width="3" stroke-dasharray="8,4"/>
+            <text x="340" y="178" text-anchor="middle" fill="#22d3ee" font-size="9" font-family="system-ui">Traffic Separation Scheme</text>
+            <!-- Vessel positions -->
+            <circle cx="250" cy="198" r="8" fill="#4ade80"/>
+            <text x="250" y="202" text-anchor="middle" fill="#0f172a" font-size="7" font-weight="bold" font-family="system-ui">LNG</text>
+            <text x="250" y="218" text-anchor="middle" fill="#86efac" font-size="8" font-family="system-ui">Al Kharsaah</text>
+            <circle cx="310" cy="194" r="8" fill="#4ade80"/>
+            <text x="310" y="198" text-anchor="middle" fill="#0f172a" font-size="7" font-weight="bold" font-family="system-ui">LNG</text>
+            <text x="310" y="214" text-anchor="middle" fill="#86efac" font-size="8" font-family="system-ui">Grand Aniva</text>
+            <circle cx="370" cy="190" r="8" fill="#fbbf24"/>
+            <text x="370" y="194" text-anchor="middle" fill="#0f172a" font-size="7" font-weight="bold" font-family="system-ui">OIL</text>
+            <text x="370" y="210" text-anchor="middle" fill="#fde68a" font-size="8" font-family="system-ui">MT Atlantic Star</text>
+            <!-- Naval escorts -->
+            <polygon points="280,230 290,236 290,244 280,250 270,244 270,236" fill="#3b82f6"/>
+            <text x="280" y="264" text-anchor="middle" fill="#93c5fd" font-size="8" font-family="system-ui">FS Provence 🇫🇷</text>
+            <polygon points="350,230 360,236 360,244 350,250 340,244 340,236" fill="#3b82f6"/>
+            <text x="350" y="264" text-anchor="middle" fill="#93c5fd" font-size="8" font-family="system-ui">HMS Duncan 🇬🇧</text>
+            <polygon points="430,230 440,236 440,244 430,250 420,244 420,236" fill="#22d3ee"/>
+            <text x="430" y="264" text-anchor="middle" fill="#67e8f9" font-size="8" font-family="system-ui">Al Mabrukah 🇴🇲</text>
+            <!-- IRGC observation -->
+            <rect x="145" y="168" width="50" height="16" rx="3" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+            <text x="170" y="180" text-anchor="middle" fill="#fca5a5" font-size="7" font-family="system-ui">IRGC ~3nm</text>
+            <!-- Direction arrow -->
+            <text x="80" y="200" fill="#64748b" font-size="10" font-family="system-ui">INBOUND →</text>
+            <text x="580" y="200" fill="#64748b" font-size="10" font-family="system-ui">→ OUTBOUND</text>
+            <!-- Time -->
+            <text x="340" y="330" text-anchor="middle" fill="#64748b" font-size="9" font-style="italic" font-family="system-ui">Transit completed 04:15–07:52 local time · May 26, 2026</text>
+          </svg>
+        </div>
+
+        <h2>Significance and Future Prospects</h2>
+        <p>While the successful transit is encouraging, its significance should not be overstated. Three vessels represent less than 3% of the strait's normal daily throughput of approximately 40-50 commercial ships. The transit was facilitated by extraordinary diplomatic and military coordination that cannot be sustained at scale. Moreover, the vessels involved were specifically selected for their non-US affiliation and their cargo of critical energy supplies — criteria that would exclude many of the tankers waiting on both sides of the strait.</p>
+        <p>The insurance market remains the primary bottleneck. Even if security conditions improve, no shipowner can justify sending a $150 million vessel through the strait without war risk coverage, and current premiums make most voyages commercially unviable. The P&I clubs have indicated they will not restore coverage until there is a "sustained and verified" reduction in military threat levels — a condition that, by their own estimates, would require at least 30 consecutive days of incident-free transits.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>The diplomatic escort model established on May 26 could serve as a template for limited, case-by-case transits while broader diplomatic solutions are pursued. Oman has offered to coordinate future escort missions, and several European nations have expressed willingness to contribute naval assets. However, this approach is inherently limited in scale and does not address the fundamental need for a comprehensive security framework that would allow normal commercial operations to resume. Until such a framework is in place, the strait will remain effectively closed to the vast majority of commercial traffic, and the global energy crisis will continue to deepen.</p>
+      `
+    },
+    {
+      slug: 'india-fuel-crisis-may25',
+      title: 'India Declares Fuel Emergency as Reserve Levels Hit Critical Threshold',
+      date: '2026-05-25',
+      category: 'Economic',
+      readingTime: '8 min',
+      excerpt: 'The Indian government activates emergency fuel rationing protocols as strategic petroleum reserves fall below 15 days of coverage for the first time.',
+      content: `
+        <h2>Emergency Declaration Activates Rationing Protocols</h2>
+        <p>The Indian government formally declared a nationwide fuel emergency on Sunday, activating emergency rationing protocols under the National Energy Security Act for the first time since the legislation was enacted in 2022. The declaration comes as India's strategic petroleum reserves (SPR) fell to <strong>14.7 days of import coverage</strong>, breaching the critical 15-day threshold that triggers mandatory government intervention under the Act's provisions.</p>
+        <p>Petroleum Minister Hardeep Singh Puri announced that all states and union territories must implement immediate fuel conservation measures, including: restrictions on non-essential vehicle usage in metropolitan areas, mandatory work-from-home arrangements for government employees, reduced operating hours for fuel stations, and priority allocation of diesel for agriculture and public transport. The measures take effect immediately and will be reviewed after 14 days.</p>
+
+        <h2>Reserve Levels and Supply Math</h2>
+        <p>India's strategic petroleum reserves comprise three underground caverns with a combined capacity of 5.33 million metric tonnes (approximately 39 million barrels), supplemented by commercial stockholdings of approximately 12 days of coverage. In normal times, this provides roughly 22-24 days of buffer against a complete import disruption. However, the three-month Hormuz crisis has steadily depleted these reserves, with no significant replenishment possible while the strait remains effectively closed.</p>
+        <p>India imports approximately 85% of its crude oil requirements, with roughly 60% of those imports — about 3.2 million barrels per day — transiting through the Strait of Hormuz. The remaining 40% comes primarily from Russia (via the Cape of Good Hope), West Africa, and the Americas. Even at maximum utilization of alternative sources, India faces a structural deficit of approximately 1.8 million barrels per day that can only be filled by Hormuz-dependent suppliers.</p>
+
+        <h2>Economic Impact: $260 Billion Exposure</h2>
+        <p>The Reserve Bank of India estimates that the sustained disruption poses a <strong>$260 billion economic exposure</strong> to the Indian economy, encompassing direct energy costs, industrial output losses, and inflationary effects. India's current account deficit is projected to widen to 4.2% of GDP in FY2026-27, up from 1.8% pre-crisis, driven primarily by the elevated cost of energy imports sourced at crisis premiums.</p>
+        <p>The industrial impact is already severe. Major refineries in Jamnagar and Mangalore are operating at 55-60% capacity due to feedstock shortages, and several petrochemical plants have been forced into temporary shutdown. The fertilizer industry, which depends on natural gas feedstock from the Middle East, has warned of potential shortages that could affect the upcoming Kharif planting season, threatening food security.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="380" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="bold" font-family="system-ui">India's Crude Oil Import Sources — Pre-Crisis vs. Current</text>
+            <!-- Pre-crisis pie chart -->
+            <text x="180" y="70" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="bold" font-family="system-ui">Pre-Crisis (Feb 2026)</text>
+            <!-- Iraq 22% -->
+            <path d="M180 200 L180 100 A100 100 0 0 1 275 157 Z" fill="#3b82f6"/>
+            <text x="237" y="145" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="system-ui">Iraq 22%</text>
+            <!-- Saudi 18% -->
+            <path d="M180 200 L275 157 A100 100 0 0 1 275 243 Z" fill="#8b5cf6"/>
+            <text x="248" y="205" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="system-ui">Saudi 18%</text>
+            <!-- UAE 12% -->
+            <path d="M180 200 L275 243 A100 100 0 0 1 218 293 Z" fill="#ec4899"/>
+            <text x="248" y="265" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="system-ui">UAE 12%</text>
+            <!-- Kuwait 8% -->
+            <path d="M180 200 L218 293 A100 100 0 0 1 152 293 Z" fill="#f97316"/>
+            <text x="182" y="278" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="system-ui">Kuwait 8%</text>
+            <!-- Russia 28% -->
+            <path d="M180 200 L152 293 A100 100 0 0 1 80 150 Z" fill="#22c55e"/>
+            <text x="110" y="230" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="system-ui">Russia 28%</text>
+            <!-- Others 12% -->
+            <path d="M180 200 L80 150 A100 100 0 0 1 180 100 Z" fill="#64748b"/>
+            <text x="110" y="155" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="system-ui">Others 12%</text>
+            <!-- Hormuz-dependent: 60% -->
+            <text x="180" y="200" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="bold" font-family="system-ui">60%</text>
+            <text x="180" y="214" text-anchor="middle" fill="#fca5a5" font-size="8" font-family="system-ui">Hormuz</text>
+
+            <!-- Current pie chart -->
+            <text x="500" y="70" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="bold" font-family="system-ui">Current (May 25, 2026)</text>
+            <!-- Russia 45% -->
+            <path d="M500 200 L500 100 A100 100 0 1 1 442 278 Z" fill="#22c55e"/>
+            <text x="450" y="225" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="system-ui">Russia 45%</text>
+            <!-- Iraq 12% -->
+            <path d="M500 200 L442 278 A100 100 0 0 1 414 243 Z" fill="#3b82f6"/>
+            <text x="440" y="260" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="system-ui">Iraq 12%</text>
+            <!-- Others 25% -->
+            <path d="M500 200 L414 243 A100 100 0 0 1 414 157 Z" fill="#64748b"/>
+            <text x="430" y="180" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="system-ui">Others 25%</text>
+            <!-- Saudi 10% -->
+            <path d="M500 200 L414 157 A100 100 0 0 1 463 113 Z" fill="#8b5cf6"/>
+            <text x="448" y="140" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="system-ui">Saudi 10%</text>
+            <!-- UAE 5% -->
+            <path d="M500 200 L463 113 A100 100 0 0 1 488 102 Z" fill="#ec4899"/>
+            <text x="492" y="118" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="system-ui">UAE 5%</text>
+            <!-- Kuwait 3% -->
+            <path d="M500 200 L488 102 A100 100 0 0 1 500 100 Z" fill="#f97316"/>
+            <!-- Deficit -->
+            <text x="500" y="200" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="bold" font-family="system-ui">30%</text>
+            <text x="500" y="214" text-anchor="middle" fill="#fca5a5" font-size="8" font-family="system-ui">Hormuz</text>
+            <!-- Deficit indicator -->
+            <rect x="400" y="320" width="200" height="30" rx="5" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+            <text x="500" y="340" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold" font-family="system-ui">⚠ 1.8M bbl/day supply deficit</text>
+          </svg>
+        </div>
+
+        <h2>Russian Oil Substitution Limits</h2>
+        <p>India has dramatically increased its purchases of Russian crude since the crisis began, with Russian oil now accounting for an estimated 45% of India's imports — up from 28% pre-crisis. However, there are hard limits to this substitution. Russian Urals crude is heavier and more sour than the Middle Eastern grades that Indian refineries are designed to process, requiring costly adjustments and yielding less valuable products. Moreover, the Cape of Good Hope routing adds 12-15 days of transit time and approximately $3.50 per barrel in freight costs.</p>
+        <p>Perhaps most critically, Russia's own production capacity is constrained by OPEC+ commitments and Western sanctions on its energy sector. Russian crude exports are already running near maximum, and the logistics of shifting additional volumes to India would require tanker availability that simply doesn't exist in the current disrupted market. Indian officials have privately acknowledged that Russian substitution can cover at most 40-50% of the Hormuz shortfall.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>India's fuel emergency is the most dramatic illustration yet of how the Hormuz crisis is cascading through the global economy. As the world's third-largest oil consumer and second-most populous nation, India's demand cannot be easily reduced without significant economic and social consequences. The rationing measures announced Sunday will provide temporary relief, but they are not sustainable for more than a few weeks without causing serious industrial disruption and public unrest.</p>
+        <p>The crisis has also reignited the debate over India's strategic reserve adequacy. At 5.33 million tonnes, India's SPR is among the smallest of major oil-importing nations relative to consumption, providing roughly 9 days of net import coverage versus the IEA-recommended 90 days. The current emergency has prompted bipartisan calls in Parliament for a tenfold expansion of strategic reserves, though such a program would take years and billions of dollars to implement.</p>
+      `
+    },
+    {
+      slug: 'eu-gas-prices-record-may25',
+      title: 'EU Gas Prices Hit Record as Qatar Force Majeure Enters Third Month',
+      date: '2026-05-25',
+      category: 'Economic',
+      readingTime: '7 min',
+      excerpt: 'TTF gas futures surge to all-time highs as European utilities scramble for alternative LNG supplies amid prolonged Qatar export disruption.',
+      content: `
+        <h2>TTF Futures Break Previous Record</h2>
+        <p>European natural gas prices surged to unprecedented levels on Sunday as the Dutch Title Transfer Facility (TTF) front-month contract settled at <strong>€128.50 per megawatt-hour</strong>, surpassing the previous record of €122.18 set during the 2022 Russia-Ukraine energy crisis. The milestone comes as Qatar's force majeure on LNG exports — declared on March 5 following the effective closure of the Strait of Hormuz — enters its third month with no resolution in sight.</p>
+        <p>The price spike is particularly alarming because it represents a 340% increase from pre-crisis levels of €29/MWh in February, and it exceeds the 2022 crisis peak that triggered a continent-wide energy emergency. Unlike the 2022 crisis, which was primarily a pipeline supply disruption from Russia, the current crisis involves the complete severance of Europe's fastest-growing LNG supply source — Qatar, which accounted for approximately 24% of EU LNG imports in 2025.</p>
+
+        <h2>Impact on Industrial Production</h2>
+        <p>The record gas prices are already forcing industrial curtailments across Europe. Germany's chemical industry — the country's largest industrial gas consumer — has reduced output by an estimated 35%, with BASF, Lanxess, and Evonik all announcing partial shutdowns at their Ludwigshafen, Leverkusen, and Marl complexes respectively. In Italy, the steel sector has idled 40% of electric arc furnace capacity, and the ceramics industry in Spain's Castellón cluster has effectively ceased production.</p>
+        <p>The European Commission estimates that current gas prices are adding approximately €45 billion per month to EU industrial energy costs compared to pre-crisis levels. Small and medium enterprises are particularly vulnerable: a survey by BusinessEurope found that 28% of SMEs in energy-intensive sectors are at risk of insolvency within 90 days if prices remain at current levels.</p>
+
+        <h2>Emergency Protocols Activated</h2>
+        <p>EU Energy Commissioner Kadri Simson announced on Sunday that the bloc has activated the second tier of its Gas Emergency Framework, triggering mandatory gas demand reduction targets of 15% across all member states. The measures include: mandatory temperature reductions in public buildings (maximum 18°C heating, minimum 25°C cooling), restrictions on gas use for electricity generation where alternatives exist, and priority allocation of available supply to residential heating, hospitals, and essential services.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="320" viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#f97316" font-size="15" font-weight="bold" font-family="system-ui">TTF Natural Gas Price Trajectory (€/MWh)</text>
+            <!-- Axes -->
+            <line x1="80" y1="50" x2="80" y2="270" stroke="#475569" stroke-width="1.5"/>
+            <line x1="80" y1="270" x2="650" y2="270" stroke="#475569" stroke-width="1.5"/>
+            <!-- Y-axis labels -->
+            <text x="72" y="270" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">€0</text>
+            <text x="72" y="215" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">€30</text>
+            <text x="72" y="160" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">€60</text>
+            <text x="72" y="105" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">€90</text>
+            <text x="72" y="55" text-anchor="end" fill="#94a3b8" font-size="10" font-family="system-ui">€120</text>
+            <!-- X-axis labels -->
+            <text x="120" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Jan</text>
+            <text x="200" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Feb</text>
+            <text x="280" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Mar</text>
+            <text x="360" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Apr</text>
+            <text x="440" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">May</text>
+            <text x="520" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Jun</text>
+            <text x="600" y="288" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">Jul</text>
+            <!-- Grid lines -->
+            <line x1="80" y1="215" x2="650" y2="215" stroke="#1e293b" stroke-width="0.5"/>
+            <line x1="80" y1="160" x2="650" y2="160" stroke="#1e293b" stroke-width="0.5"/>
+            <line x1="80" y1="105" x2="650" y2="105" stroke="#1e293b" stroke-width="0.5"/>
+            <!-- 2022 Crisis line (reference) -->
+            <polyline points="120,195 160,185 200,130 240,105 280,120 320,145 360,155 400,165 440,180 480,195" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <text x="485" y="190" fill="#64748b" font-size="9" font-family="system-ui">2022 Crisis</text>
+            <!-- Current crisis line -->
+            <polyline points="120,215 160,210 200,210 220,155 240,135 280,125 320,118 360,112 400,108 440,90 470,75 500,58" fill="none" stroke="#f97316" stroke-width="2.5"/>
+            <circle cx="500" cy="58" r="5" fill="#ef4444"/>
+            <text x="510" y="55" fill="#ef4444" font-size="10" font-weight="bold" font-family="system-ui">€128.50</text>
+            <text x="510" y="68" fill="#fca5a5" font-size="9" font-family="system-ui">May 25 record</text>
+            <!-- Hormuz closure marker -->
+            <line x1="220" y1="50" x2="220" y2="270" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="225" y="65" fill="#fca5a5" font-size="8" font-family="system-ui">Hormuz</text>
+            <text x="225" y="75" fill="#fca5a5" font-size="8" font-family="system-ui">closed</text>
+            <!-- Qatar FM marker -->
+            <line x1="260" y1="50" x2="260" y2="270" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="265" y="65" fill="#fde68a" font-size="8" font-family="system-ui">Qatar</text>
+            <text x="265" y="75" fill="#fde68a" font-size="8" font-family="system-ui">Force Majeure</text>
+            <!-- Legend -->
+            <text x="340" y="310" text-anchor="middle" fill="#64748b" font-size="9" font-style="italic" font-family="system-ui">Dashed line = 2022 Russia crisis trajectory for comparison</text>
+          </svg>
+        </div>
+
+        <h2>Comparison to 2022 Energy Crisis</h2>
+        <p>The current crisis is in many ways more challenging than the 2022 disruption. Three years ago, Europe was able to compensate for reduced Russian pipeline flows by dramatically increasing LNG imports — primarily from the United States and Qatar. This time, there is no such buffer. Qatar's force majeure has removed the single largest LNG supply source, and US LNG exports are already running near capacity. The global LNG fleet is fully committed, and new vessels currently on order will not enter service until 2028 at the earliest.</p>
+        <p>There is one critical difference in Europe's favor: storage levels. EU gas storage facilities are currently at 68% capacity, significantly above the 52% level at the same point in 2022, thanks to aggressive filling programs over the past two years. This buffer provides approximately 45 days of average consumption at current rates, but it will deplete rapidly as winter approaches if LNG imports remain constrained.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>The EU gas price crisis is compounding an already difficult economic situation. European industrial output contracted by 1.8% in April, with energy-intensive sectors bearing the brunt. The ECB has warned that sustained energy prices at current levels could add 1.5-2.0 percentage points to inflation by Q3 2026, complicating monetary policy at a time when growth is already weakening.</p>
+        <p>The crisis is also straining European solidarity. Southern European nations, which are more dependent on LNG than northern countries with pipeline access to Norwegian gas, are demanding a larger share of the EU's joint gas purchasing mechanism. Meanwhile, Germany's decision to extend the operating lives of three nuclear power plants originally scheduled for decommissioning has drawn criticism from Austria and Luxembourg. As with the 2022 crisis, the fundamental tension between national energy security and collective European action is being tested under extreme pressure.</p>
+      `
+    },
+    {
+      slug: 'us-naval-convoy-may25',
+      title: 'US Naval Escort Operation Completes Fifth Convoy Through Hormuz',
+      date: '2026-05-25',
+      category: 'Military',
+      readingTime: '7 min',
+      excerpt: 'Operation Freedom of Navigation escorts its fifth convoy of commercial vessels through the Strait of Hormuz amid ongoing security threats.',
+      content: `
+        <h2>Convoy Five Reaches Arabian Sea</h2>
+        <p>The US Navy's Operation Freedom of Navigation completed its fifth escorted transit through the Strait of Hormuz on Saturday, safely guiding a convoy of seven commercial vessels from the Persian Gulf to the Arabian Sea. The transit, which began at 02:30 local time and concluded at 06:15, represents the largest single convoy since the escort operation began on March 15, and the first to include LNG carriers among its complement.</p>
+        <p>The convoy comprised three crude oil tankers (two VLCCs and one Suezmax), two product tankers carrying refined fuels, and two LNG carriers — the first LNG vessels to transit under US naval escort since the crisis began. All seven vessels were flagged to nations participating in the escort coalition: the United States, United Kingdom, France, Japan, and South Korea.</p>
+
+        <h2>Naval Escort Composition</h2>
+        <p>Convoy Five was escorted by a formidable naval force centered on the <strong>USS Eisenhower Carrier Strike Group</strong>, with the Ticonderoga-class cruiser USS Philippine Sea serving as the escort commander. Additional escort assets included the Arleigh Burke-class destroyer USS Farragut, the British Type 45 destroyer HMS Diamond, and the French frigate FS Auvergne. Air cover was provided by F/A-18E Super Hornets from VFA-143 and MH-60R Seahawk helicopters from HSM-48, conducting continuous anti-surface and anti-submarine surveillance.</p>
+        <p>The escort formation employed a layered defense strategy: the destroyers maintained a 5-nautical-mile perimeter around the commercial vessels, with the Seahawk helicopters providing close-in surveillance and the carrier's combat air patrol maintaining radar coverage out to 80 nautical miles. Mine countermeasures vessels — the USS Gladiator and USS Scout — preceded the convoy by 3 hours, using sonar and unmanned underwater vehicles to sweep the designated shipping channels.</p>
+
+        <h2>IRGC Speedboat Encounters</h2>
+        <p>During the transit, the convoy encountered three separate groups of IRGC naval speedboats, totaling approximately 12 vessels. The first group of four Boghammar-class boats approached to within 800 meters of the convoy's eastern flank at approximately 03:45, retreating after the USS Farragut trained its Mark 45 gun mount in their direction and issued radio warnings on both international maritime channels and the IRGC's known tactical frequency.</p>
+        <p>A second group of five speedboats attempted a more aggressive approach at 04:20, closing to approximately 500 meters and appearing to coordinate a pincer movement from the convoy's north and south. Two MH-60R Seahawks were dispatched to provide overwatch, and a P-8A Poseidon broadcast a recorded warning on emergency frequencies. The speedboats disengaged after approximately 12 minutes, but not before one vessel was observed filming the convoy with what analysts assessed to be military-grade surveillance equipment.</p>
+
+        <div class="my-8 flex justify-center">
+          <svg width="680" height="380" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:8px;padding:16px;">
+            <text x="340" y="28" text-anchor="middle" fill="#ef4444" font-size="15" font-weight="bold" font-family="system-ui">Naval Escort Formation — Convoy Five</text>
+            <text x="340" y="46" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="system-ui">Operation Freedom of Navigation · May 25, 2026</text>
+            <!-- Water -->
+            <rect x="40" y="60" width="600" height="280" rx="8" fill="#0c2d48" opacity="0.4"/>
+            <!-- Direction arrow -->
+            <text x="60" y="200" fill="#64748b" font-size="12" font-family="system-ui">→ OUTBOUND</text>
+            <!-- Mine sweepers (front) -->
+            <rect x="280" y="80" width="50" height="18" rx="3" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+            <text x="305" y="93" text-anchor="middle" fill="#6ee7b7" font-size="7" font-family="system-ui">USS Gladiator</text>
+            <rect x="350" y="80" width="50" height="18" rx="3" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+            <text x="375" y="93" text-anchor="middle" fill="#6ee7b7" font-size="7" font-family="system-ui">USS Scout</text>
+            <text x="340" y="110" text-anchor="middle" fill="#34d399" font-size="8" font-family="system-ui">MCM — 3hr ahead</text>
+            <!-- Commercial vessels (center) -->
+            <rect x="290" y="155" width="100" height="18" rx="3" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+            <text x="340" y="168" text-anchor="middle" fill="#93c5fd" font-size="8" font-family="system-ui">VLCC · VLCC · Suezmax</text>
+            <rect x="290" y="180" width="100" height="18" rx="3" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+            <text x="340" y="193" text-anchor="middle" fill="#bfdbfe" font-size="8" font-family="system-ui">Product · Product</text>
+            <rect x="290" y="205" width="100" height="18" rx="3" fill="#1e3a5f" stroke="#22d3ee" stroke-width="1"/>
+            <text x="340" y="218" text-anchor="middle" fill="#67e8f9" font-size="8" font-family="system-ui">LNG · LNG</text>
+            <text x="340" y="245" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="system-ui">7 Commercial Vessels</text>
+            <!-- Inner escort ring (5nm) -->
+            <ellipse cx="340" cy="190" rx="140" ry="65" fill="none" stroke="#3b82f6" stroke-width="1" stroke-dasharray="6,3"/>
+            <text x="195" y="140" fill="#60a5fa" font-size="8" font-family="system-ui">5nm perimeter</text>
+            <!-- Destroyers -->
+            <polygon points="200,170 210,175 210,185 200,190 190,185 190,175" fill="#1e40af" stroke="#3b82f6" stroke-width="1"/>
+            <text x="200" y="165" text-anchor="middle" fill="#93c5fd" font-size="7" font-family="system-ui">USS Farragut</text>
+            <polygon points="480,170 490,175 490,185 480,190 470,185 470,175" fill="#1e40af" stroke="#3b82f6" stroke-width="1"/>
+            <text x="480" y="165" text-anchor="middle" fill="#93c5fd" font-size="7" font-family="system-ui">HMS Diamond</text>
+            <polygon points="340,115 350,120 350,130 340,135 330,130 330,120" fill="#1e40af" stroke="#3b82f6" stroke-width="1"/>
+            <text x="340" y="112" text-anchor="middle" fill="#93c5fd" font-size="7" font-family="system-ui">FS Auvergne</text>
+            <!-- Outer ring (80nm CAP) -->
+            <ellipse cx="340" cy="190" rx="260" ry="120" fill="none" stroke="#818cf8" stroke-width="0.8" stroke-dasharray="4,4"/>
+            <text x="560" y="100" fill="#818cf8" font-size="8" font-family="system-ui">80nm CAP ring</text>
+            <!-- Carrier -->
+            <rect x="560" y="260" width="60" height="22" rx="4" fill="#312e81" stroke="#6366f1" stroke-width="1.5"/>
+            <text x="590" y="275" text-anchor="middle" fill="#a5b4fc" font-size="7" font-weight="bold" font-family="system-ui">USS Eisenhower</text>
+            <text x="590" y="295" text-anchor="middle" fill="#818cf8" font-size="7" font-family="system-ui">CSG + F/A-18E CAP</text>
+            <!-- Helicopters -->
+            <circle cx="270" cy="145" r="6" fill="#7c3aed" stroke="#a78bfa" stroke-width="1"/>
+            <text x="270" y="148" text-anchor="middle" fill="white" font-size="6" font-family="system-ui">H</text>
+            <text x="270" y="135" fill="#c4b5fd" font-size="7" font-family="system-ui">MH-60R</text>
+            <circle cx="410" cy="145" r="6" fill="#7c3aed" stroke="#a78bfa" stroke-width="1"/>
+            <text x="410" y="148" text-anchor="middle" fill="white" font-size="6" font-family="system-ui">H</text>
+            <text x="410" y="135" fill="#c4b5fd" font-size="7" font-family="system-ui">MH-60R</text>
+            <!-- IRGC speedboats -->
+            <rect x="80" y="200" width="60" height="14" rx="2" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+            <text x="110" y="210" text-anchor="middle" fill="#fca5a5" font-size="6" font-family="system-ui">IRGC (4 boats)</text>
+            <rect x="560" y="160" width="60" height="14" rx="2" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+            <text x="590" y="170" text-anchor="middle" fill="#fca5a5" font-size="6" font-family="system-ui">IRGC (5 boats)</text>
+            <text x="340" y="350" text-anchor="middle" fill="#64748b" font-size="9" font-style="italic" font-family="system-ui">Layered defense: MCM sweep → 5nm destroyer screen → 80nm air CAP</text>
+          </svg>
+        </div>
+
+        <h2>Cost of Escort Operations</h2>
+        <p>Operation Freedom of Navigation represents a significant and growing financial commitment. The US Department of Defense estimates that the operation costs approximately <strong>$14.2 million per day</strong> in direct operating costs — including fuel, ammunition, maintenance, and personnel — bringing the total expenditure since March 15 to roughly $1.04 billion. This figure does not include the opportunity cost of deploying the Eisenhower Carrier Strike Group to the region, nor the costs borne by coalition partners.</p>
+        <p>The per-convoy cost is equally striking. When amortized across the seven vessels in Convoy Five, the escort cost amounts to approximately $2.03 million per vessel for a single transit — a figure that exceeds the typical freight revenue for many routes. For the LNG carriers, whose cargoes are worth $40-60 million at current prices, the escort cost is manageable; for product tankers carrying lower-value refined fuels, it represents a significant commercial burden.</p>
+
+        <h2>Impact Assessment</h2>
+        <p>The completion of Convoy Five demonstrates that the US-led escort operation can successfully protect commercial shipping through the strait, even in the face of active IRGC harassment. However, the operation's sustainability is increasingly in question. The Eisenhower Carrier Strike Group has been deployed for over 90 days, approaching the typical limit for high-tempo operations. Crew fatigue, equipment maintenance, and munitions replenishment will require a rotation within the next 30-45 days, and it remains unclear whether a replacement strike group can be made available without degrading commitments in the Indo-Pacific.</p>
+        <p>More fundamentally, the escort operation addresses the symptom but not the cause. As long as Iran maintains the capability and will to threaten shipping — through mines, missiles, speedboats, or the mere threat of interdiction — the strait will remain commercially unviable for all but the most critical cargoes. The ceasefire framework announced on May 26 offers the only realistic path to a sustainable solution, but its prospects have been complicated by the US strikes on May 27. Until a comprehensive security arrangement is in place, each convoy will remain an expensive, risky, and fundamentally unsustainable exercise in crisis management.</p>
+      `
+    },
+    // Legacy posts
+    {
+      slug: 'walls-closing-in',
+      title: 'Walls Closing In: The Geopolitics of a Choked Strait',
+      date: '2026-05-20',
+      category: 'Analysis',
+      readingTime: '8 min',
+      excerpt: 'As the Hormuz crisis enters its third month, the geopolitical walls are closing in on all parties. Iran faces escalating economic pressure, while Gulf states hemorrhage revenue and consumer nations scramble for alternatives.',
+      content: `
+        <h2>The Squeeze on All Sides</h2>
+        <p>As the Hormuz crisis enters its third month, the geopolitical walls are closing in on all parties. Iran faces escalating economic pressure, while Gulf states hemorrhage revenue and consumer nations scramble for alternatives. The Strait of Hormuz crisis continues to reshape global trade patterns in ways that will persist long after the immediate disruption is resolved. Energy security strategies, supply chain architectures, and maritime insurance frameworks are all being fundamentally reconsidered by governments and corporations worldwide.</p>
+        <p>The economic ripple effects extend far beyond the energy sector. Shipping companies face existential challenges as insurance costs have made many routes commercially unviable. Manufacturing industries dependent on just-in-time supply chains are being forced to rebuild their logistics around longer lead times and higher inventory costs. Consumer prices for energy, transportation, and manufactured goods continue to rise, with inflationary pressure building across both developed and emerging economies.</p>
+        <p>Perhaps most significantly, the crisis has exposed the fragility of the global trading system's dependence on a handful of geographic chokepoints. The Suez Canal blockage of 2021 was a warning; the Hormuz closure is the catastrophe that was always feared. The question now is whether the international community will invest in the infrastructure needed to prevent future disruptions, or whether the lessons of 2026 will be forgotten once the strait reopens and oil prices normalize. History suggests the latter, but the scale of the current disruption may finally force a different outcome.</p>
+      `
+    },
+    {
+      slug: 'when-hormuz-stopped',
+      title: 'When Hormuz Stopped: The Day Global Trade Froze',
+      date: '2026-03-15',
+      category: 'Analysis',
+      readingTime: '10 min',
+      excerpt: 'February 28, 2026 will be remembered as the day the global trading system experienced its most severe shock since the 1973 oil embargo. Within hours, the implications cascaded through every major market.',
+      content: `
+        <h2>The Day Everything Changed</h2>
+        <p>February 28, 2026 will be remembered as the day the global trading system experienced its most severe shock since the 1973 oil embargo. Within hours, the implications cascaded through every major market. When Iran declared the Strait of Hormuz closed to US and allied shipping, the world's most critical energy chokepoint effectively ceased to function as a reliable conduit for global trade.</p>
+        <p>The immediate market reaction was swift and brutal. Oil prices surged 20% in the first 24 hours, with Brent crude spiking from $78 to $94 per barrel. Shipping companies scrambled to reroute vessels around the Cape of Good Hope, adding 12 days and $650,000 per voyage. Insurance markets entered uncharted territory as war risk premiums skyrocketed.</p>
+        <p>The longer-term consequences are still unfolding. The crisis has demonstrated that the global economy is far more vulnerable to chokepoint disruptions than most analysts had assumed. The just-in-time supply chains that defined modern commerce have proven catastrophically fragile when faced with a sustained disruption to the world's most important shipping lane. The lessons learned from this crisis — if they are learned at all — will reshape infrastructure investment and energy security policy for decades.</p>
+      `
+    },
+    {
+      slug: 'beijing-summit',
+      title: 'The Beijing Summit: Can China Broker a Deal?',
+      date: '2026-05-24',
+      category: 'Diplomacy',
+      readingTime: '7 min',
+      excerpt: "China's emergency summit brings together Iran, Saudi Arabia, UAE, and Oman in the most significant diplomatic push since the crisis began.",
+      content: `
+        <h2>China's Diplomatic Gambit</h2>
+        <p>China's emergency summit brings together Iran, Saudi Arabia, UAE, and Oman in the most significant diplomatic push since the crisis began. The Beijing summit represents a calculated move by China to position itself as the indispensable mediator in the Hormuz crisis — a role that carries both diplomatic prestige and practical benefits for the world's largest oil importer.</p>
+        <p>Beijing's leverage is unique: it is Iran's largest remaining oil customer, Saudi Arabia's biggest trade partner, and the only major power that maintains constructive relationships with all parties to the conflict. This positioning has allowed China to create a diplomatic space that the United States — viewed as a party to the conflict by Iran — simply cannot occupy.</p>
+        <p>The summit's success or failure will have consequences far beyond the immediate crisis. A successful Chinese-brokered deal would mark a fundamental shift in Middle East diplomacy, signaling the decline of US-centric security architecture and the emergence of a multipolar approach to regional conflict resolution. Failure, on the other hand, would leave the strait closed and the military escalation trajectory unchecked, with potentially catastrophic consequences for the global economy.</p>
+      `
+    },
+    {
+      slug: 'insurance-markets',
+      title: 'Insurance Markets in Uncharted Territory',
+      date: '2026-04-10',
+      category: 'Analysis',
+      readingTime: '6 min',
+      excerpt: 'The withdrawal of all six major P&I clubs from Hormuz coverage has created an unprecedented situation in maritime insurance.',
+      content: `
+        <h2>The Insurance Void</h2>
+        <p>The withdrawal of all six major P&I clubs from Hormuz coverage has created an unprecedented situation in maritime insurance. With no standard hull and machinery coverage available for strait transits, shipowners are forced into the specialist war risk market — where premiums have increased 20-fold since February and capacity is severely limited.</p>
+        <p>The implications extend well beyond the immediate cost of coverage. Without standard P&I protection, shipowners face unlimited liability for pollution, wreck removal, and third-party claims arising from incidents in the strait. This exposure is simply too large for most operators to bear, effectively making transit commercially impossible regardless of the security situation on the water.</p>
+        <p>The insurance crisis has created a self-reinforcing feedback loop: the lack of coverage prevents transits, the absence of transits provides no data to reassess risk, and the unquantified risk keeps premiums elevated. Breaking this cycle will require either a fundamental improvement in the security environment or a government-backed insurance scheme that effectively socializes the war risk — a step that no nation has yet been willing to take.</p>
+      `
+    },
+    {
+      slug: 'cape-of-good-hope',
+      title: 'Life on the Cape Route: 12 Extra Days, $650K More',
+      date: '2026-04-05',
+      category: 'Explainer',
+      readingTime: '5 min',
+      excerpt: "The Cape of Good Hope has become the world's busiest shipping lane overnight.",
+      content: `
+        <h2>The Long Way Around</h2>
+        <p>The Cape of Good Hope has become the world's busiest shipping lane overnight. With the Strait of Hormuz effectively closed, vessels that would normally transit through the Persian Gulf are now sailing around the southern tip of Africa — adding approximately 12 days and $650,000 in additional costs per voyage for a typical VLCC routing from the Arabian Gulf to Rotterdam.</p>
+        <p>The rerouting has created cascading effects throughout the global shipping network. Port congestion in Cape Town and Durban has reached record levels as vessels stop for bunkers and supplies. The increased voyage times have effectively reduced global tanker capacity by an estimated 8-10%, as ships spend more days at sea and fewer in productive service. This capacity reduction is itself driving up freight rates, compounding the cost impact on oil-importing nations.</p>
+        <p>Environmental concerns are also mounting. The additional fuel burned on Cape of Good Hope routes is estimated to add 4.2 million tonnes of CO2 emissions per month — roughly equivalent to the annual emissions of Iceland. The irony of an energy crisis generating more emissions, not less, has not been lost on climate advocates, who argue that the crisis demonstrates the unsustainability of global dependence on maritime oil transportation.</p>
+      `
+    },
+    {
+      slug: 'lng-crisis',
+      title: 'The LNG Crisis: No Pipeline Can Carry Gas',
+      date: '2026-04-15',
+      category: 'Explainer',
+      readingTime: '6 min',
+      excerpt: 'Unlike crude oil, LNG cannot be piped over land, making this the most intractable aspect of the crisis.',
+      content: `
+        <h2>The Gas Problem That Oil Solutions Can't Fix</h2>
+        <p>Unlike crude oil, LNG cannot be piped over land, making this the most intractable aspect of the crisis. While oil can theoretically be redirected through pipelines, rail, and alternative maritime routes, natural gas in its liquefied form is entirely dependent on specialized vessels and receiving terminals — a supply chain that cannot be quickly reconfigured.</p>
+        <p>Qatar, the world's largest LNG exporter, has declared force majeure on its Hormuz-dependent shipments, removing approximately 77 million tonnes per annum of LNG from the global market. This represents roughly 18% of global LNG trade and 24% of Europe's LNG imports. The impact is felt most acutely in Asia, where Japan, South Korea, and India depend on Qatari LNG for baseline power generation, and in Europe, where LNG imports had been growing as a substitute for Russian pipeline gas.</p>
+        <p>The LNG crisis illustrates a fundamental asymmetry in the energy system's vulnerability to chokepoint disruptions. Oil markets have multiple levers for managing supply shocks: strategic reserves, pipeline alternatives, demand reduction, and source diversification. LNG markets have far fewer options, and the time horizons for developing alternatives are measured in years, not weeks. Every new LNG carrier takes 3-4 years to build; every new receiving terminal requires 5-7 years of construction. The Hormuz crisis will reshape LNG trade patterns for a generation.</p>
+      `
+    },
+    {
+      slug: 'iran-safe-transit',
+      title: 'Iran\'s "Safe Transit" Proposal: Genuine or Stalling?',
+      date: '2026-05-18',
+      category: 'Analysis',
+      readingTime: '7 min',
+      excerpt: 'Iran has proposed a safe transit corridor for neutral-flagged vessels, but the conditions make acceptance unlikely.',
+      content: `
+        <h2>The Corridor Proposal</h2>
+        <p>Iran has proposed a safe transit corridor for neutral-flagged vessels, but the conditions make acceptance unlikely. The proposal, conveyed through Omani intermediaries, would allow commercial ships flying the flags of non-belligerent nations to transit the Strait of Hormuz under Iranian naval escort, provided they are not carrying military cargo to or from US-allied destinations and agree to Iranian inspection protocols.</p>
+        <p>Western governments have dismissed the proposal as a non-starter. The requirement for Iranian inspection of commercial vessels is viewed as an unacceptable intelligence risk and a violation of the principle of freedom of navigation. Moreover, the definition of "belligerent" and "neutral" flags would effectively give Iran veto power over which nations can access the strait — a power that no major shipping nation is willing to concede.</p>
+        <p>However, some analysts argue that the proposal, however flawed, represents a genuine Iranian signal that they are feeling the economic pressure of the closure. Iran's own oil exports have been severely curtailed by the crisis — the very disruption they created has made it impossible to sell their own product. The safe transit proposal may be an opening bid in a negotiation, rather than a final offer. The question is whether diplomatic channels exist to explore that possibility before the military escalation makes negotiation impossible.</p>
+      `
+    },
+    {
+      slug: 'project-freedom',
+      title: 'Operation Freedom of Navigation: The Naval Escort Mission',
+      date: '2026-05-12',
+      category: 'Military',
+      readingTime: '8 min',
+      excerpt: 'The US-led naval escort operation has completed three convoy transits.',
+      content: `
+        <h2>Operation Freedom of Navigation</h2>
+        <p>The US-led naval escort operation has completed three convoy transits. Operation Freedom of Navigation, launched on March 15, represents the largest US naval operation in the Persian Gulf since the Tanker War of the 1980s. The operation's mission is straightforward in concept but extraordinarily complex in execution: to escort commercial vessels through the Strait of Hormuz and ensure the free flow of maritime commerce.</p>
+        <p>The operation's first three convoys successfully transited a total of 14 commercial vessels through the strait, though not without incident. Convoy Two faced a close approach by IRGC speedboats that resulted in warning shots from the USS Farragut, and Convoy Three was delayed by six hours after a suspected mine was detected in the shipping channel. Each transit requires extensive mine countermeasures, continuous air surveillance, and a layered naval escort that ties up significant military assets.</p>
+        <p>The operational tempo is unsustainable without rotation. The Eisenhower Carrier Strike Group has been on station for over 60 days, and crew fatigue is becoming a concern. The Pentagon is evaluating options for a rotation, potentially involving the USS Ford Carrier Strike Group currently operating in the Mediterranean. But any redeployment creates gaps in other theaters, highlighting the strategic cost of the Hormuz commitment. The operation is buying time for diplomacy, but time is a resource that is running short.</p>
+      `
+    },
   ];
   return BLOG_POSTS.map(p => ({ params: { slug: p.slug }, props: p }));
 }
 
-const { slug, title, date, category, readingTime, excerpt } = Astro.props;
-const catColors = { Analysis: 'bg-crisis-red/20 text-crisis-red', Diplomacy: 'bg-crisis-blue/20 text-crisis-blue', Explainer: 'bg-crisis-amber/20 text-crisis-amber', Military: 'bg-red-700/20 text-red-400' };
+const { slug, title, date, category, readingTime, excerpt, content } = Astro.props;
+const catColors = { Analysis: 'bg-crisis-red/20 text-crisis-red', Diplomacy: 'bg-crisis-blue/20 text-crisis-blue', Explainer: 'bg-crisis-amber/20 text-crisis-amber', Military: 'bg-red-700/20 text-red-400', Economic: 'bg-crisis-amber/20 text-crisis-amber' };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": title,
+  "datePublished": date,
+  "dateModified": date,
+  "author": {
+    "@type": "Organization",
+    "name": "HormuzTracker.tech"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "HormuzTracker.tech",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hormuztracker.tech/logo.png"
+    }
+  },
+  "description": excerpt,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@@id": `https://hormuztracker.tech/blog/${slug}`
+  }
+};
 ---
 
 <Layout title={`${title} — HormuzTracker.tech`} description={excerpt} path={`/blog/${slug}`}>
@@ -34,12 +682,13 @@ const catColors = { Analysis: 'bg-crisis-red/20 text-crisis-red', Diplomacy: 'bg
       </div>
     </div>
 
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <div class="glass-card p-6">
       <p class="text-slate-300 leading-relaxed text-lg font-medium">{excerpt}</p>
-      <div class="mt-6 prose prose-invert prose-sm max-w-none">
-        <p class="text-slate-300 leading-relaxed">The Strait of Hormuz crisis continues to reshape global trade patterns in ways that will persist long after the immediate disruption is resolved. Energy security strategies, supply chain architectures, and maritime insurance frameworks are all being fundamentally reconsidered by governments and corporations worldwide. The lessons learned from this crisis will inform infrastructure investment decisions for decades to come, particularly regarding pipeline alternatives, strategic reserve levels, and the geographic diversification of energy sources.</p>
-        <p class="text-slate-300 leading-relaxed mt-4">The economic ripple effects extend far beyond the energy sector. Shipping companies face existential challenges as insurance costs have made many routes commercially unviable. Manufacturing industries dependent on just-in-time supply chains are being forced to rebuild their logistics around longer lead times and higher inventory costs. Consumer prices for energy, transportation, and manufactured goods continue to rise, with inflationary pressure building across both developed and emerging economies.</p>
-        <p class="text-slate-300 leading-relaxed mt-4">Perhaps most significantly, the crisis has exposed the fragility of the global trading system's dependence on a handful of geographic chokepoints. The Suez Canal blockage of 2021 was a warning; the Hormuz closure is the catastrophe that was always feared. The question now is whether the international community will invest in the infrastructure needed to prevent future disruptions, or whether the lessons of 2026 will be forgotten once the strait reopens and oil prices normalize. History suggests the latter, but the scale of the current disruption may finally force a different outcome.</p>
+      <div class="mt-6 prose prose-invert prose-sm max-w-none article-content">
+        <Fragment set:html={content} />
       </div>
     </div>
 
@@ -51,3 +700,32 @@ const catColors = { Analysis: 'bg-crisis-red/20 text-crisis-red', Diplomacy: 'bg
     </div>
   </article>
 </Layout>
+
+<style>
+  .article-content :global(h2) {
+    color: #e2e8f0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #1e293b;
+  }
+  .article-content :global(p) {
+    color: #cbd5e1;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .article-content :global(strong) {
+    color: #f1f5f9;
+    font-weight: 600;
+  }
+  .article-content :global(em) {
+    color: #94a3b8;
+    font-style: italic;
+  }
+  .article-content :global(svg) {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

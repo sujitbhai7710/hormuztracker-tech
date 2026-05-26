@@ -3,8 +3,12 @@
 
 User-agent: *
 Allow: /
-Disallow: /embed/
-Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
 
 # Welcome AI crawlers explicitly
 User-agent: GPTBot
@@ -32,7 +36,7 @@ User-agent: Applebot
 Allow: /
 
 # Sitemap
-Sitemap: https://hormuztracker-tech.pages.dev/sitemap-index.xml
+Sitemap: https://hormuztracker.tech/sitemap-index.xml
 
 # Crawl-delay for politeness
 Crawl-delay: 1

@@ -45,8 +45,8 @@ import Layout from '../layouts/Layout.astro';
 
     async function loadNews() {
       try {
-        const news = await fetch(`${API}/api/news`).then(r => r.json());
-        allNews = news;
+        const res = await fetch(`${API}/api/news`).then(r => r.json());
+        allNews = res.articles || (Array.isArray(res) ? res : []);
         document.getElementById('news-loading').style.display = 'none';
         document.getElementById('news-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
         renderNews('all');
