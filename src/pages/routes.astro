@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ROUTES_DATA, PIPELINES_DATA } from '../data/constants.js';
+---
+
+<Layout title="Alternative Shipping Routes — Hormuz Bypass & Pipeline Capacity | HormuzWatch" description="Compare normal transit vs Cape of Good Hope reroute for major shipping lanes. Pipeline bypass capacity analysis for Saudi Arabia and UAE.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Alternative Routes</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Alternative Shipping Routes</h1>
+      <p class="text-slate-400 max-w-3xl">With the Strait of Hormuz closed to commercial traffic, vessels must reroute around the Cape of Good Hope or rely on limited pipeline bypass capacity. Below is a comparison of normal transit versus Cape reroute for major shipping lanes, plus an overview of pipeline alternatives and their real-world constraints.</p>
+    </div>
+
+    <!-- Route Comparison Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mb-8">
+      <div class="px-6 py-4 border-b border-slate-800">
+        <h2 class="text-xl font-semibold text-white">Route Comparison: Normal Transit vs Cape of Good Hope Reroute</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-800/50">
+              <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase">Route</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase">Type</th>
+              <th class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase">Normal</th>
+              <th class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase">Cape Reroute</th>
+              <th class="px-4 py-3 text-center text-xs font-medium text-red-400 uppercase">Extra Days</th>
+              <th class="px-4 py-3 text-center text-xs font-medium text-red-400 uppercase">Extra Cost</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/50">
+            {ROUTES_DATA.map((route) => (
+              <tr class="hover:bg-slate-800/50 transition-colors">
+                <td class="px-4 py-3">
+                  <div class="text-sm text-white">{route.from}</div>
+                  <div class="text-xs text-slate-500">→ {route.to}</div>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300">{route.type}</span>
+                </td>
+                <td class="px-4 py-3 text-center text-sm text-slate-300">{route.normalDays}d / {route.normalNm.toLocaleString()} nm</td>
+                <td class="px-4 py-3 text-center text-sm text-slate-300">{route.capeDays}d / {route.capeNm.toLocaleString()} nm</td>
+                <td class="px-4 py-3 text-center text-sm font-medium text-red-400">+{route.extraDays}d</td>
+                <td class="px-4 py-3 text-center text-sm font-medium text-red-400">{route.extraCost}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="px-6 py-3 border-t border-slate-800 bg-slate-800/30">
+        <p class="text-xs text-slate-500">Distances are approximate great-circle-based routing estimates. Cost figures reflect average VLCC/LNG carrier operating costs. Actual costs vary by vessel type, speed, fuel prices, and charter rates.</p>
+      </div>
+    </div>
+
+    <!-- Pipeline Bypass -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold text-white mb-6">Pipeline Bypass Capacity</h2>
+      <p class="text-slate-400 mb-6 max-w-3xl">Three pipeline systems can move crude oil out of the Gulf region without transiting the Strait of Hormuz. Combined theoretical capacity is roughly 7-8 million barrels per day, but operational throughput is significantly lower. For context, approximately 20 million barrels per day normally transit the strait.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {PIPELINES_DATA.map((pipeline) => (
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 card-hover">
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2 py-0.5 rounded text-xs font-medium" class:bg-green-500/20={pipeline.statusColor === 'green'} class:text-green-400={pipeline.statusColor === 'green'} class:bg-yellow-500/20={pipeline.statusColor === 'yellow'} class:text-yellow-400={pipeline.statusColor === 'yellow'} class:bg-orange-500/20={pipeline.statusColor === 'orange'} class:text-orange-400={pipeline.statusColor === 'orange'}>
+                {pipeline.status}
+              </span>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">{pipeline.name}</h3>
+            <div class="space-y-2 mb-4">
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-400">Route</span>
+              </div>
+              <div class="text-sm text-slate-300">{pipeline.route}</div>
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-400">Nameplate Capacity</span>
+                <span class="text-white font-medium">{pipeline.capacity}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-slate-400">Effective Capacity</span>
+                <span class="text-yellow-400 font-medium">{pipeline.effectiveCapacity}</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500">{pipeline.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

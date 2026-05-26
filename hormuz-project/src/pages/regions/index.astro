@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Regional Impact — Country Exposure Analysis | HormuzWatch" description="Country-by-country analysis of the Strait of Hormuz crisis impact. Oil dependency, LNG exposure, and economic consequences for Japan, South Korea, China, India, and Europe.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Regional Impact</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Regional Impact</h1>
+      <p class="text-slate-400">Country-by-country analysis of the Strait of Hormuz crisis impact on energy supplies and economies</p>
+    </div>
+
+    <div id="regions-container">
+      <div class="text-center py-12 text-slate-500">Loading regional data...</div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  async function loadRegions() {
+    try {
+      const res = await fetch('/api/dashboard');
+      const json = await res.json();
+      if (!json.success || !json.data.globalTradeImpact?.affectedRegions) return;
+      
+      const regions = json.data.globalTradeImpact.affectedRegions;
+      const container = document.getElementById('regions-container');
+      if (!container) return;
+      
+      const severityColors: Record<string, string> = {
+        'CRITICAL': 'border-red-500/50 bg-red-500/5',
+        'HIGH': 'border-orange-500/50 bg-orange-500/5',
+        'MODERATE': 'border-yellow-500/50 bg-yellow-500/5'
+      };
+      
+      const severityTextColors: Record<string, string> = {
+        'CRITICAL': 'text-red-400',
+        'HIGH': 'text-orange-400',
+        'MODERATE': 'text-yellow-400'
+      };
+      
+      container.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          ${regions.map((region: any) => `
+            <a href="/regions/${region.name.toLowerCase().replace(/\\s+/g, '-')}" class="block bg-slate-900 border ${severityColors[region.severity] || 'border-slate-800'} rounded-xl p-6 card-hover">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-white">${region.name}</h2>
+                <span class="px-3 py-1 rounded-full text-sm font-bold border ${severityColors[region.severity] || 'border-slate-700'} ${severityTextColors[region.severity] || 'text-slate-400'}">
+                  ${region.severity}
+                </span>
+              </div>
+              <div class="mb-4">
+                <div class="text-4xl font-bold ${severityTextColors[region.severity] || 'text-white'}">${region.oilDependencyPercent}%</div>
+                <div class="text-sm text-slate-400">Oil supply dependent on Hormuz</div>
+              </div>
+              <p class="text-sm text-slate-400">${region.description}</p>
+            </a>
+          `).join('')}
+        </div>
+      `;
+    } catch(e) {
+      document.getElementById('regions-container')!.innerHTML = '<p class="text-red-400">Failed to load regional data.</p>';
+    }
+  }
+  loadRegions();
+  setInterval(loadRegions, 120000);
+</script>

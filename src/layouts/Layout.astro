@@ -1,0 +1,189 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const { title, description = 'Real-time Strait of Hormuz shipping disruption monitor. Live ship tracking, oil prices, insurance status, crisis timeline, and global trade impact analysis.', image = '/og-image.png', canonicalURL } = Astro.props;
+
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Strait of Hormuz, Hormuz monitor, oil crisis, shipping disruption, tanker tracking, Brent crude, WTI, war risk insurance, maritime security, Middle East crisis, energy prices, LNG" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Hormuz Watch" />
+    
+    <!-- Canonical -->
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="Hormuz Watch" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Hormuz Watch",
+      "url": "https://hormuzwatch.com",
+      "description": description,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://hormuzwatch.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-lg border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-3">
+            <a href="/" class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2L3 7v11h14V7l-7-5zM9 17H5v-6h4v6zm6 0h-4v-6h4v6z"/>
+                </svg>
+              </div>
+              <span class="text-lg font-bold text-white">Hormuz<span class="text-red-500">Watch</span></span>
+            </a>
+            <div class="hidden sm:flex items-center space-x-1 ml-4">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-500/20 text-red-400 pulse-live">
+                <span class="w-1.5 h-1.5 bg-red-500 rounded-full mr-1"></span>
+                LIVE
+              </span>
+            </div>
+          </div>
+          
+          <div class="hidden lg:flex items-center space-x-1">
+            <a href="/" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Dashboard</a>
+            <a href="/map" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Map</a>
+            <a href="/oil" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Oil & Energy</a>
+            <a href="/routes" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Routes</a>
+            <a href="/regions" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Regions</a>
+            <a href="/carriers" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Carriers</a>
+            <a href="/insurance" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Insurance</a>
+            <a href="/timeline" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Timeline</a>
+            <a href="/blog" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">Blog</a>
+            <a href="/faq" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">FAQ</a>
+          </div>
+          
+          <div class="lg:hidden">
+            <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden bg-slate-950 border-t border-slate-800">
+        <div class="px-4 py-3 space-y-1">
+          <a href="/" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Dashboard</a>
+          <a href="/map" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Map</a>
+          <a href="/oil" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Oil & Energy</a>
+          <a href="/routes" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Routes</a>
+          <a href="/regions" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Regions</a>
+          <a href="/carriers" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Carriers</a>
+          <a href="/insurance" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Insurance</a>
+          <a href="/timeline" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Timeline</a>
+          <a href="/blog" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Blog</a>
+          <a href="/faq" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">FAQ</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-16">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-slate-800 bg-slate-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center space-x-2 mb-4">
+              <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2L3 7v11h14V7l-7-5zM9 17H5v-6h4v6zm6 0h-4v-6h4v6z"/>
+                </svg>
+              </div>
+              <span class="text-lg font-bold text-white">Hormuz<span class="text-red-500">Watch</span></span>
+            </div>
+            <p class="text-slate-400 text-sm max-w-md">Real-time Strait of Hormuz shipping disruption monitor. Live vessel tracking, oil prices, insurance status, crisis timeline, and global trade impact analysis.</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Monitoring</h3>
+            <ul class="space-y-2">
+              <li><a href="/" class="text-sm text-slate-400 hover:text-white transition-colors">Dashboard</a></li>
+              <li><a href="/map" class="text-sm text-slate-400 hover:text-white transition-colors">Live Map</a></li>
+              <li><a href="/oil" class="text-sm text-slate-400 hover:text-white transition-colors">Oil & Energy</a></li>
+              <li><a href="/carriers" class="text-sm text-slate-400 hover:text-white transition-colors">Carriers</a></li>
+              <li><a href="/insurance" class="text-sm text-slate-400 hover:text-white transition-colors">Insurance</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Resources</h3>
+            <ul class="space-y-2">
+              <li><a href="/routes" class="text-sm text-slate-400 hover:text-white transition-colors">Alternative Routes</a></li>
+              <li><a href="/regions" class="text-sm text-slate-400 hover:text-white transition-colors">Regional Impact</a></li>
+              <li><a href="/timeline" class="text-sm text-slate-400 hover:text-white transition-colors">Crisis Timeline</a></li>
+              <li><a href="/blog" class="text-sm text-slate-400 hover:text-white transition-colors">Blog</a></li>
+              <li><a href="/faq" class="text-sm text-slate-400 hover:text-white transition-colors">FAQ</a></li>
+              <li><a href="/methodology" class="text-sm text-slate-400 hover:text-white transition-colors">Methodology</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between">
+          <p class="text-sm text-slate-500">&copy; 2026 HormuzWatch. Data provided under CC BY 4.0 license.</p>
+          <div class="flex space-x-4 mt-4 sm:mt-0">
+            <a href="/methodology" class="text-sm text-slate-500 hover:text-slate-300">Methodology</a>
+            <a href="/glossary" class="text-sm text-slate-500 hover:text-slate-300">Glossary</a>
+            <a href="/data" class="text-sm text-slate-500 hover:text-slate-300">Data</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>

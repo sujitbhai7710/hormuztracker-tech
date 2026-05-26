@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://hormuzwatch.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hormuzwatch.com/map</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hormuzwatch.com/oil</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hormuzwatch.com/routes</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/regions</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/regions/japan</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hormuzwatch.com/regions/south-korea</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hormuzwatch.com/regions/china</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hormuzwatch.com/regions/india</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hormuzwatch.com/regions/european-union</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hormuzwatch.com/carriers</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/insurance</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/timeline</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/blog</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/news</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hormuzwatch.com/faq</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hormuzwatch.com/about</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hormuzwatch.com/methodology</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hormuzwatch.com/glossary</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hormuzwatch.com/data</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+</urlset>

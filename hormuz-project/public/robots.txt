@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Sitemap: https://hormuz-watch.tradesapi.workers.dev/sitemap.xml
+
+Crawl-delay: 10

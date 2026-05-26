@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { BLOG_POSTS } from '../data/constants.js';
+---
+
+<Layout title="Crisis Timeline — Strait of Hormuz Events | HormuzWatch" description="Complete timeline of the Strait of Hormuz crisis from February 2026. Military escalation, diplomatic developments, and economic impact events.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Timeline</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Crisis Timeline</h1>
+      <p class="text-slate-400">Complete chronology of events in the Strait of Hormuz crisis</p>
+    </div>
+
+    <!-- Filter buttons -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button onclick="filterTimeline('all')" class="filter-btn active px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-800 text-white hover:bg-slate-700 transition-colors" data-filter="all">All Events</button>
+      <button onclick="filterTimeline('ESCALATION')" class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-800/50 text-slate-400 hover:bg-slate-700 transition-colors" data-filter="ESCALATION">Escalation</button>
+      <button onclick="filterTimeline('MILITARY')" class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-800/50 text-slate-400 hover:bg-slate-700 transition-colors" data-filter="MILITARY">Military</button>
+      <button onclick="filterTimeline('DIPLOMATIC')" class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-800/50 text-slate-400 hover:bg-slate-700 transition-colors" data-filter="DIPLOMATIC">Diplomatic</button>
+      <button onclick="filterTimeline('DE_ESCALATION')" class="filter-btn px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-800/50 text-slate-400 hover:bg-slate-700 transition-colors" data-filter="DE_ESCALATION">De-escalation</button>
+    </div>
+
+    <div id="timeline-container" class="relative">
+      <div class="text-center py-12 text-slate-500">Loading timeline...</div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  let allEvents: any[] = [];
+  
+  async function loadTimeline() {
+    try {
+      const res = await fetch('/api/dashboard');
+      const json = await res.json();
+      if (json.success && json.data.crisisTimeline?.events) {
+        allEvents = json.data.crisisTimeline.events;
+        renderTimeline('all');
+      }
+    } catch(e) {
+      document.getElementById('timeline-container')!.innerHTML = '<p class="text-red-400">Failed to load timeline data.</p>';
+    }
+  }
+  
+  function renderTimeline(filter: string) {
+    const events = filter === 'all' ? allEvents : allEvents.filter((e: any) => e.type === filter);
+    const container = document.getElementById('timeline-container');
+    if (!container) return;
+    
+    const typeColors: Record<string, string> = {
+      'ESCALATION': 'bg-red-500',
+      'MILITARY': 'bg-orange-500',
+      'DIPLOMATIC': 'bg-blue-500',
+      'DE_ESCALATION': 'bg-green-500'
+    };
+    
+    const typeTextColors: Record<string, string> = {
+      'ESCALATION': 'text-red-400',
+      'MILITARY': 'text-orange-400',
+      'DIPLOMATIC': 'text-blue-400',
+      'DE_ESCALATION': 'text-green-400'
+    };
+    
+    const typeBgColors: Record<string, string> = {
+      'ESCALATION': 'bg-red-500/20',
+      'MILITARY': 'bg-orange-500/20',
+      'DIPLOMATIC': 'bg-blue-500/20',
+      'DE_ESCALATION': 'bg-green-500/20'
+    };
+    
+    container.innerHTML = `
+      <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-800 md:-translate-x-px"></div>
+      <div class="space-y-8">
+        ${events.map((event: any, i: number) => `
+          <div class="relative pl-12 md:pl-0 timeline-item" data-type="${event.type}">
+            <div class="absolute left-2.5 md:left-1/2 top-1 w-3 h-3 rounded-full ${typeColors[event.type] || 'bg-slate-500'} border-2 border-slate-950 md:-translate-x-1.5"></div>
+            <div class="md:grid md:grid-cols-2 md:gap-8">
+              <div class="${i % 2 === 0 ? 'md:text-right md:pr-8' : 'md:col-start-2 md:pl-8'}">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 card-hover">
+                  <div class="flex items-center gap-2 mb-2 ${i % 2 === 0 ? 'md:justify-end' : ''}">
+                    <span class="text-xs text-slate-500 font-mono">${event.date}</span>
+                    <span class="px-2 py-0.5 rounded text-xs font-medium ${typeBgColors[event.type] || 'bg-slate-700'} ${typeTextColors[event.type] || 'text-slate-300'}">
+                      ${event.type?.replace(/_/g, ' ')}
+                    </span>
+                  </div>
+                  <h3 class="text-base font-semibold text-white mb-2">${event.title}</h3>
+                  <p class="text-sm text-slate-400">${event.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  
+  (window as any).filterTimeline = function(filter: string) {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active', 'bg-slate-800', 'text-white');
+      btn.classList.add('bg-slate-800/50', 'text-slate-400');
+    });
+    const activeBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active', 'bg-slate-800', 'text-white');
+      activeBtn.classList.remove('bg-slate-800/50', 'text-slate-400');
+    }
+    renderTimeline(filter);
+  };
+  
+  loadTimeline();
+  setInterval(loadTimeline, 120000);
+</script>

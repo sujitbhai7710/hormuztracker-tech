@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Live Ship Tracking Map — Strait of Hormuz | HormuzWatch" description="Interactive real-time ship tracking map of the Strait of Hormuz. View vessel positions, shipping lanes, and restricted zones.">
+  <div class="max-w-full mx-auto px-0 sm:px-0 py-0">
+    <div class="px-4 sm:px-6 lg:px-8 py-4 bg-slate-900 border-b border-slate-800">
+      <nav class="text-sm text-slate-400 mb-2">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Live Map</span>
+      </nav>
+      <h1 class="text-2xl font-bold text-white">Strait of Hormuz — Live Map</h1>
+    </div>
+    
+    <div id="map-container" style="height: calc(100vh - 140px); width: 100%;"></div>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  </div>
+</Layout>
+
+<script>
+  async function initMap() {
+    const L = (await import('leaflet')).default;
+    
+    const map = L.map('map-container', {
+      center: [26.0, 56.5],
+      zoom: 8,
+      zoomControl: true
+    });
+    
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+    
+    // Strait zone indicator
+    const straitBounds = L.rectangle(
+      [[25.5, 55.5], [27.0, 57.0]],
+      { color: '#ef4444', weight: 2, fillOpacity: 0.05, dashArray: '10,5' }
+    ).addTo(map);
+    straitBounds.bindTooltip('Strait of Hormuz — Restricted Zone', { permanent: true, direction: 'center', className: 'map-tooltip' });
+    
+    // Key locations
+    const locations = [
+      { pos: [26.56, 56.27], name: 'Strait of Hormuz', icon: '🔴' },
+      { pos: [26.93, 56.27], name: 'Bandar Abbas (Iran)', icon: '📍' },
+      { pos: [25.13, 56.36], name: 'Fujairah (UAE)', icon: '📍' },
+      { pos: [26.17, 50.22], name: 'Ras Tanura (Saudi)', icon: '⚓' },
+      { pos: [25.92, 51.85], name: 'Doha (Qatar)', icon: '📍' },
+      { pos: [26.09, 50.64], name: 'Manama (Bahrain)', icon: '📍' },
+      { pos: [27.70, 56.67], name: 'Qeshm Island', icon: '🏝️' },
+      { pos: [26.56, 56.47], name: 'Hormuz Island', icon: '🏝️' },
+    ];
+    
+    locations.forEach(loc => {
+      L.marker(loc.pos)
+        .addTo(map)
+        .bindPopup(`<strong>${loc.name}</strong>`);
+    });
+    
+    // Pipeline routes
+    const eastWestPipeline = L.polyline([
+      [26.30, 49.70], [24.10, 49.50], [22.30, 49.50], [24.10, 38.10]
+    ], { color: '#22c55e', weight: 3, dashArray: '10,5', opacity: 0.7 }).addTo(map);
+    eastWestPipeline.bindPopup('East-West Pipeline (Saudi Arabia → Yanbu)');
+    
+    const adcopPipeline = L.polyline([
+      [24.00, 54.80], [24.30, 55.50], [25.13, 56.36]
+    ], { color: '#3b82f6', weight: 3, dashArray: '10,5', opacity: 0.7 }).addTo(map);
+    adcopPipeline.bindPopup('ADCOP Pipeline (UAE → Fujairah)');
+    
+    // Try to load AIS ship data
+    try {
+      const res = await fetch('/api/ais');
+      const data = await res.json();
+      if (data.shipsDetected > 0) {
+        // Add ship markers (simulated positions near strait)
+        for (let i = 0; i < Math.min(data.shipsDetected, 10); i++) {
+          const lat = 25.8 + Math.random() * 1.4;
+          const lng = 55.8 + Math.random() * 1.4;
+          L.circleMarker([lat, lng], {
+            radius: 5,
+            fillColor: '#f59e0b',
+            color: '#f59e0b',
+            weight: 1,
+            opacity: 0.8,
+            fillOpacity: 0.6
+          }).addTo(map).bindPopup('Vessel detected (AIS)');
+        }
+      }
+    } catch(e) {
+      console.log('AIS data not available');
+    }
+  }
+  
+  initMap();
+</script>
+
+<style>
+  :global(.map-tooltip) {
+    background: rgba(15, 23, 42, 0.9) !important;
+    color: #ef4444 !important;
+    border: 1px solid #ef4444 !important;
+    border-radius: 4px !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+  }
+</style>

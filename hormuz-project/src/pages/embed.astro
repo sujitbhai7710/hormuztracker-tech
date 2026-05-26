@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Embed Widget — Share HormuzWatch Status | HormuzWatch" description="Embed the HormuzWatch status widget on your website. Get the embeddable code for the Strait of Hormuz crisis monitor.">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Embed Widget</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Embed Widget</h1>
+      <p class="text-slate-400">Add a live HormuzWatch status widget to your website or blog</p>
+    </div>
+
+    <!-- Widget Preview -->
+    <div class="bg-gradient-to-br from-slate-900 to-slate-900/80 border border-slate-800 rounded-xl p-6 mb-8">
+      <h2 class="text-xl font-semibold text-white mb-4">Widget Preview</h2>
+      <div class="bg-slate-950 border border-slate-700 rounded-lg p-4 max-w-sm" id="embed-widget-preview">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-gradient-to-br from-red-600 to-red-700 rounded flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2L3 7v11h14V7l-7-5zM9 17H5v-6h4v6zm6 0h-4v-6h4v6z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-bold text-white">Hormuz<span class="text-red-500">Watch</span></span>
+          </div>
+          <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-red-500/20 text-red-400">
+            <span class="w-1 h-1 bg-red-500 rounded-full mr-1"></span>
+            LIVE
+          </span>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Strait Status</span>
+            <span class="text-red-400 font-medium" id="embed-status">--</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Transits Today</span>
+            <span class="text-white font-medium" id="embed-transits">--</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Brent Crude</span>
+            <span class="text-white font-medium" id="embed-oil">--</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Insurance Risk</span>
+            <span class="text-orange-400 font-medium" id="embed-insurance">--</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Crisis Severity</span>
+            <span class="text-red-400 font-bold" id="embed-severity">10/10</span>
+          </div>
+        </div>
+        <div class="mt-3 pt-2 border-t border-slate-800 flex justify-between items-center">
+          <span class="text-[10px] text-slate-500">Auto-updates every 60s</span>
+          <a href="https://hormuz-watch.tradesapi.workers.dev/" target="_blank" rel="noopener noreferrer" class="text-[10px] text-red-400 hover:text-red-300">View Full Dashboard &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Embed Code -->
+    <div class="bg-gradient-to-br from-slate-900 to-slate-900/80 border border-slate-800 rounded-xl p-6 mb-8">
+      <h2 class="text-xl font-semibold text-white mb-4">Embed Code</h2>
+      <p class="text-sm text-slate-400 mb-4">Copy and paste the following code into your website's HTML to display the live HormuzWatch widget:</p>
+      <div class="relative">
+        <textarea id="embed-code" readonly class="w-full h-40 bg-slate-950 border border-slate-700 rounded-lg p-4 text-xs font-mono text-slate-300 resize-none focus:outline-none focus:border-red-500/50">&lt;iframe src="https://hormuz-watch.tradesapi.workers.dev/embed" width="380" height="260" frameborder="0" style="border:1px solid #334155; border-radius:8px; background:#0f172a;" title="HormuzWatch Live Status"&gt;&lt;/iframe&gt;</textarea>
+        <button id="copy-embed-btn" class="absolute top-2 right-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-md transition-colors border border-slate-600">
+          Copy
+        </button>
+      </div>
+    </div>
+
+    <!-- Share Links -->
+    <div class="bg-gradient-to-br from-slate-900 to-slate-900/80 border border-slate-800 rounded-xl p-6">
+      <h2 class="text-xl font-semibold text-white mb-4">Share Direct Links</h2>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+          <div>
+            <div class="text-sm font-medium text-white">Dashboard</div>
+            <div class="text-xs text-slate-400">Main live monitoring dashboard</div>
+          </div>
+          <button onclick="navigator.clipboard.writeText('https://hormuz-watch.tradesapi.workers.dev/');this.textContent='Copied!';setTimeout(()=>this.textContent='Share Link',2000)" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-xs text-slate-300 rounded-md transition-colors">
+            Share Link
+          </button>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+          <div>
+            <div class="text-sm font-medium text-white">Oil & Energy</div>
+            <div class="text-xs text-slate-400">Live oil and gas price tracking</div>
+          </div>
+          <button onclick="navigator.clipboard.writeText('https://hormuz-watch.tradesapi.workers.dev/oil');this.textContent='Copied!';setTimeout(()=>this.textContent='Share Link',2000)" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-xs text-slate-300 rounded-md transition-colors">
+            Share Link
+          </button>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+          <div>
+            <div class="text-sm font-medium text-white">Insurance</div>
+            <div class="text-xs text-slate-400">War risk insurance status</div>
+          </div>
+          <button onclick="navigator.clipboard.writeText('https://hormuz-watch.tradesapi.workers.dev/insurance');this.textContent='Copied!';setTimeout(()=>this.textContent='Share Link',2000)" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-xs text-slate-300 rounded-md transition-colors">
+            Share Link
+          </button>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+          <div>
+            <div class="text-sm font-medium text-white">Live Map</div>
+            <div class="text-xs text-slate-400">Real-time vessel tracking map</div>
+          </div>
+          <button onclick="navigator.clipboard.writeText('https://hormuz-watch.tradesapi.workers.dev/map');this.textContent='Copied!';setTimeout(()=>this.textContent='Share Link',2000)" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-xs text-slate-300 rounded-md transition-colors">
+            Share Link
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Load live data for the widget preview
+  async function loadEmbedData() {
+    try {
+      const res = await fetch('/api/dashboard');
+      const json = await res.json();
+      if (json.success) {
+        const d = json.data;
+        const statusEl = document.getElementById('embed-status');
+        const transitsEl = document.getElementById('embed-transits');
+        const oilEl = document.getElementById('embed-oil');
+        const insuranceEl = document.getElementById('embed-insurance');
+
+        if (statusEl) statusEl.textContent = d.straitStatus?.status || 'Restricted';
+        if (transitsEl) transitsEl.textContent = (d.shipCount?.last24h || 0).toString();
+        if (oilEl) oilEl.textContent = d.oilPrice?.brentPrice ? '$' + d.oilPrice.brentPrice.toFixed(2) : '--';
+        if (insuranceEl) insuranceEl.textContent = d.insurance?.level || '--';
+      }
+    } catch(e) {
+      console.error('Failed to load embed data:', e);
+    }
+  }
+  loadEmbedData();
+  setInterval(loadEmbedData, 60000);
+
+  // Copy button
+  const copyBtn = document.getElementById('copy-embed-btn');
+  const embedCode = document.getElementById('embed-code') as HTMLTextAreaElement;
+  copyBtn?.addEventListener('click', async () => {
+    if (embedCode) {
+      try {
+        await navigator.clipboard.writeText(embedCode.value);
+        (copyBtn as HTMLElement).textContent = 'Copied!';
+        setTimeout(() => { (copyBtn as HTMLElement).textContent = 'Copy'; }, 2000);
+      } catch {
+        embedCode.select();
+        document.execCommand('copy');
+        (copyBtn as HTMLElement).textContent = 'Copied!';
+        setTimeout(() => { (copyBtn as HTMLElement).textContent = 'Copy'; }, 2000);
+      }
+    }
+  });
+</script>

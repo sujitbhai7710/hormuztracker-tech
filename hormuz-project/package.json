@@ -1,0 +1,25 @@
+{
+  "name": "hormuz-watch",
+  "version": "1.0.0",
+  "description": "Strait of Hormuz Live Tracker — Real-Time Shipping & Oil Crisis Monitor",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.5.4",
+    "@astrojs/svelte": "^8.1.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.3.7",
+    "chart.js": "^4.5.1",
+    "leaflet": "^1.9.4",
+    "svelte": "^5.55.9",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.94.0"
+  }
+}

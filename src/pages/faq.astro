@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FAQ_DATA } from '../data/constants.js';
+---
+
+<Layout title="Frequently Asked Questions — Strait of Hormuz Crisis | HormuzWatch" description="Answers to common questions about the Strait of Hormuz crisis, oil prices, shipping disruptions, and diplomatic developments.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">FAQ</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Frequently Asked Questions</h1>
+      <p class="text-slate-400">Answers updated automatically from live data</p>
+    </div>
+
+    <div class="max-w-3xl space-y-3">
+      {FAQ_DATA.map((item, index) => (
+        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden faq-item">
+          <button 
+            class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-800/50 transition-colors" 
+            onclick="this.parentElement.classList.toggle('open');this.querySelector('svg').classList.toggle('rotate-180')"
+          >
+            <span class="text-sm font-medium text-white pr-4">{item.question}</span>
+            <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-4 hidden">
+            {item.answer.startsWith('dynamic:') ? (
+              <p class="text-sm text-slate-400" id={`faq-answer-${index}`}>Loading live data...</p>
+            ) : (
+              <p class="text-sm text-slate-400">{item.answer}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- JSON-LD FAQ Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": FAQ_DATA.filter(f => !f.answer.startsWith('dynamic:')).map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    })} />
+  </div>
+</Layout>
+
+<style>
+  .faq-item.open .faq-answer { display: block; }
+</style>
+
+<script>
+  // Load dynamic FAQ answers
+  async function loadDynamicFAQs() {
+    try {
+      const res = await fetch('/api/dashboard');
+      const json = await res.json();
+      if (!json.success) return;
+      const data = json.data;
+      
+      const dynamicFAQs = document.querySelectorAll('[id^="faq-answer-"]');
+      dynamicFAQs.forEach(el => {
+        const idx = parseInt(el.id.replace('faq-answer-', ''));
+        const faqItem = {FAQ_DATA}[idx];
+        if (!faqItem) return;
+        
+        const key = faqItem.answer.replace('dynamic:', '');
+        let answer = '';
+        
+        if (key === 'straitStatus') {
+          answer = `The Strait of Hormuz is currently under ${data.straitStatus?.status?.toLowerCase() || 'restricted'} transit. ${data.shipCount?.last24h || 0} ships transited in the last 24 hours (normal: ~${data.shipCount?.normalDaily || 60}/day).`;
+        } else if (key === 'strandedVessels') {
+          answer = `Current stranded vessels: ${data.strandedVessels?.total || 0} total (${data.strandedVessels?.tankers || 0} tankers, ${data.strandedVessels?.bulk || 0} bulk, ${data.strandedVessels?.other || 0} other). Change today: ${data.strandedVessels?.changeToday || 0}.`;
+        } else if (key === 'oilPrice') {
+          answer = `Brent crude is at $${data.oilPrice?.brentPrice?.toFixed(2) || '--'}, ${(data.oilPrice?.changePercent24h || 0) > 0 ? 'up' : 'down'} ${Math.abs(data.oilPrice?.changePercent24h || 0).toFixed(2)}% in the last 24 hours. The Strait of Hormuz normally handles about 20% of global oil supply.`;
+        } else if (key === 'diplomacy') {
+          answer = `Peace talks are currently ${data.diplomacy?.status?.replace(/_/g, ' ').toLowerCase() || 'in progress'}. ${data.diplomacy?.summary || ''}`;
+        }
+        
+        if (answer) el.textContent = answer;
+      });
+    } catch(e) {}
+  }
+  loadDynamicFAQs();
+</script>

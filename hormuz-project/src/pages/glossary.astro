@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { GLOSSARY_DATA } from '../data/constants.js';
+---
+
+<Layout title="Maritime & Energy Glossary | HormuzWatch" description="Comprehensive glossary of maritime, shipping, and energy terms related to the Strait of Hormuz crisis.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Glossary</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Glossary</h1>
+      <p class="text-slate-400">Maritime, shipping, and energy terms used throughout this dashboard</p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
+      {GLOSSARY_DATA.map((item) => (
+        <div class="px-6 py-5 hover:bg-slate-800/50 transition-colors">
+          <dt class="text-base font-semibold text-white mb-2">{item.term}</dt>
+          <dd class="text-sm text-slate-400">{item.definition}</dd>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

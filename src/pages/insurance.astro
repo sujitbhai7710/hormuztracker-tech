@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Insurance — War Risk & Maritime Coverage | HormuzWatch" description="War risk insurance rates and maritime coverage status for the Strait of Hormuz crisis. 16x premium increase affecting global shipping.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <nav class="text-sm text-slate-400 mb-4">
+        <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Insurance</span>
+      </nav>
+      <h1 class="text-3xl font-bold text-white mb-2">Marine Insurance Status</h1>
+      <p class="text-slate-400">War risk insurance rates and maritime coverage during the Strait of Hormuz crisis</p>
+    </div>
+
+    <!-- Current Status -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8" id="insurance-stats">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 glow-red">
+        <div class="text-xs text-slate-400 uppercase tracking-wider mb-2">Risk Level</div>
+        <div class="text-4xl font-bold text-red-400 mb-2" id="ins-level">EXTREME</div>
+        <div class="text-sm text-slate-400">Marine war risk insurance at unprecedented levels</div>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <div class="text-xs text-slate-400 uppercase tracking-wider mb-2">War Risk Premium</div>
+        <div class="text-4xl font-bold text-red-400 mb-2" id="ins-rate">2.4%</div>
+        <div class="text-sm text-slate-400">Of vessel hull value per transit</div>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <div class="text-xs text-slate-400 uppercase tracking-wider mb-2">Premium Multiplier</div>
+        <div class="text-4xl font-bold text-red-400 mb-2" id="ins-mult">16x</div>
+        <div class="text-sm text-slate-400">Compared to normal peace-time rates of 0.15%</div>
+      </div>
+    </div>
+
+    <!-- Premium Comparison -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 mb-8">
+      <h2 class="text-xl font-semibold text-white mb-6">Premium Rate Comparison</h2>
+      <div class="space-y-6">
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <span class="text-slate-400">Normal Rate (Pre-Crisis)</span>
+            <span class="text-green-400 font-medium">0.15%</span>
+          </div>
+          <div class="h-8 bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500/40 rounded-full transition-all duration-1000" style="width: 6.25%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <span class="text-slate-400">Current War Risk Rate</span>
+            <span class="text-red-400 font-medium">2.4%</span>
+          </div>
+          <div class="h-8 bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-red-500/40 rounded-full transition-all duration-1000" style="width: 100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impact Details -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Insurance Withdrawal Impact</h2>
+        <div class="space-y-4 text-sm text-slate-300">
+          <p>Marine war risk insurance has entered unprecedented territory since the Strait of Hormuz closure. Major insurance providers have either withdrawn coverage entirely for vessels transiting the strait or have increased premiums to levels that make commercial transit economically unviable for most operators.</p>
+          <p>The war risk premium of 2.4% represents the cost per transit as a percentage of the vessel's hull value. For a VLCC valued at $100 million, a single transit now costs $2.4 million in war risk insurance alone — compared to just $150,000 under normal conditions. This 16x increase has effectively priced out most commercial shipping from the route.</p>
+          <p>Insurance withdrawal has cascading effects beyond direct costs. Vessels without adequate war risk coverage cannot legally enter many ports, cannot secure cargo contracts, and face potential seizure or denial of entry at destination ports. This creates a self-reinforcing cycle: fewer insured ships transit, which increases the perceived risk, which drives premiums even higher.</p>
+        </div>
+      </div>
+      
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Key Insurance Developments</h2>
+        <div class="space-y-3">
+          <div class="p-3 rounded-lg bg-slate-800/50 flex items-start gap-3">
+            <span class="text-red-400 flex-shrink-0 mt-0.5">⚠</span>
+            <div>
+              <div class="text-sm font-medium text-white">War Risk Premiums Spike</div>
+              <div class="text-xs text-slate-400 mt-1">From 0.125-0.15% to 0.2-2.4% within days of the Strait closure announcement on March 2, 2026.</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-800/50 flex items-start gap-3">
+            <span class="text-red-400 flex-shrink-0 mt-0.5">⚠</span>
+            <div>
+              <div class="text-sm font-medium text-white">Major Underwriters Withdraw</div>
+              <div class="text-xs text-slate-400 mt-1">London market underwriters and P&I clubs withdrew coverage for Hormuz transits effective March 4, 2026.</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-800/50 flex items-start gap-3">
+            <span class="text-orange-400 flex-shrink-0 mt-0.5">⏳</span>
+            <div>
+              <div class="text-sm font-medium text-white">Selective Coverage Available</div>
+              <div class="text-xs text-slate-400 mt-1">Limited coverage available at extremely high rates through specialized war risk markets. Most carriers opting to reroute instead.</div>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-800/50 flex items-start gap-3">
+            <span class="text-yellow-400 flex-shrink-0 mt-0.5">📊</span>
+            <div>
+              <div class="text-sm font-medium text-white">Cascading Cost Impact</div>
+              <div class="text-xs text-slate-400 mt-1">Insurance costs add $1-5M per transit to operating costs, contributing to 280% increase in shipping rates overall.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  async function loadInsuranceData() {
+    try {
+      const res = await fetch('/api/dashboard');
+      const json = await res.json();
+      if (json.success) {
+        const ins = json.data.insurance;
+        const levelEl = document.getElementById('ins-level');
+        const rateEl = document.getElementById('ins-rate');
+        const multEl = document.getElementById('ins-mult');
+        if (levelEl) levelEl.textContent = ins?.level || 'EXTREME';
+        if (rateEl) rateEl.textContent = (ins?.warRiskPercent || 2.4) + '%';
+        if (multEl) multEl.textContent = (ins?.multiplier || 16) + 'x';
+      }
+    } catch(e) {}
+  }
+  loadInsuranceData();
+  setInterval(loadInsuranceData, 60000);
+</script>

@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Methodology — Data Sources & Calculations | HormuzWatch" description="Detailed methodology explanation for HormuzWatch data collection, ship counting, oil price tracking, and crisis severity scoring.">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <nav class="text-sm text-slate-400 mb-6">
+      <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <span class="text-white">Methodology</span>
+    </nav>
+    
+    <h1 class="text-3xl font-bold text-white mb-6">Methodology</h1>
+    
+    <div class="space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Overview</h2>
+        <p class="text-slate-300 leading-relaxed">This dashboard aggregates publicly available data to track the Strait of Hormuz shipping disruption that began February 28, 2026. It is designed as a supply chain monitoring tool for logistics, trade, and energy professionals. All data is provided under CC BY 4.0 license.</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">AIS Ship Count Methodology</h2>
+        <p class="text-slate-300 leading-relaxed mb-3">The ship counter collects live data from AISstream.io via WebSocket. On each request, the system subscribes to a geographic bounding box around the Strait of Hormuz (approximately 25.5°N–27.0°N, 55.5°E–57.0°E), collects vessel position reports for 8 seconds, counts unique MMSI identifiers (vessel IDs), and classifies vessels by type (tanker: ship type 80-89, cargo: 70-79, other). Results are cached for 60 seconds.</p>
+        <div class="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+          <p class="text-sm text-red-300"><strong>Important:</strong> All ship counts are lower bounds. In the current disruption zone, ships routinely disable AIS transponders in high-risk areas. Signal interference in the region is also disrupting AIS data. A count of "~0 ships detected" means zero ships were broadcasting their position — not necessarily that zero ships are present.</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Oil Price Data</h2>
+        <p class="text-slate-300 leading-relaxed">Brent Crude and WTI prices are fetched from oilpriceapi.com every 5 minutes. EU Gas (TTF) and US Gasoline prices are updated manually from public sources. Pre-crisis baseline prices are fixed reference points (Brent: $72.00, WTI: $65.00, TTF: $30.00, Gasoline: $2.97). If the API is unavailable, the dashboard displays the most recent cached price or a manually updated fallback.</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Consumer Impact Estimates</h2>
+        <p class="text-slate-300 leading-relaxed">Consumer price impact projections are illustrative scenarios, not forecasts. They are calculated based on: (1) transit time analysis comparing Hormuz route vs. Cape of Good Hope reroute, (2) historical disruption analogues from the 2021 Suez blockage and 2023-24 Red Sea shipping disruption, (3) commodity input dependencies. Actual impact will vary significantly by retailer, inventory levels, geographic location, and sourcing patterns.</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Crisis Severity Score</h2>
+        <p class="text-slate-300 leading-relaxed">The composite severity score (currently 10/10) is derived from five sub-scores assessed manually: Ship Traffic, Oil Prices, Insurance Status, Carrier Operations, and Security Risk. Each sub-score is rated 1-10 based on the severity indicators described in the dashboard. This is an editorial assessment, not a quantitative model.</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Reroute Cost Calculator</h2>
+        <p class="text-slate-300 leading-relaxed">Route distances and transit times are based on standard shipping route databases. Cost estimates use average VLCC operating costs and bunker fuel prices. Actual costs vary by vessel type, speed, fuel prices, and charter rates. Pipeline capacity figures use nameplate ratings with operational adjustments based on industry reporting.</p>
+      </div>
+    </div>
+  </div>
+</Layout>

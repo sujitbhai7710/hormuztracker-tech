@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  const REGIONS_DETAIL = {
+  'japan': {
+    name: 'Japan',
+    severity: 'CRITICAL',
+    oilDependency: 90,
+    description: 'Japan is among the hardest-hit nations in the Strait of Hormuz crisis, with over 90% of its crude oil imports dependent on the waterway. As an island nation with virtually no domestic oil production, Japan relies almost entirely on maritime imports to fuel its economy — the world\'s fourth-largest.',
+    impact: 'Japanese refineries have reported severe crude shortages, with operating rates dropping to below 60% of capacity. The government has tapped its strategic petroleum reserve and is urgently seeking alternative supply from Russia\'s Far East and US shale exports, but logistics and volume constraints limit how quickly these alternatives can scale. Japan\'s LNG imports, also heavily dependent on Hormuz-transiting Qatar shipments, have been disrupted, forcing power companies to switch to more expensive coal and fuel oil generation. Electricity prices in Tokyo have risen 25% since the crisis began.',
+    economicImpact: 'The Japanese government estimates the crisis is costing the economy approximately ¥3.5 trillion ($23 billion) per month in increased energy costs, supply chain disruptions, and lost industrial output. The yen has weakened significantly against the dollar as the trade deficit widens. Auto manufacturers and electronics firms report production slowdowns due to both energy costs and supply chain disruptions affecting Middle Eastern component suppliers.'
+  },
+  'south-korea': {
+    name: 'South Korea',
+    severity: 'CRITICAL',
+    oilDependency: 80,
+    description: 'South Korea faces severe energy supply disruptions with over 80% of its oil supply transiting through the Strait of Hormuz. As Asia\'s fourth-largest economy and a major manufacturing hub, the crisis threatens both energy security and export competitiveness.',
+    impact: 'South Korean refiners including SK Innovation, GS Caltex, and S-Oil have been forced to curtail processing rates dramatically. Petrochemical margins have collapsed as feedstock costs surge while product demand weakens. The country\'s LNG import bill has ballooned as it competes with Japan and China for limited spot cargoes, with Korean LNG prices hitting record premiums over European benchmarks.',
+    economicImpact: 'The Bank of Korea estimates GDP growth has been reduced by 1.2-1.8 percentage points due to the crisis. Inflation has accelerated to 4.8%, driven primarily by energy costs. The government has implemented fuel subsidies and tax reductions, but fiscal space is limited. Shipbuilding and semiconductor industries, key export sectors, face margin pressure from elevated energy and logistics costs.'
+  },
+  'china': {
+    name: 'China',
+    severity: 'HIGH',
+    oilDependency: 40,
+    description: 'China derives approximately 40% of its crude oil imports from the Strait of Hormuz, making it significantly exposed to the crisis but less acutely than Northeast Asian neighbors. China\'s larger domestic production, strategic reserves, and overland pipeline connections from Russia provide meaningful buffers.',
+    impact: 'Chinese refineries have rerouted some crude procurement to Russian ESPO blend and West African grades, but at premium prices. The Strategic Petroleum Reserve has been partially drawn down to maintain refinery operations. China\'s relationship with Iran adds complexity — Beijing has maintained oil purchases from Iran through informal channels, effectively accepting Tehran\'s terms for safe transit through the strait.',
+    economicImpact: 'The crisis has contributed to a slowdown in Chinese manufacturing PMI, with energy-intensive sectors like steel, aluminum, and chemicals hit hardest. The government has allowed the renminbi to depreciate modestly to support export competitiveness. Beijing is simultaneously positioning itself as a mediator in the conflict while securing its own energy interests through bilateral deals with Iran and Russia.'
+  },
+  'india': {
+    name: 'India',
+    severity: 'HIGH',
+    oilDependency: 60,
+    description: 'India imports approximately 60% of its crude oil through the Strait of Hormuz, making it highly vulnerable to the disruption. As the world\'s third-largest oil consumer with limited domestic production, India faces acute energy security challenges from the crisis.',
+    impact: 'Indian refineries have scrambled to secure alternative crude supplies, turning to the US, West Africa, and Russia. The first LNG shipment to successfully exit the strait under the new transit procedures reached India on May 23, 2026, providing limited relief. Prime Minister Modi has implemented dramatic fuel conservation measures, including shrinking his own security convoy and pushing for accelerated EV adoption.',
+    economicImpact: 'India\'s current account deficit has widened significantly due to the higher import bill for crude oil and LNG. The rupee has come under pressure, and the RBI has intervened in currency markets. Consumer inflation has risen to 5.8%, driven by transport and food costs. The fertilizer sector has been hit particularly hard — urea prices are up 35% in one month — threatening agricultural output and food security for the 2026-2027 growing season.'
+  },
+  'european-union': {
+    name: 'European Union',
+    severity: 'MODERATE',
+    oilDependency: 20,
+    description: 'The European Union has approximately 20% of its LNG and oil supply transiting through the Strait of Hormuz. While significant, this exposure is more manageable than for Asian economies, as Europe has substantially diversified its energy sources since the 2022 Russia-Ukraine crisis.',
+    impact: 'European LNG terminals have been operating at near-full capacity, receiving cargoes from the US, Norway, and North Africa that partially compensate for reduced Qatari supply. However, Mediterranean refineries that process Middle Eastern crude have been forced to curtail operations. TTF gas prices have risen but remain well below the 2022 crisis peaks, reflecting improved supply diversification.',
+    economicImpact: 'The European Central Bank estimates the crisis adds 0.3-0.5 percentage points to Eurozone inflation. Southern European economies with higher energy import dependency — particularly Greece, Italy, and Spain — are more affected than northern members. The crisis has reinforced EU resolve to accelerate renewable energy deployment and reduce fossil fuel import dependency through the REPowerEU plan.'
+  }
+  };
+
+  return Object.entries(REGIONS_DETAIL).map(([slug, data]) => ({
+    params: { region: slug },
+    props: { data }
+  }));
+}
+
+const { data } = Astro.props;
+const severityClass = data.severity === 'CRITICAL' ? 'text-red-400' : data.severity === 'HIGH' ? 'text-orange-400' : 'text-yellow-400';
+---
+
+<Layout title={`${data.name} — Hormuz Crisis Regional Impact | HormuzWatch`} description={`Impact of the Strait of Hormuz crisis on ${data.name}. ${data.oilDependency}% oil dependency, ${data.severity} severity.`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <nav class="text-sm text-slate-400 mb-6">
+      <a href="/" class="hover:text-white">Home</a> <span class="mx-2">›</span> <a href="/regions" class="hover:text-white">Regions</a> <span class="mx-2">›</span> <span class="text-white">{data.name}</span>
+    </nav>
+    
+    <div class="flex items-center gap-4 mb-8">
+      <h1 class="text-3xl font-bold text-white">{data.name}</h1>
+      <span class="px-3 py-1 rounded-full text-sm font-bold border {data.severity === 'CRITICAL' ? 'border-red-500/50 text-red-400 bg-red-500/10' : data.severity === 'HIGH' ? 'border-orange-500/50 text-orange-400 bg-orange-500/10' : 'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'}">
+        {data.severity}
+      </span>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 mb-6">
+      <div class="text-6xl font-bold {severityClass} mb-2">{data.oilDependency}%</div>
+      <div class="text-lg text-slate-400">Oil supply dependent on Strait of Hormuz</div>
+    </div>
+
+    <div class="space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Overview</h2>
+        <p class="text-slate-300 leading-relaxed">{data.description}</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Impact Analysis</h2>
+        <p class="text-slate-300 leading-relaxed">{data.impact}</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold text-white mb-4">Economic Impact</h2>
+        <p class="text-slate-300 leading-relaxed">{data.economicImpact}</p>
+      </div>
+    </div>
+  </div>
+</Layout>
