@@ -68,7 +68,7 @@ let durationHours = $derived(() => {
         <div>
           <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-crisis-red/20 text-crisis-red border border-crisis-red/30 animate-glow-red">
-              {data.straitStatus?.status || 'CLOSED'}
+              {data.straitStatus?.status || 'RESTRICTED'}
             </span>
             <span class="text-sm text-slate-500">Since Feb 28, 2026</span>
           </div>

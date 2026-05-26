@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="LNG Explained — HormuzTracker.tech" description="Why the Strait of Hormuz LNG crisis is the most intractable part of the disruption. No pipeline can carry gas." path="/lng-explained">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div>
+      <a href="/" class="text-xs text-crisis-blue hover:text-crisis-blue/80">← Back to Dashboard</a>
+      <h1 class="text-2xl font-bold text-white mt-2">LNG Explained: The Pipeline Gap</h1>
+      <p class="text-sm text-slate-400 mt-1">Why the LNG crisis is the most intractable aspect of the Hormuz disruption</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black gradient-text-red">25%</div>
+        <div class="text-xs text-slate-500 mt-1">World LNG at Risk</div>
+      </div>
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black gradient-text-gold">~105</div>
+        <div class="text-xs text-slate-500 mt-1">Million Tonnes/Year</div>
+      </div>
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black text-crisis-orange">0</div>
+        <div class="text-xs text-slate-500 mt-1">Pipeline Bypasses</div>
+      </div>
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black text-crisis-amber">$0.85B</div>
+        <div class="text-xs text-slate-500 mt-1">Daily LNG Cost</div>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">The Fundamental Problem: Gas Cannot Be Piped</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">Unlike crude oil, which can be transported through pipelines, railways, and trucks as a liquid at ambient temperature, Liquefied Natural Gas must be cooled to minus 162 degrees Celsius to condense into a liquid for transport by specialized tanker ships. This fundamental physical constraint means there is no pipeline bypass for LNG. While Saudi Arabia can route some crude through the East-West Pipeline to the Red Sea, Qatar — the world's largest LNG exporter — has absolutely no alternative route for its gas exports. Every molecule of Qatari LNG must transit the Strait of Hormuz by ship.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">This makes the LNG dimension of the Hormuz crisis qualitatively different from the crude oil dimension. For oil, there are partial workarounds: pipelines, alternative suppliers, strategic reserves. For LNG, there are none. The only mitigation is to source replacement LNG from other producers — primarily the United States, Australia, and Russia — but these sources are already operating near maximum capacity and cannot fill the gap left by Qatar's 77 million tonnes per year of export capacity.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">QatarEnergy has declared force majeure on numerous LNG delivery contracts, a legal acknowledgment that it cannot fulfill its obligations due to circumstances beyond its control. This has triggered a cascading crisis in gas markets worldwide, with European nations that had been rapidly building LNG import infrastructure to replace Russian pipeline gas now finding their primary alternative source also disrupted.</p>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Qatar's LNG Capacity</h2>
+      <div class="space-y-3">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-white font-medium">Current Export Capacity</span>
+            <span class="text-lg font-bold text-crisis-amber">77 Mt/yr</span>
+          </div>
+          <div class="h-3 bg-ops-800 rounded-full overflow-hidden mt-2">
+            <div class="h-full bg-crisis-amber rounded-full" style="width: 61%"></div>
+          </div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-white font-medium">Planned by 2028 (North Field Expansion)</span>
+            <span class="text-lg font-bold text-crisis-green">126 Mt/yr</span>
+          </div>
+          <div class="h-3 bg-ops-800 rounded-full overflow-hidden mt-2">
+            <div class="h-full bg-crisis-green/50 rounded-full" style="width: 100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

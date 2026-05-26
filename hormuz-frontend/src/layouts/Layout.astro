@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -65,7 +67,7 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
   <div class="bg-crisis-red/10 border-b border-crisis-red/30 px-4 py-1.5 text-center text-sm no-print">
     <span class="inline-flex items-center gap-2">
       <span class="w-2 h-2 rounded-full bg-crisis-red animate-pulse-live"></span>
-      <span class="font-semibold text-crisis-red">STRAIT CLOSED</span>
+      <span class="font-semibold text-crisis-red" id="strait-status-bar">STRAIT RESTRICTED</span>
       <span class="text-slate-400">—</span>
       <span class="text-slate-300">Day {dayNumber} of disruption</span>
       <span class="text-slate-400">|</span>
@@ -102,7 +104,10 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
             </button>
             <div class="absolute right-0 mt-1 w-52 rounded-xl glass-card py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl">
               <a href="/regions" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Regions & Exposure</a>
+              <a href="/exposure" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Trade Exposure</a>
               <a href="/seizures" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Vessel Seizures</a>
+              <a href="/oil-explained" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Oil Explained</a>
+              <a href="/lng-explained" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">LNG Explained</a>
               <a href="/blog" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Analysis Blog</a>
               <a href="/data" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Data & Downloads</a>
               <a href="/embed" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Embed Widgets</a>

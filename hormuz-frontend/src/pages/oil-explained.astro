@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Oil Explained — HormuzTracker.tech" description="Why the Strait of Hormuz matters for global oil markets. Deep analysis of Brent, WTI, and the price transmission chain." path="/oil-explained">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div>
+      <a href="/oil" class="text-xs text-crisis-blue hover:text-crisis-blue/80">← Back to Oil & Energy</a>
+      <h1 class="text-2xl font-bold text-white mt-2">Oil Explained: Why Hormuz Matters</h1>
+      <p class="text-sm text-slate-400 mt-1">A deep dive into the global oil market's most critical chokepoint</p>
+    </div>
+
+    <!-- By the Numbers -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black gradient-text-red">21%</div>
+        <div class="text-xs text-slate-500 mt-1">World Oil at Risk</div>
+      </div>
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black gradient-text-gold">~20M</div>
+        <div class="text-xs text-slate-500 mt-1">Barrels per Day</div>
+      </div>
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black text-crisis-orange">33km</div>
+        <div class="text-xs text-slate-500 mt-1">Narrowest Width</div>
+      </div>
+      <div class="glass-card p-4 text-center card-hover">
+        <div class="text-2xl font-black text-crisis-amber">~60</div>
+        <div class="text-xs text-slate-500 mt-1">Ships per Day (Normal)</div>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">What Makes Hormuz Different</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The Strait of Hormuz is unlike any other chokepoint in the world because of the sheer volume of energy that passes through it daily. At approximately 20-21 million barrels per day — roughly 21% of global petroleum consumption — no other waterway comes close. The Strait of Malacca, the second-busiest chokepoint, handles about 16 million barrels per day but has viable alternative routes through the Lombok and Sunda straits. Hormuz has no such luxury: the combined pipeline bypass capacity is only 7 million barrels per day, leaving a 13 million barrel per day gap with no alternative.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The strait's geography compounds the problem. At its narrowest point between Iran and Oman, the waterway is only 21 nautical miles wide, with just two 2-mile-wide navigation channels for inbound and outbound traffic. This constriction means that even in normal operations, ships must navigate a precise corridor with minimal room for deviation. In a crisis scenario, the combination of military activity, mines, and commercial anxiety can reduce this already limited throughput to a fraction of its normal capacity.</p>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">The Price Transmission Chain</h2>
+      <p class="text-sm text-slate-400 mb-4">How a Hormuz disruption translates to prices at your local pump</p>
+      <div class="space-y-4">
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-crisis-red/20 text-crisis-red text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
+          <div><div class="text-sm font-semibold text-white">Physical Disruption</div><div class="text-xs text-slate-400">Supply of available crude drops sharply as tankers cannot transit</div></div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-crisis-orange/20 text-crisis-orange text-sm font-bold flex items-center justify-center flex-shrink-0">2</div>
+          <div><div class="text-sm font-semibold text-white">Brent Futures Spike</div><div class="text-xs text-slate-400">International benchmark reacts within minutes as traders price in supply shortage</div></div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-crisis-amber/20 text-crisis-amber text-sm font-bold flex items-center justify-center flex-shrink-0">3</div>
+          <div><div class="text-sm font-semibold text-white">Regional Benchmarks Follow</div><div class="text-xs text-slate-400">Dubai, Oman, and other Asian crude benchmarks track Brent upward</div></div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-crisis-blue/20 text-crisis-blue text-sm font-bold flex items-center justify-center flex-shrink-0">4</div>
+          <div><div class="text-sm font-semibold text-white">Refiner Margals Squeeze</div><div class="text-xs text-slate-400">Refineries pay more for feedstock, passing costs to wholesale buyers</div></div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-crisis-green/20 text-crisis-green text-sm font-bold flex items-center justify-center flex-shrink-0">5</div>
+          <div><div class="text-sm font-semibold text-white">Wholesale Prices Rise</div><div class="text-xs text-slate-400">Distributor and retail margins adjust upward within days</div></div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-8 h-8 rounded-full bg-ops-500/20 text-ops-300 text-sm font-bold flex items-center justify-center flex-shrink-0">6</div>
+          <div><div class="text-sm font-semibold text-white">Consumer Impact</div><div class="text-xs text-slate-400">Gasoline, diesel, and heating oil prices rise at the pump within 1-3 weeks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Brent vs WTI: What's the Difference?</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">Brent crude, priced from the North Sea between the UK and Norway, serves as the international benchmark for approximately two-thirds of the world's oil. When Hormuz disruptions occur, Brent reacts first and most violently because it reflects the price of seaborne crude — the very type of oil that would normally transit the strait. WTI (West Texas Intermediate), priced at the Cushing, Oklahoma hub, is more influenced by US domestic supply and demand dynamics. However, in a global market, no benchmark is truly isolated. WTI inevitably follows Brent's direction, though often with a lag and smaller magnitude, reflecting America's position as both a major producer and consumer.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The Brent-WTI spread itself becomes a market signal during Hormuz crises. When Brent rises faster than WTI, it indicates that the international market — particularly Asian buyers dependent on Gulf crude — is bearing the brunt of the disruption. This spread widened dramatically during the current crisis, at times exceeding $10 per barrel, compared to its historical average of $3-5. This divergence creates arbitrage opportunities but also signals the geographic unevenness of the crisis impact: American consumers face price increases, but Asian and European buyers face an existential supply challenge.</p>
+      </div>
+    </div>
+  </div>
+</Layout>
