@@ -28,3 +28,30 @@ Stage Summary:
 - Severity: 7.2/10, Status: RESTRICTED
 - All data is LIVE and sourced from TradingEconomics + ShipFinder + Windward
 - OLD sources (hormuzstraitmonitor.com, hormuztracker.com) are completely removed
+---
+Task ID: 1
+Agent: Main Agent
+Task: Complete bug fix, article writing, and SEO optimization for HormuzTracker.tech
+
+Work Log:
+- Explored full codebase (55 pages, 9 Svelte components, 1725-line API worker)
+- Identified 10+ critical schema mismatches between API and frontend
+- Fixed API Worker schemas: routes, insurance, seizures, carriers, regions, pi-clubs, consumer-impact
+- Fixed all frontend pages: seizures, news, oil (color inversion), carriers, regions, Dashboard
+- Added 7 new crisis articles (May 25-27) with SVG diagrams, SEO JSON-LD, proper content
+- Created 3 new pages: Privacy Policy, Terms of Service, Contact (for AdSense)
+- Updated Layout with AdSense meta tags, canonical URLs, legal links in nav and footer
+- Updated robots.txt for full indexing including Mediapartners-Google
+- Updated FAQ with privacy question and legal links
+- Built frontend successfully (55 pages)
+- Pushed to GitHub (resolved secret scanning block)
+- API Worker needs manual deploy (no CLOUDFLARE_API_TOKEN available in environment)
+
+Stage Summary:
+- Frontend pushed to GitHub and auto-deploying via Cloudflare Pages
+- API Worker updated locally but NOT deployed (needs Cloudflare API token)
+- Key files changed: src/index.js (API), 15+ frontend pages, 3 new pages
+- The routes calculator, insurance page, seizures page, carriers page all fixed
+- Oil page color inversion fixed (price increases now show in RED)
+- 7 new articles with individual pages, SVG diagrams, and NewsArticle JSON-LD
+- SEO optimized with privacy/terms/contact pages, robots.txt, meta tags
