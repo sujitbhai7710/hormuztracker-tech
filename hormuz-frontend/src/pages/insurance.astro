@@ -138,24 +138,45 @@ import Layout from '../layouts/Layout.astro';
 
   <script>
     const API = 'https://hormuz-api.tradesapi.workers.dev';
+    const FALLBACK_INS = {
+      level: 'EXTREME', warRiskPercent: 3.5, normalPercent: 0.15, multiplier: 23,
+      piClubs: [
+        { name: 'NorthStandard', status: 'CANCELLED', date: 'Mar 10, 2026', premiumBefore: '0.15%', premiumCurrent: '3.5%' },
+        { name: 'Britannia', status: 'CANCELLED', date: 'Mar 11, 2026', premiumBefore: '0.15%', premiumCurrent: '3.2%' },
+        { name: 'Gard', status: 'CANCELLED', date: 'Mar 10, 2026', premiumBefore: '0.15%', premiumCurrent: '3.0%' },
+        { name: 'Skuld', status: 'CANCELLED', date: 'Mar 12, 2026', premiumBefore: '0.15%', premiumCurrent: '3.3%' },
+        { name: 'West of England', status: 'CANCELLED', date: 'Mar 11, 2026', premiumBefore: '0.15%', premiumCurrent: '3.5%' },
+        { name: 'UK P&I', status: 'CANCELLED', date: 'Mar 10, 2026', premiumBefore: '0.15%', premiumCurrent: '3.1%' },
+      ]
+    };
+
     async function loadInsurance() {
+      let ins;
       try {
-        const ins = await fetch(`${API}/api/insurance`).then(r => r.json());
-        document.getElementById('risk-level').textContent = ins.level || 'EXTREME';
-        document.getElementById('war-risk').textContent = (ins.warRiskPercent || 3) + '%';
-        document.getElementById('war-risk-normal').textContent = 'Normal: ' + (ins.normalPercent || 0.15) + '%';
-        document.getElementById('multiplier').textContent = (ins.multiplier || 20) + 'x';
+        const res = await fetch(`${API}/api/insurance`);
+        ins = await res.json();
+        if (!ins || !ins.level) ins = FALLBACK_INS;
+      } catch (e) {
+        console.error('Insurance API failed, using fallback:', e);
+        ins = FALLBACK_INS;
+      }
 
-        // Premium bars
-        const normalPct = ins.normalPercent || 0.15;
-        const currentPct = ins.warRiskPercent || 3;
-        document.getElementById('bar-normal').style.height = (normalPct / currentPct * 100) + '%';
-        document.getElementById('bar-current').style.height = '100%';
-        document.getElementById('bar-normal-val').textContent = normalPct + '%';
-        document.getElementById('bar-current-val').textContent = currentPct + '%';
+      document.getElementById('risk-level').textContent = ins.level || 'EXTREME';
+      document.getElementById('war-risk').textContent = (ins.warRiskPercent || 3.5) + '%';
+      document.getElementById('war-risk-normal').textContent = 'Normal: ' + (ins.normalPercent || 0.15) + '%';
+      document.getElementById('multiplier').textContent = (ins.multiplier || 23) + 'x';
 
-        // P&I table
-        const clubs = ins.piClubs || [];
+      // Premium bars
+      const normalPct = ins.normalPercent || 0.15;
+      const currentPct = ins.warRiskPercent || 3.5;
+      document.getElementById('bar-normal').style.height = Math.max(normalPct / currentPct * 100, 2) + '%';
+      document.getElementById('bar-current').style.height = '100%';
+      document.getElementById('bar-normal-val').textContent = normalPct + '%';
+      document.getElementById('bar-current-val').textContent = currentPct + '%';
+
+      // P&I table
+      const clubs = ins.piClubs || [];
+      if (clubs.length > 0) {
         document.getElementById('pi-table').innerHTML = clubs.map(c => `
           <tr class="border-b border-ops-800/50">
             <td class="py-2 text-white font-medium">${c.name}</td>
@@ -165,54 +186,47 @@ import Layout from '../layouts/Layout.astro';
             <td class="text-right text-crisis-red font-bold">${c.premiumCurrent}</td>
           </tr>
         `).join('');
+      }
 
-        // P&I Club Badges
-        const badgeClubs = clubs.length > 0 ? clubs : [
-          { name: 'NorthStandard', status: 'Cancelled' },
-          { name: 'Britannia', status: 'Cancelled' },
-          { name: 'Gard', status: 'Cancelled' },
-          { name: 'Skuld', status: 'Cancelled' },
-          { name: 'West of England', status: 'Cancelled' },
-          { name: 'UK P&I', status: 'Cancelled' },
-        ];
-        document.getElementById('pi-badges').innerHTML = badgeClubs.map(c => `
-          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/30 text-center">
-            <div class="text-xs font-bold text-white mb-2">${c.name}</div>
-            <span class="px-2 py-1 rounded text-[10px] font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30">${c.status || 'Cancelled'}</span>
+      // P&I Club Badges
+      const badgeClubs = clubs.length > 0 ? clubs : FALLBACK_INS.piClubs;
+      document.getElementById('pi-badges').innerHTML = badgeClubs.map(c => `
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/30 text-center">
+          <div class="text-xs font-bold text-white mb-2">${c.name}</div>
+          <span class="px-2 py-1 rounded text-[10px] font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30">${c.status || 'Cancelled'}</span>
+        </div>
+      `).join('');
+
+      // Premium range visualization (calculated from live data)
+      const wp = currentPct / 100;
+      const np = normalPct / 100;
+      const vesselTypes = [
+        { name: 'VLCC', hull: 100, preCost: Math.round(100000000 * np / 1000), curCost: Math.round(100000000 * wp / 1000), color: 'from-crisis-red to-crisis-orange' },
+        { name: 'Container Ship', hull: 50, preCost: Math.round(50000000 * np / 1000), curCost: Math.round(50000000 * wp / 1000), color: 'from-crisis-orange to-crisis-amber' },
+        { name: 'LNG Carrier', hull: 120, preCost: Math.round(120000000 * np / 1000), curCost: Math.round(120000000 * wp / 1000), color: 'from-crisis-red to-crisis-red' },
+        { name: 'Suezmax', hull: 75, preCost: Math.round(75000000 * np / 1000), curCost: Math.round(75000000 * wp / 1000), color: 'from-crisis-amber to-crisis-orange' },
+      ];
+      const maxCost = Math.max(...vesselTypes.map(v => v.curCost));
+      document.getElementById('premium-ranges').innerHTML = vesselTypes.map(v => `
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-300">${v.name} ($${v.hull}M hull)</span>
+            <span class="text-crisis-red font-bold font-mono">$${v.preCost}K → $${v.curCost >= 1000 ? (v.curCost/1000).toFixed(1) + 'M' : v.curCost + 'K'}</span>
           </div>
-        `).join('');
-
-        // Premium range visualization
-        const vesselTypes = [
-          { name: 'VLCC', hull: 100, preCost: 125, curCost: 2500, color: 'from-crisis-red to-crisis-orange' },
-          { name: 'Container Ship', hull: 50, preCost: 63, curCost: 1250, color: 'from-crisis-orange to-crisis-amber' },
-          { name: 'LNG Carrier', hull: 120, preCost: 150, curCost: 3000, color: 'from-crisis-red to-crisis-red' },
-          { name: 'Suezmax', hull: 75, preCost: 94, curCost: 1875, color: 'from-crisis-amber to-crisis-orange' },
-        ];
-        const maxCost = 3000;
-        document.getElementById('premium-ranges').innerHTML = vesselTypes.map(v => `
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span class="text-slate-300">${v.name} ($${v.hull}M hull)</span>
-              <span class="text-crisis-red font-bold font-mono">$${v.preCost}K → $${v.curCost >= 1000 ? (v.curCost/1000).toFixed(1) + 'M' : v.curCost + 'K'}</span>
-            </div>
-            <div class="h-5 bg-ops-800 rounded-full overflow-hidden relative">
-              <div class="h-full bg-crisis-green/40 rounded-full absolute left-0" style="width: ${(v.preCost / maxCost * 100)}%"></div>
-              <div class="h-full bg-gradient-to-r ${v.color} rounded-full absolute left-0" style="width: ${(v.curCost / maxCost * 100)}%"></div>
-            </div>
+          <div class="h-5 bg-ops-800 rounded-full overflow-hidden relative">
+            <div class="h-full bg-crisis-green/40 rounded-full absolute left-0" style="width: ${(v.preCost / maxCost * 100)}%"></div>
+            <div class="h-full bg-gradient-to-r ${v.color} rounded-full absolute left-0" style="width: ${(v.curCost / maxCost * 100)}%"></div>
           </div>
-        `).join('');
+        </div>
+      `).join('');
 
-        // Cost calculator
-        const wp = currentPct / 100;
-        const np = normalPct / 100;
-        document.getElementById('vlcc-pre').textContent = '$' + (100000000 * np / 1000).toFixed(0) + 'K';
-        document.getElementById('vlcc-cur').textContent = '$' + (100000000 * wp / 1000000).toFixed(1) + 'M';
-        document.getElementById('container-pre').textContent = '$' + (50000000 * np / 1000).toFixed(0) + 'K';
-        document.getElementById('container-cur').textContent = '$' + (50000000 * wp / 1000000).toFixed(1) + 'M';
-        document.getElementById('lng-pre').textContent = '$' + (120000000 * np / 1000).toFixed(0) + 'K';
-        document.getElementById('lng-cur').textContent = '$' + (120000000 * wp / 1000000).toFixed(1) + 'M';
-      } catch (e) { console.error('Insurance load failed:', e); }
+      // Cost calculator
+      document.getElementById('vlcc-pre').textContent = '$' + (100000000 * np / 1000).toFixed(0) + 'K';
+      document.getElementById('vlcc-cur').textContent = '$' + (100000000 * wp / 1000000).toFixed(1) + 'M';
+      document.getElementById('container-pre').textContent = '$' + (50000000 * np / 1000).toFixed(0) + 'K';
+      document.getElementById('container-cur').textContent = '$' + (50000000 * wp / 1000000).toFixed(1) + 'M';
+      document.getElementById('lng-pre').textContent = '$' + (120000000 * np / 1000).toFixed(0) + 'K';
+      document.getElementById('lng-cur').textContent = '$' + (120000000 * wp / 1000000).toFixed(1) + 'M';
     }
     loadInsurance();
   </script>

@@ -132,67 +132,98 @@ import Layout from '../layouts/Layout.astro';
 
   <script>
     const API = 'https://hormuz-api.tradesapi.workers.dev';
+    const FALLBACK_ROUTES = [
+      { name: 'Gulf → East Asia (China/Japan/Korea)', normalDays: 18, capeDays: 32, extraDays: 14, normalNm: 6400, capeNm: 11500, extraDistance: 5100, extraCostPerVessel: 650000, status: 'RESTRICTED' },
+      { name: 'Gulf → Europe (Rotterdam)', normalDays: 15, capeDays: 27, extraDays: 12, normalNm: 5500, capeNm: 10200, extraDistance: 4700, extraCostPerVessel: 550000, status: 'RESTRICTED' },
+      { name: 'Gulf → India', normalDays: 5, capeDays: 17, extraDays: 12, normalNm: 1500, capeNm: 5800, extraDistance: 4300, extraCostPerVessel: 500000, status: 'RESTRICTED' },
+      { name: 'Gulf → Singapore', normalDays: 8, capeDays: 21, extraDays: 13, normalNm: 2900, capeNm: 7500, extraDistance: 4600, extraCostPerVessel: 580000, status: 'RESTRICTED' },
+      { name: 'Gulf → US Gulf (via Cape)', normalDays: 22, capeDays: 35, extraDays: 13, normalNm: 8000, capeNm: 12500, extraDistance: 4500, extraCostPerVessel: 700000, status: 'RESTRICTED' },
+      { name: 'Saudi Petroline → Red Sea', normalDays: 0, capeDays: 0, extraDays: 0, normalNm: 0, capeNm: 0, extraDistance: 0, extraCostPerVessel: 0, status: 'PIPELINE' },
+      { name: 'UAE ADCOP → Fujairah', normalDays: 0, capeDays: 0, extraDays: 0, normalNm: 0, capeNm: 0, extraDistance: 0, extraCostPerVessel: 0, status: 'PIPELINE' },
+    ];
     let routes = [];
+
+    function getStatusClass(status) {
+      if (status === 'CLOSED') return 'text-crisis-red bg-crisis-red/10';
+      if (status === 'RESTRICTED') return 'text-crisis-orange bg-crisis-orange/10';
+      if (status === 'PIPELINE') return 'text-crisis-green bg-crisis-green/10';
+      return 'text-crisis-amber bg-crisis-amber/10';
+    }
 
     async function loadRoutes() {
       try {
-        routes = await fetch(`${API}/api/routes`).then(r => r.json());
-        const sel = document.getElementById('route-select');
-        const tbody = document.getElementById('route-tbody');
+        const res = await fetch(`${API}/api/routes`);
+        routes = await res.json();
+        if (!Array.isArray(routes) || routes.length === 0) routes = FALLBACK_ROUTES;
+      } catch (e) {
+        console.error('Routes API failed, using fallback:', e);
+        routes = FALLBACK_ROUTES;
+      }
 
-        routes.forEach((r, i) => {
-          const opt = document.createElement('option');
-          opt.value = i; opt.textContent = r.name;
-          sel.appendChild(opt);
+      const sel = document.getElementById('route-select');
+      const tbody = document.getElementById('route-tbody');
 
-          const statusClass = r.status === 'CLOSED' ? 'text-crisis-red bg-crisis-red/10' : 'text-crisis-amber bg-crisis-amber/10';
-          tbody.innerHTML += `<tr class="border-b border-ops-800/50">
-            <td class="py-2 text-white font-medium">${r.name}</td>
-            <td class="text-right text-slate-400">${r.normalDays}d</td>
-            <td class="text-right text-slate-400">${r.capeDays}d</td>
-            <td class="text-right text-crisis-orange font-bold">+${r.extraDays}d</td>
-            <td class="text-right text-crisis-red font-bold">+$${(r.extraCostPerVessel/1000).toFixed(0)}K</td>
-            <td class="text-right"><span class="px-2 py-0.5 rounded text-xs ${statusClass}">${r.status}</span></td>
-          </tr>`;
-        });
+      // Only add sea routes to the calculator dropdown
+      const seaRoutes = routes.filter(r => r.status !== 'PIPELINE' && r.extraDays > 0);
+      seaRoutes.forEach((r, i) => {
+        const opt = document.createElement('option');
+        opt.value = i; opt.textContent = r.name;
+        sel.appendChild(opt);
+      });
 
-        // Route summary
-        document.getElementById('route-summary').innerHTML = routes.slice(0, 5).map(r => `
-          <div class="bg-ops-900/50 rounded-lg p-3 border border-ops-700/30 flex justify-between items-center">
-            <div>
-              <div class="text-sm font-medium text-white">${r.name}</div>
-              <div class="text-xs text-slate-500">+${r.extraDays} days · +${(r.extraDistance || 0).toLocaleString()} nm</div>
-            </div>
-            <div class="text-right">
-              <div class="text-sm font-bold text-crisis-red">+$${(r.extraCostPerVessel/1000).toFixed(0)}K</div>
-              <div class="text-[10px] text-slate-500">per vessel</div>
-            </div>
+      // Add all routes to the table
+      routes.forEach(r => {
+        const statusClass = getStatusClass(r.status);
+        const extraDaysStr = r.extraDays > 0 ? `+${r.extraDays}d` : '—';
+        const extraCostStr = r.extraCostPerVessel > 0 ? `+$${(r.extraCostPerVessel/1000).toFixed(0)}K` : '—';
+        tbody.innerHTML += `<tr class="border-b border-ops-800/50">
+          <td class="py-2 text-white font-medium">${r.name}</td>
+          <td class="text-right text-slate-400">${r.normalDays > 0 ? r.normalDays + 'd' : '—'}</td>
+          <td class="text-right text-slate-400">${r.capeDays > 0 ? r.capeDays + 'd' : '—'}</td>
+          <td class="text-right ${r.extraDays > 0 ? 'text-crisis-orange font-bold' : 'text-slate-500'}">${extraDaysStr}</td>
+          <td class="text-right ${r.extraCostPerVessel > 0 ? 'text-crisis-red font-bold' : 'text-slate-500'}">${extraCostStr}</td>
+          <td class="text-right"><span class="px-2 py-0.5 rounded text-xs ${statusClass}">${r.status}</span></td>
+        </tr>`;
+      });
+
+      // Route summary - only sea routes
+      document.getElementById('route-summary').innerHTML = seaRoutes.slice(0, 5).map(r => `
+        <div class="bg-ops-900/50 rounded-lg p-3 border border-ops-700/30 flex justify-between items-center">
+          <div>
+            <div class="text-sm font-medium text-white">${r.name}</div>
+            <div class="text-xs text-slate-500">+${r.extraDays} days · +${(r.extraDistance || 0).toLocaleString()} nm</div>
           </div>
-        `).join('');
+          <div class="text-right">
+            <div class="text-sm font-bold text-crisis-red">+$${(r.extraCostPerVessel/1000).toFixed(0)}K</div>
+            <div class="text-[10px] text-slate-500">per vessel</div>
+          </div>
+        </div>
+      `).join('');
 
-        // Calculator
-        function calculateRoute() {
-          const r = routes[sel.value];
-          if (!r) return;
-          const vessels = parseInt(document.getElementById('vessel-count').value) || 1;
-          const totalExtra = r.extraCostPerVessel * vessels;
-          document.getElementById('route-result').innerHTML = `
-            <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 space-y-3">
-              <div class="flex justify-between"><span class="text-xs text-slate-500">Normal Route</span><span class="text-sm text-white font-bold">${r.normalDays} days / ${r.normalNm?.toLocaleString() || '—'} nm</span></div>
-              <div class="flex justify-between"><span class="text-xs text-slate-500">Via Cape</span><span class="text-sm text-white font-bold">${r.capeDays} days / ${r.capeNm?.toLocaleString() || '—'} nm</span></div>
-              <hr class="border-ops-700/50">
-              <div class="flex justify-between"><span class="text-xs text-slate-500">Extra Days</span><span class="text-sm text-crisis-orange font-bold">+${r.extraDays} days</span></div>
-              <div class="flex justify-between"><span class="text-xs text-slate-500">Extra Distance</span><span class="text-sm text-crisis-orange font-bold">+${r.extraDistance?.toLocaleString() || '—'} nm</span></div>
-              <div class="flex justify-between"><span class="text-xs text-slate-500">Extra Cost per Vessel</span><span class="text-sm text-crisis-red font-bold">+$${(r.extraCostPerVessel/1000).toFixed(0)}K</span></div>
-              ${vessels > 1 ? `<hr class="border-ops-700/50"><div class="flex justify-between"><span class="text-xs text-slate-500">Total (${vessels} vessels)</span><span class="text-lg text-crisis-red font-black">+$${(totalExtra/1000000).toFixed(2)}M</span></div>` : ''}
-            </div>`;
-        }
+      // Calculator
+      function calculateRoute() {
+        const idx = parseInt(sel.value);
+        const r = seaRoutes[idx];
+        if (!r) return;
+        const vessels = parseInt(document.getElementById('vessel-count').value) || 1;
+        const totalExtra = r.extraCostPerVessel * vessels;
+        document.getElementById('route-result').innerHTML = `
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 space-y-3">
+            <div class="flex justify-between"><span class="text-xs text-slate-500">Normal Route</span><span class="text-sm text-white font-bold">${r.normalDays} days / ${r.normalNm?.toLocaleString() || '—'} nm</span></div>
+            <div class="flex justify-between"><span class="text-xs text-slate-500">Via Cape of Good Hope</span><span class="text-sm text-white font-bold">${r.capeDays} days / ${r.capeNm?.toLocaleString() || '—'} nm</span></div>
+            <hr class="border-ops-700/50">
+            <div class="flex justify-between"><span class="text-xs text-slate-500">Extra Days</span><span class="text-sm text-crisis-orange font-bold">+${r.extraDays} days</span></div>
+            <div class="flex justify-between"><span class="text-xs text-slate-500">Extra Distance</span><span class="text-sm text-crisis-orange font-bold">+${r.extraDistance?.toLocaleString() || '—'} nm</span></div>
+            <div class="flex justify-between"><span class="text-xs text-slate-500">Extra Cost per Vessel</span><span class="text-sm text-crisis-red font-bold">+$${(r.extraCostPerVessel/1000).toFixed(0)}K</span></div>
+            ${vessels > 1 ? `<hr class="border-ops-700/50"><div class="flex justify-between"><span class="text-xs text-slate-500">Total Extra Cost (${vessels} vessels)</span><span class="text-lg text-crisis-red font-black">+$${(totalExtra/1000000).toFixed(2)}M</span></div>` : ''}
+            <div class="text-[10px] text-slate-600 mt-2">*Estimates based on current market rates. Actual costs vary by vessel size, fuel price, and port charges.</div>
+          </div>`;
+      }
 
-        sel.addEventListener('change', calculateRoute);
-        document.getElementById('vessel-count').addEventListener('input', calculateRoute);
-        document.getElementById('calc-route-btn').addEventListener('click', calculateRoute);
-        calculateRoute();
-      } catch (e) { console.error('Routes load failed:', e); }
+      sel.addEventListener('change', calculateRoute);
+      document.getElementById('vessel-count').addEventListener('input', calculateRoute);
+      document.getElementById('calc-route-btn').addEventListener('click', calculateRoute);
+      if (seaRoutes.length > 0) calculateRoute();
     }
     loadRoutes();
   </script>

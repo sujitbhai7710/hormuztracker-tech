@@ -31,10 +31,13 @@ function isActive(href: string): string {
   <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring, Hormuz tracker, Strait closure" />
   <meta name="author" content="HormuzTracker.tech" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
+  <!-- Google AdSense placeholder - replace with your publisher ID -->
+  <!-- <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" /> -->
   <meta name="theme-color" content="#0a1628" />
 
   <link rel="canonical" href={`https://hormuztracker.tech${path}`} />
+  <meta name="date" content={new Date().toISOString().split('T')[0]} />
+  <meta name="last-modified" content={new Date().toISOString().split('T')[0]} />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="HormuzTracker.tech RSS Feed" href="/rss.xml" />
@@ -78,7 +81,12 @@ function isActive(href: string): string {
       "url": "https://hormuztracker.tech",
       "logo": "https://hormuztracker.tech/favicon.svg"
     },
-    "sameAs": []
+    "sameAs": [],
+    "potentialAction": {
+      "@type": "ViewAction",
+      "target": "https://hormuztracker.tech",
+      "name": "View Live Crisis Dashboard"
+    }
   })} />
 
   <!-- JSON-LD: BreadcrumbList -->

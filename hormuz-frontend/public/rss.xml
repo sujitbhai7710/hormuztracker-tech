@@ -2,59 +2,90 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <channel>
     <title>HormuzTracker.tech — Strait of Hormuz Crisis Monitor</title>
-    <link>https://hormuztracker-tech.pages.dev</link>
+    <link>https://hormuztracker.tech</link>
     <description>Real-time Strait of Hormuz monitoring. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 26 May 2026 00:00:00 GMT</lastBuildDate>
-    <atom:link href="https://hormuztracker-tech.pages.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Tue, 27 May 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://hormuztracker.tech/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Strait of Hormuz Crisis — Day 87: Restricted Passage Continues</title>
-      <link>https://hormuztracker-tech.pages.dev/</link>
-      <description>The Strait of Hormuz remains restricted to commercial shipping. Brent crude holds above $116 as the crisis enters its 87th day. 9/9 major carriers suspended, P&amp;I clubs withdrawn.</description>
-      <pubDate>Mon, 26 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/</guid>
+      <title>US Strikes Iranian Missile Sites Near Hormuz in Defensive Operation</title>
+      <link>https://hormuztracker.tech/blog/us-strikes-iranian-missile-sites-may27</link>
+      <description>CENTCOM confirms precision strikes on Qeshm Island targets and IRGC mine-laying vessels near the Strait of Hormuz. Operation Sentinel Strike deployed 14 precision-guided munitions.</description>
+      <pubDate>Tue, 27 May 2026 03:47:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/us-strikes-iranian-missile-sites-may27</guid>
+      <category>Military</category>
     </item>
     <item>
-      <title>Beijing Summit: China Proposes Multi-Party Security Framework</title>
-      <link>https://hormuztracker-tech.pages.dev/news</link>
-      <description>Chinese Foreign Minister presents comprehensive security framework involving Gulf states and Iran for safe passage through the Strait.</description>
-      <pubDate>Sun, 25 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/news</guid>
+      <title>Ceasefire Framework Emerges After Beijing-Mediated Marathon Talks</title>
+      <link>https://hormuztracker.tech/blog/ceasefire-framework-emerges-may26</link>
+      <description>China brokers 60-day truce extension framework between US and Iran, with phased strait reopening and sanctions relief as key provisions.</description>
+      <pubDate>Mon, 26 May 2026 08:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/ceasefire-framework-emerges-may26</guid>
+      <category>Diplomacy</category>
     </item>
     <item>
-      <title>Oil Prices Surge: Brent Crude Holds Above $116</title>
-      <link>https://hormuztracker-tech.pages.dev/oil</link>
-      <description>Brent crude remains elevated at $116.73, up 56% from pre-crisis levels of $74.50. WTI, TTF, and gasoline prices all significantly higher.</description>
-      <pubDate>Sat, 24 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/oil</guid>
+      <title>Brent Surges Past $102 as Military Strikes Dampen Peace Deal Hopes</title>
+      <link>https://hormuztracker.tech/blog/oil-prices-surge-may26</link>
+      <description>Oil prices spike 2.7% in a single session as US military strikes interrupt diplomatic progress, with analysts warning of further escalation premium.</description>
+      <pubDate>Mon, 26 May 2026 16:30:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/oil-prices-surge-may26</guid>
+      <category>Economic</category>
     </item>
     <item>
-      <title>All Major Shipping Carriers Suspend Hormuz Transit</title>
-      <link>https://hormuztracker-tech.pages.dev/carriers</link>
-      <description>9 out of 9 major container shipping lines have suspended transits through the Strait of Hormuz. Emergency surcharges of $1,500-$4,000 per TEU in effect.</description>
-      <pubDate>Fri, 23 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/carriers</guid>
+      <title>Three Vessels Cross Hormuz Under Diplomatic Escort as Talks Continue</title>
+      <link>https://hormuztracker.tech/blog/three-vessels-cross-hormuz-may26</link>
+      <description>Two LNG carriers and one oil tanker pass through the strait in the first commercial transit in 72 hours, escorted by international naval vessels.</description>
+      <pubDate>Mon, 26 May 2026 10:15:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/three-vessels-cross-hormuz-may26</guid>
+      <category>Diplomacy</category>
     </item>
     <item>
-      <title>P&amp;I Insurance Withdrawn: All Major Clubs Cancel Coverage</title>
-      <link>https://hormuztracker-tech.pages.dev/insurance</link>
-      <description>All six major Protection and Indemnity clubs have cancelled Hormuz transit coverage. War risk premiums have increased from 0.125% to over 1.2%.</description>
-      <pubDate>Thu, 22 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/insurance</guid>
+      <title>India Declares Fuel Emergency as Reserve Levels Hit Critical Threshold</title>
+      <link>https://hormuztracker.tech/blog/india-fuel-crisis-may25</link>
+      <description>The Indian government activates emergency fuel rationing protocols as strategic petroleum reserves fall below 15 days of coverage for the first time.</description>
+      <pubDate>Sun, 25 May 2026 06:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/india-fuel-crisis-may25</guid>
+      <category>Economic</category>
     </item>
     <item>
-      <title>Consumer Impact: How Much More Are You Paying?</title>
-      <link>https://hormuztracker-tech.pages.dev/gas-prices</link>
-      <description>US gasoline prices up 38.7% from pre-crisis levels. Use our Consumer Impact Calculator to see how the Hormuz crisis affects your wallet.</description>
-      <pubDate>Wed, 21 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/gas-prices</guid>
+      <title>EU Gas Prices Hit Record as Qatar Force Majeure Enters Third Month</title>
+      <link>https://hormuztracker.tech/blog/eu-gas-prices-record-may25</link>
+      <description>TTF gas futures surge to all-time highs as European utilities scramble for alternative LNG supplies amid prolonged Qatar export disruption.</description>
+      <pubDate>Sun, 25 May 2026 14:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/eu-gas-prices-record-may25</guid>
+      <category>Economic</category>
     </item>
     <item>
-      <title>Historical Comparison: How Does This Crisis Stack Up?</title>
-      <link>https://hormuztracker-tech.pages.dev/historical</link>
-      <description>From the 1973 OPEC embargo to the 2024 Red Sea disruption, we compare the current Hormuz crisis to major historical oil supply disruptions.</description>
-      <pubDate>Tue, 20 May 2026 00:00:00 GMT</pubDate>
-      <guid>https://hormuztracker-tech.pages.dev/historical</guid>
+      <title>US Naval Escort Operation Completes Fifth Convoy Through Hormuz</title>
+      <link>https://hormuztracker.tech/blog/us-naval-convoy-may25</link>
+      <description>Operation Freedom of Navigation escorts its fifth convoy of commercial vessels through the Strait of Hormuz amid ongoing security threats.</description>
+      <pubDate>Sun, 25 May 2026 09:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/us-naval-convoy-may25</guid>
+      <category>Military</category>
+    </item>
+    <item>
+      <title>Beijing Summit: Can China Broker a Deal?</title>
+      <link>https://hormuztracker.tech/blog/beijing-summit</link>
+      <description>China's emergency summit brings together Iran, Saudi Arabia, UAE, and Oman for 48-hour continuous negotiations on strait reopening.</description>
+      <pubDate>Sat, 24 May 2026 12:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/beijing-summit</guid>
+      <category>Diplomacy</category>
+    </item>
+    <item>
+      <title>Iran's Safe Transit Proposal: Genuine or Stalling?</title>
+      <link>https://hormuztracker.tech/blog/iran-safe-transit</link>
+      <description>Iran's proposed safe transit corridor comes with conditions that make acceptance unlikely, according to Western diplomatic sources.</description>
+      <pubDate>Mon, 18 May 2026 10:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/iran-safe-transit</guid>
+      <category>Analysis</category>
+    </item>
+    <item>
+      <title>Operation Freedom of Navigation: The Naval Escort Mission</title>
+      <link>https://hormuztracker.tech/blog/project-freedom</link>
+      <description>The US-led naval escort operation has completed three convoy transits through the Strait of Hormuz amid escalating regional tensions.</description>
+      <pubDate>Mon, 12 May 2026 08:00:00 GMT</pubDate>
+      <guid>https://hormuztracker.tech/blog/project-freedom</guid>
+      <category>Military</category>
     </item>
   </channel>
 </rss>
