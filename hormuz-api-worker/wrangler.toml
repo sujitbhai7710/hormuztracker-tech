@@ -5,6 +5,8 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 ENVIRONMENT = "production"
+GITHUB_REPO = "sujitbhai7710/hormuztracker-tech"
+GITHUB_BRANCH = "main"
 
 [[kv_namespaces]]
 binding = "DATA_CACHE"
