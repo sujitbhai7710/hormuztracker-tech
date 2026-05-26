@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const TERMS = [
+  { term: 'AIS', definition: 'Automatic Identification System — a tracking system used on ships and by vessel traffic services to identify and locate vessels by exchanging electronic data with nearby ships, AIS base stations, and satellites.' },
+  { term: 'Aframax', definition: 'A tanker of 80,000-120,000 DWT. The name derives from the Average Freight Rate Assessment (AFRA) system. Aframax tankers are typically used for short- to medium-haul crude oil transport.' },
+  { term: 'Bab el-Mandeb', definition: 'The "Gate of Tears" — a strait between Yemen and Djibouti/Eritrea connecting the Red Sea to the Gulf of Aden. Another critical chokepoint that affects Suez Canal traffic.' },
+  { term: 'Barrel (bbl)', definition: 'A unit of volume equal to 42 US gallons or approximately 159 liters. The standard unit for measuring oil production and trade volumes.' },
+  { term: 'Brent Crude', definition: 'A light sweet crude oil that serves as the international benchmark for two-thirds of the world\'s oil pricing. Extracted from the North Sea between the UK and Norway.' },
+  { term: 'Bunkering', definition: 'The supply of fuel (bunker fuel) for use by ships. Major bunkering ports include Singapore, Fujairah, and Rotterdam.' },
+  { term: 'Cape of Good Hope', definition: 'The southern tip of Africa, the alternative route when the Suez Canal or Strait of Hormuz is impassable. Adds 12-14 days to a typical Gulf-to-Europe voyage.' },
+  { term: 'Chokepoint', definition: 'A narrow passage through which vital maritime trade must pass. The world\'s major oil chokepoints include Hormuz, Malacca, Suez, Bab el-Mandeb, and the Turkish Straits.' },
+  { term: 'DWT', definition: 'Deadweight tonnage — the total carrying capacity of a ship, including cargo, fuel, provisions, and crew. The standard measure of tanker size.' },
+  { term: 'ESPO Pipeline', definition: 'Eastern Siberia-Pacific Ocean pipeline — Russia\'s crude oil export pipeline to Asian markets, particularly China. Capacity: 1.6M bbl/day.' },
+  { term: 'LNG', definition: 'Liquefied Natural Gas — natural gas cooled to -162°C for transport by specialized tanker ships. Cannot be piped through conventional oil pipelines.' },
+  { term: 'P&I Club', definition: 'Protection and Indemnity Club — a mutual insurance association that provides risk pooling, information, and representation for shipowners. The 13 members of the International Group cover approximately 90% of world tonnage.' },
+  { term: 'SPR', definition: 'Strategic Petroleum Reserve — government-controlled stockpiles of crude oil maintained for emergency use. The US SPR holds 680M barrels; Japan holds ~210M barrels.' },
+  { term: 'Suezmax', definition: 'A tanker of 120,000-200,000 DWT, sized to pass through the Suez Canal when fully loaded. The name reflects the canal\'s maximum vessel dimensions.' },
+  { term: 'TEU', definition: 'Twenty-foot Equivalent Unit — the standard measure of container ship capacity. One TEU represents one standard 20-foot shipping container.' },
+  { term: 'TTF', definition: 'Title Transfer Facility — the Dutch virtual trading point for natural gas. The primary European gas benchmark, analogous to Henry Hub in the US.' },
+  { term: 'VLCC', definition: 'Very Large Crude Carrier — a tanker of 200,000-320,000 DWT. The workhorse of long-haul crude oil transport, typically carrying 2M barrels per voyage.' },
+  { term: 'War Risk Premium', definition: 'An additional insurance premium charged when a vessel transits a war-risk zone. Premiums are calculated as a percentage of the vessel\'s hull value per transit.' },
+  { term: 'WS (Worldscale)', definition: 'The Worldwide Tanker Nominal Freight Scale — a standard system for quoting tanker freight rates. WS 100 represents the baseline rate for a given route.' },
+  { term: 'WTI', definition: 'West Texas Intermediate — a light sweet crude oil that serves as the primary benchmark for US oil pricing. Traded on NYMEX.' },
+];
+
+const letters = [...new Set(TERMS.map(t => t.term[0]))];
+---
+
+<Layout title="Maritime Glossary — HormuzTracker.tech" description="Comprehensive glossary of maritime, energy, and shipping terms related to the Strait of Hormuz crisis." path="/glossary">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Maritime & Energy Glossary</h1>
+      <p class="text-sm text-slate-400 mt-1">Key terms for understanding the Hormuz crisis</p>
+    </div>
+
+    <!-- Letter Navigation -->
+    <div class="flex flex-wrap gap-1.5">
+      {letters.map(l => (
+        <a href={`#letter-${l}`} class="w-8 h-8 rounded bg-ops-800 text-xs font-bold text-slate-300 hover:bg-ops-700 hover:text-white transition-colors flex items-center justify-center">{l}</a>
+      ))}
+    </div>
+
+    <!-- Terms -->
+    <div class="space-y-3">
+      {TERMS.map(t => (
+        <div id={`letter-${t.term[0]}`} class="glass-card p-4">
+          <h3 class="text-sm font-bold text-white">{t.term}</h3>
+          <p class="text-xs text-slate-400 mt-1">{t.definition}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

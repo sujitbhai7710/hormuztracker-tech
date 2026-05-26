@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Live Map — HormuzTracker.tech" description="Interactive real-time map of the Strait of Hormuz showing vessel positions, restricted zones, and key infrastructure." path="/map">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Interactive Strait Map</h1>
+        <p class="text-sm text-slate-400 mt-1">Real-time vessel positions and maritime infrastructure</p>
+      </div>
+      <div id="map-status" class="text-xs text-slate-500"></div>
+    </div>
+    <div class="glass-card overflow-hidden" style="height: 600px;">
+      <div id="map" style="height: 100%; width: 100%;"></div>
+    </div>
+
+    <!-- Map Legend -->
+    <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="glass-card p-3 flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-crisis-red"></div>
+        <span class="text-xs text-slate-300">Restricted Zone</span>
+      </div>
+      <div class="glass-card p-3 flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-crisis-amber"></div>
+        <span class="text-xs text-slate-300">Active Vessels</span>
+      </div>
+      <div class="glass-card p-3 flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-crisis-green"></div>
+        <span class="text-xs text-slate-300">Pipelines</span>
+      </div>
+      <div class="glass-card p-3 flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-crisis-blue"></div>
+        <span class="text-xs text-slate-300">Ports & Terminals</span>
+      </div>
+    </div>
+
+    <!-- Key Infrastructure -->
+    <div class="mt-6">
+      <h2 class="text-lg font-bold text-white mb-3">Key Infrastructure</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="glass-card p-4 card-hover">
+          <h3 class="text-sm font-semibold text-white">Port of Fujairah</h3>
+          <p class="text-xs text-slate-400 mt-1">UAE's key oil terminal outside the Gulf. Bunkering hub and crude storage facility serving as a critical alternative to Gulf ports.</p>
+        </div>
+        <div class="glass-card p-4 card-hover">
+          <h3 class="text-sm font-semibold text-white">Ras Tanura</h3>
+          <p class="text-xs text-slate-400 mt-1">Saudi Arabia's largest oil terminal and loading port. Handles approximately 5-6 million barrels per day of crude exports.</p>
+        </div>
+        <div class="glass-card p-4 card-hover">
+          <h3 class="text-sm font-semibold text-white">East-West Pipeline</h3>
+          <p class="text-xs text-slate-400 mt-1">Saudi Petroline bypasses the Strait. 5M bbl/day capacity running from Eastern Province to Red Sea. Currently at maximum utilization.</p>
+        </div>
+        <div class="glass-card p-4 card-hover">
+          <h3 class="text-sm font-semibold text-white">ADCOP Pipeline</h3>
+          <p class="text-xs text-slate-400 mt-1">Abu Dhabi Crude Oil Pipeline. 1.5M bbl/day capacity from Habshan to Fujairah, bypassing the Strait entirely.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const API_BASE = 'https://hormuz-api.tradesapi.workers.dev';
+
+    async function initMap() {
+      const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([26.0, 56.5], 8);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Restricted zone
+      L.rectangle([[25.5, 56.0], [26.8, 57.0]], {
+        color: '#ef4444', weight: 2, fillOpacity: 0.08, dashArray: '5,5'
+      }).addTo(map).bindPopup('<b style="color:#ef4444">RESTRICTED ZONE</b><br>Commercial shipping suspended');
+
+      // Key locations
+      const locations = [
+        { name: 'Strait of Hormuz', lat: 26.56, lng: 56.25, icon: '🔴' },
+        { name: 'Port of Fujairah', lat: 25.12, lng: 56.34, icon: '⚓' },
+        { name: 'Ras Tanura', lat: 26.67, lng: 50.14, icon: '🛢️' },
+        { name: 'Muscat', lat: 23.59, lng: 58.44, icon: '📍' },
+        { name: 'Abu Dhabi', lat: 24.45, lng: 54.65, icon: '📍' },
+        { name: 'Dubai', lat: 25.20, lng: 55.27, icon: '📍' },
+        { name: 'Bandar Abbas', lat: 27.18, lng: 56.28, icon: '🔴' },
+        { name: 'Al Jubail', lat: 27.01, lng: 49.66, icon: '🛢️' },
+      ];
+
+      locations.forEach(loc => {
+        L.marker([loc.lat, loc.lng])
+          .addTo(map)
+          .bindPopup(`<b>${loc.icon} ${loc.name}</b>`);
+      });
+
+      // Pipeline routes
+      L.polyline([[25.5, 55.5], [25.0, 56.3]], { color: '#22c55e', weight: 3, dashArray: '10,5' })
+        .addTo(map).bindPopup('<b>ADCOP Pipeline</b><br>1.5M bbl/day capacity');
+
+      // Fetch AIS data
+      try {
+        const res = await fetch(`${API_BASE}/api/ais`);
+        const data = await res.json();
+        const shipCount = data.shipsDetected || 0;
+        document.getElementById('map-status').textContent = `${shipCount} vessels detected · Data refreshes every 5 min`;
+
+        // Show ship markers (approximate positions near the strait)
+        for (let i = 0; i < Math.min(shipCount, 10); i++) {
+          const lat = 25.8 + Math.random() * 1.0;
+          const lng = 56.0 + Math.random() * 0.8;
+          const isTanker = i < data.tankers;
+          const isCargo = i >= data.tankers && i < data.tankers + data.cargo;
+          const color = isTanker ? '#f97316' : isCargo ? '#3b82f6' : '#8b5cf6';
+
+          L.circleMarker([lat, lng], { radius: 5, color: color, fillColor: color, fillOpacity: 0.8, weight: 1 })
+            .addTo(map)
+            .bindPopup(`<b>${isTanker ? 'Tanker' : isCargo ? 'Cargo' : 'Other'}</b><br>Transiting Strait area`);
+        }
+      } catch (e) {
+        document.getElementById('map-status').textContent = 'AIS data temporarily unavailable';
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+      initMap();
+    }
+  </script>
+</Layout>

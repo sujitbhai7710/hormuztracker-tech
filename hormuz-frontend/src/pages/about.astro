@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="About — HormuzTracker.tech" description="About HormuzTracker.tech — a comprehensive Strait of Hormuz crisis monitoring platform." path="/about">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white">About HormuzTracker.tech</h1>
+      <p class="text-sm text-slate-400 mt-1">Comprehensive Strait of Hormuz crisis monitoring</p>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">What We Track</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">HormuzTracker.tech is a comprehensive, real-time monitoring platform for the Strait of Hormuz crisis. We aggregate data from multiple maritime intelligence sources to provide a single, authoritative view of the crisis as it unfolds. Our platform combines the data-richness of maritime tracking services with the editorial depth of crisis analysis, creating a resource that serves logistics professionals, energy traders, policy makers, and journalists alike.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">We monitor strait transit status and vessel counts, oil and energy commodity prices from global exchanges, war risk insurance premiums and P&I club coverage, carrier suspension status and affected vessels, vessel seizures and military incidents, diplomatic developments and peace talks, regional economic impact across 8 major economies, and alternative shipping routes with cost comparisons. All data is refreshed every 5 minutes and is available through our public API for integration into other platforms and analyses.</p>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Data Sources</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Source</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Data Provided</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">AISstream.io</td><td class="text-slate-400">Real-time vessel positions via AIS</td><td class="text-slate-400">WebSocket API</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">oilpriceapi.com</td><td class="text-slate-400">Brent, WTI commodity prices</td><td class="text-slate-400">REST API</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Aggregated Maritime Monitors</td><td class="text-slate-400">Dashboard data, crisis timeline</td><td class="text-slate-400">REST API</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Official Carrier Announcements</td><td class="text-slate-400">Suspension status, surcharges</td><td class="text-slate-400">Manual curation</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">P&I Club Reports</td><td class="text-slate-400">Coverage withdrawal, premium changes</td><td class="text-slate-400">Manual curation</td></tr>
+            <tr><td class="py-2 text-white">Verified News Agencies</td><td class="text-slate-400">Seizures, diplomacy, timeline</td><td class="text-slate-400">Multi-source verification</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Technology</h2>
+      <p class="text-sm text-slate-400">Built with Astro 6 + Svelte for the frontend, deployed on Cloudflare Pages for maximum performance and global edge distribution. Data pipeline powered by a Cloudflare Worker with KV caching, refreshing every 5 minutes via cron triggers. This architecture is optimized to handle high traffic volumes while maintaining sub-second response times worldwide.</p>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">License & Disclaimer</h2>
+      <p class="text-sm text-slate-400">All data is provided for informational purposes only and should not be considered financial, navigational, or legal advice. Oil prices and market data may lag real-time conditions. Vessel position data represents a lower bound as ships may disable transponders in conflict zones. Data is made available under Creative Commons Attribution 4.0 (CC BY 4.0) license with attribution to HormuzTracker.tech.</p>
+    </div>
+  </div>
+</Layout>

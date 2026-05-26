@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Regional Impact — HormuzTracker.tech" description="Country-by-country analysis of the Strait of Hormuz crisis impact on oil imports, LNG supply, and economic stability." path="/regions">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="regions-page">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Regional Impact & Trade Exposure</h1>
+      <p class="text-sm text-slate-400 mt-1">How the Hormuz crisis affects nations dependent on Gulf energy imports</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="region-cards"></div>
+
+    <!-- Global Impact Summary -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Global Exposure Summary</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The Strait of Hormuz closure has created a differentiated impact across the global economy, with the severity of exposure directly correlated to each nation's dependence on Gulf hydrocarbon imports. Japan and South Korea face the most acute crisis, with 88% and 73% of their respective crude oil imports transiting the strait. These nations have limited alternative supply sources and their strategic petroleum reserves, while substantial, provide only weeks of coverage at current consumption rates.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">China and India occupy a middle tier of exposure. China has been actively diversifying its energy supply through overland pipelines from Russia and Central Asia, but 40% of its crude still depends on the Gulf route. India has dramatically increased Russian oil imports, which now account for nearly 40% of its total crude intake, but the remaining Gulf dependency still represents a critical vulnerability. The European Union and United States face more moderate direct exposure, though the secondary effects through LNG disruption and global price transmission remain significant.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    async function loadRegions() {
+      try {
+        const regions = await fetch(`${API}/api/regions`).then(r => r.json());
+        const sevColors = { CRITICAL: 'border-l-crisis-red', HIGH: 'border-l-crisis-orange', MODERATE: 'border-l-crisis-amber', LOW: 'border-l-crisis-green' };
+        const sevText = { CRITICAL: 'text-crisis-red', HIGH: 'text-crisis-orange', MODERATE: 'text-crisis-amber', LOW: 'text-crisis-green' };
+
+        document.getElementById('region-cards').innerHTML = regions.map(r => `
+          <a href="/regions/${r.slug}" class="glass-card p-5 card-hover border-l-4 ${sevColors[r.severity] || 'border-l-slate-500'}">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-lg font-bold text-white">${r.name}</h3>
+              <span class="text-xs font-bold ${sevText[r.severity] || 'text-slate-400'}">${r.severity}</span>
+            </div>
+            <div class="space-y-2">
+              <div>
+                <div class="text-xs text-slate-500">Oil Dependency</div>
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 bg-ops-800 rounded-full h-2 overflow-hidden">
+                    <div class="h-full bg-crisis-red rounded-full" style="width: ${r.oilDependencyPercent}%"></div>
+                  </div>
+                  <span class="text-xs font-bold text-white">${r.oilDependencyPercent}%</span>
+                </div>
+              </div>
+              ${r.lngDependency ? `<div><div class="text-xs text-slate-500">LNG Dependency</div><div class="flex items-center gap-2"><div class="flex-1 bg-ops-800 rounded-full h-2 overflow-hidden"><div class="h-full bg-crisis-amber rounded-full" style="width: ${r.lngDependency}%"></div></div><span class="text-xs font-bold text-white">${r.lngDependency}%</span></div></div>` : ''}
+              <p class="text-xs text-slate-400 line-clamp-2">${r.description}</p>
+            </div>
+          </a>
+        `).join('');
+      } catch (e) { console.error('Regions load failed:', e); }
+    }
+    loadRegions();
+  </script>
+</Layout>

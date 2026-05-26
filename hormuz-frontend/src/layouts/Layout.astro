@@ -1,0 +1,216 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const { title = 'HormuzTracker.tech — Live Strait of Hormuz Crisis Monitor', description = 'Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.', path = '/' } = Astro.props;
+const canonicalURL = new URL(path, Astro.site);
+const crisisStart = new Date('2026-02-28T00:00:00Z');
+const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring" />
+  <meta name="author" content="HormuzTracker.tech" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:site_name" content="HormuzTracker.tech" />
+  <meta property="og:image" content="https://hormuztracker.tech/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://hormuztracker.tech/og-image.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "HormuzTracker.tech",
+    "url": "https://hormuztracker.tech",
+    "description": description,
+    "applicationCategory": "MonitoringApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "HormuzTracker.tech" },
+    "sameAs": []
+  })} />
+
+  <title>{title}</title>
+</head>
+<body class="min-h-screen bg-ops-950 text-slate-200">
+  <!-- Top Alert Bar -->
+  <div class="bg-crisis-red/10 border-b border-crisis-red/30 px-4 py-1.5 text-center text-sm no-print">
+    <span class="inline-flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-crisis-red animate-pulse-live"></span>
+      <span class="font-semibold text-crisis-red">STRAIT CLOSED</span>
+      <span class="text-slate-400">—</span>
+      <span class="text-slate-300">Day {dayNumber} of disruption</span>
+      <span class="text-slate-400">|</span>
+      <span class="text-slate-400">Live data updates every 5 minutes</span>
+    </span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 glass border-b border-ops-700/50 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-14">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2.5 font-bold text-lg group">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-crisis-red to-crisis-orange flex items-center justify-center text-white text-sm font-bold">
+            H
+          </div>
+          <span class="text-white group-hover:text-crisis-orange transition-colors">Hormuz<span class="text-crisis-orange">Tracker</span><span class="text-ops-400 text-sm">.tech</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-1">
+          <a href="/" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Dashboard</a>
+          <a href="/map" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Live Map</a>
+          <a href="/oil" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Oil & Energy</a>
+          <a href="/carriers" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Carriers</a>
+          <a href="/routes" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Routes</a>
+          <a href="/insurance" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Insurance</a>
+          <a href="/news" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">News</a>
+          <a href="/timeline" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Timeline</a>
+          <div class="relative group">
+            <button class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all flex items-center gap-1">
+              More
+              <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="absolute right-0 mt-1 w-52 rounded-xl glass-card py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl">
+              <a href="/regions" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Regions & Exposure</a>
+              <a href="/seizures" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Vessel Seizures</a>
+              <a href="/blog" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Analysis Blog</a>
+              <a href="/data" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Data & Downloads</a>
+              <a href="/embed" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Embed Widgets</a>
+              <hr class="my-1 border-ops-700/50" />
+              <a href="/glossary" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Glossary</a>
+              <a href="/methodology" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Methodology</a>
+              <a href="/faq" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">FAQ</a>
+              <a href="/about" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">About</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-ops-800">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-ops-700/50 bg-ops-900/95 backdrop-blur-lg">
+      <div class="px-4 py-3 space-y-1 max-h-[80vh] overflow-y-auto">
+        <a href="/" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Dashboard</a>
+        <a href="/map" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Live Map</a>
+        <a href="/oil" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Oil & Energy</a>
+        <a href="/carriers" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Carriers</a>
+        <a href="/routes" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Routes</a>
+        <a href="/insurance" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Insurance</a>
+        <a href="/news" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">News</a>
+        <a href="/timeline" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Timeline</a>
+        <a href="/regions" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Regions</a>
+        <a href="/seizures" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Seizures</a>
+        <a href="/blog" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Blog</a>
+        <a href="/data" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Data</a>
+        <a href="/glossary" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Glossary</a>
+        <a href="/faq" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">FAQ</a>
+        <a href="/about" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-ops-800 bg-ops-950 mt-16 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="md:col-span-1">
+          <a href="/" class="flex items-center gap-2 font-bold text-lg">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-crisis-red to-crisis-orange flex items-center justify-center text-white text-xs font-bold">H</div>
+            <span class="text-white">Hormuz<span class="text-crisis-orange">Tracker</span><span class="text-ops-400 text-sm">.tech</span></span>
+          </a>
+          <p class="mt-3 text-sm text-slate-500 leading-relaxed">Real-time Strait of Hormuz crisis monitoring. Data aggregated from multiple maritime intelligence sources.</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-slate-300 mb-3">Monitoring</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="text-slate-500 hover:text-slate-300 transition-colors">Live Dashboard</a></li>
+            <li><a href="/map" class="text-slate-500 hover:text-slate-300 transition-colors">Interactive Map</a></li>
+            <li><a href="/oil" class="text-slate-500 hover:text-slate-300 transition-colors">Oil & Energy Prices</a></li>
+            <li><a href="/carriers" class="text-slate-500 hover:text-slate-300 transition-colors">Carrier Status</a></li>
+            <li><a href="/insurance" class="text-slate-500 hover:text-slate-300 transition-colors">Insurance Monitor</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-slate-300 mb-3">Analysis</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/routes" class="text-slate-500 hover:text-slate-300 transition-colors">Alternative Routes</a></li>
+            <li><a href="/regions" class="text-slate-500 hover:text-slate-300 transition-colors">Regional Impact</a></li>
+            <li><a href="/seizures" class="text-slate-500 hover:text-slate-300 transition-colors">Vessel Seizures</a></li>
+            <li><a href="/timeline" class="text-slate-500 hover:text-slate-300 transition-colors">Crisis Timeline</a></li>
+            <li><a href="/blog" class="text-slate-500 hover:text-slate-300 transition-colors">Analysis Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-slate-300 mb-3">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/data" class="text-slate-500 hover:text-slate-300 transition-colors">Data & Downloads</a></li>
+            <li><a href="/embed" class="text-slate-500 hover:text-slate-300 transition-colors">Embed Widgets</a></li>
+            <li><a href="/glossary" class="text-slate-500 hover:text-slate-300 transition-colors">Maritime Glossary</a></li>
+            <li><a href="/methodology" class="text-slate-500 hover:text-slate-300 transition-colors">Methodology</a></li>
+            <li><a href="/faq" class="text-slate-500 hover:text-slate-300 transition-colors">FAQ</a></li>
+            <li><a href="/about" class="text-slate-500 hover:text-slate-300 transition-colors">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-ops-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-600">&copy; 2026 HormuzTracker.tech — Data for informational purposes only. Not financial or navigational advice.</p>
+        <div class="flex items-center gap-4 text-xs text-slate-600">
+          <a href="/methodology" class="hover:text-slate-400 transition-colors">Methodology</a>
+          <a href="/about" class="hover:text-slate-400 transition-colors">About</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+
+    // Close mobile menu on link click
+    menu?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => menu?.classList.add('hidden'));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Methodology — HormuzTracker.tech" description="Data sources, methodology, update schedules, and known limitations for HormuzTracker.tech crisis monitoring." path="/methodology">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Methodology & Data Sources</h1>
+      <p class="text-sm text-slate-400 mt-1">How we collect, verify, and present crisis data</p>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Data Collection</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">HormuzTracker.tech aggregates data from multiple maritime intelligence sources to provide a comprehensive, real-time view of the Strait of Hormuz crisis. Our data pipeline consists of a dedicated Cloudflare Worker that scrapes and merges data from established maritime monitoring services, caching results in Cloudflare KV for fast access. The system refreshes data every 5 minutes via a scheduled cron trigger.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">Our primary data sources include AISstream.io for real-time vessel position data, oilpriceapi.com for commodity price feeds, and the aggregated crisis monitoring data from established Hormuz monitoring services. Carrier status, P&I club information, and vessel seizure data are compiled from official carrier announcements, insurance market reports, and verified news sources. Diplomatic timeline events are curated from multiple international news agencies and government statements.</p>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Data Sources Table</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Data Type</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Source</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Update Frequency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Vessel Positions</td><td class="text-slate-400">AISstream.io + aggregated</td><td class="text-slate-400">5 minutes</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Oil Prices</td><td class="text-slate-400">oilpriceapi.com + aggregated</td><td class="text-slate-400">5 minutes</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Carrier Status</td><td class="text-slate-400">Official carrier announcements</td><td class="text-slate-400">Daily</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Insurance Data</td><td class="text-slate-400">P&I club reports</td><td class="text-slate-400">As announced</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Vessel Seizures</td><td class="text-slate-400">Verified news + naval reports</td><td class="text-slate-400">As events occur</td></tr>
+            <tr><td class="py-2 text-white">Diplomatic Timeline</td><td class="text-slate-400">Government statements + news</td><td class="text-slate-400">As events occur</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Crisis Severity Scoring</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The crisis severity score (1-10) is a composite metric that takes into account: strait status (closed/restricted/open), percentage of normal traffic flow, oil price deviation from pre-crisis levels, insurance premium escalation, and the number of vessel seizures. A score of 10/10, as currently assigned, indicates maximum disruption across all measured dimensions: the strait is fully closed to commercial traffic, oil prices have increased more than 50% from pre-crisis levels, insurance premiums are 20x normal, and military seizures are ongoing.</p>
+      </div>
+    </div>
+
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Known Limitations</h2>
+      <ul class="space-y-2 text-sm text-slate-300">
+        <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-crisis-amber mt-1.5 flex-shrink-0"></span>AIS vessel counts represent a lower bound, as ships in the affected zone may switch off transponders or experience signal interference.</li>
+        <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-crisis-amber mt-1.5 flex-shrink-0"></span>Oil prices may lag real-time market by up to 5 minutes depending on API availability.</li>
+        <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-crisis-amber mt-1.5 flex-shrink-0"></span>Carrier status reflects official announcements; actual operational decisions may differ.</li>
+        <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-crisis-amber mt-1.5 flex-shrink-0"></span>Economic impact estimates are based on modeling and may differ from actual outcomes.</li>
+        <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-crisis-amber mt-1.5 flex-shrink-0"></span>Historical comparison data is simplified for presentation purposes.</li>
+      </ul>
+    </div>
+  </div>
+</Layout>

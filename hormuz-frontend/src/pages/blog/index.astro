@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const BLOG_POSTS = [
+  { slug: 'walls-closing-in', title: 'Walls Closing In: The Geopolitics of a Choked Strait', date: '2026-05-20', category: 'Analysis', readingTime: '8 min', excerpt: 'As the Hormuz crisis enters its third month, the geopolitical walls are closing in on all parties.' },
+  { slug: 'when-hormuz-stopped', title: 'When Hormuz Stopped: The Day Global Trade Froze', date: '2026-03-15', category: 'Analysis', readingTime: '10 min', excerpt: 'February 28, 2026 will be remembered as the day the global trading system experienced its most severe shock since 1973.' },
+  { slug: 'beijing-summit', title: 'The Beijing Summit: Can China Broker a Deal?', date: '2026-05-24', category: 'Diplomacy', readingTime: '7 min', excerpt: 'China\'s emergency summit brings together Iran, Saudi Arabia, UAE, and Oman.' },
+  { slug: 'insurance-markets', title: 'Insurance Markets in Uncharted Territory', date: '2026-04-10', category: 'Analysis', readingTime: '6 min', excerpt: 'The withdrawal of all six major P&I clubs has created an unprecedented maritime insurance crisis.' },
+  { slug: 'cape-of-good-hope', title: 'Life on the Cape Route: 12 Extra Days, $650K More', date: '2026-04-05', category: 'Explainer', readingTime: '5 min', excerpt: 'The Cape of Good Hope has become the world\'s busiest shipping lane overnight.' },
+  { slug: 'lng-crisis', title: 'The LNG Crisis: No Pipeline Can Carry Gas', date: '2026-04-15', category: 'Explainer', readingTime: '6 min', excerpt: 'Unlike crude oil, LNG cannot be piped over land, making this the most intractable aspect.' },
+  { slug: 'iran-safe-transit', title: 'Iran\'s "Safe Transit" Proposal: Genuine or Stalling?', date: '2026-05-18', category: 'Analysis', readingTime: '7 min', excerpt: 'Iran\'s proposed safe transit corridor comes with conditions that make acceptance unlikely.' },
+  { slug: 'project-freedom', title: 'Operation Freedom of Navigation: The Naval Escort Mission', date: '2026-05-12', category: 'Military', readingTime: '8 min', excerpt: 'The US-led naval escort operation has completed three convoy transits.' },
+];
+const catColors = { Analysis: 'bg-crisis-red/20 text-crisis-red', Diplomacy: 'bg-crisis-blue/20 text-crisis-blue', Explainer: 'bg-crisis-amber/20 text-crisis-amber', Military: 'bg-red-700/20 text-red-400' };
+---
+<Layout title="Analysis Blog — HormuzTracker.tech" description="In-depth analysis and expert commentary on the Strait of Hormuz crisis, shipping disruptions, and global trade impact." path="/blog">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Analysis & Commentary</h1>
+      <p class="text-sm text-slate-400 mt-1">Expert analysis of the Hormuz crisis and its global implications</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {BLOG_POSTS.map(post => (
+        <a href={`/blog/${post.slug}`} class="glass-card p-5 card-hover block">
+          <div class="flex items-center gap-2 mb-2">
+            <span class={`px-2 py-0.5 rounded text-xs font-bold ${catColors[post.category] || 'bg-slate-700 text-slate-300'}`}>{post.category}</span>
+            <span class="text-xs text-slate-500">{post.readingTime}</span>
+          </div>
+          <h2 class="text-base font-bold text-white leading-snug mb-2">{post.title}</h2>
+          <p class="text-xs text-slate-400 line-clamp-2">{post.excerpt}</p>
+          <div class="text-xs text-slate-500 mt-3">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

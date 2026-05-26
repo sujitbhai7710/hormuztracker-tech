@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  const regions = [
+    { slug: 'japan', name: 'Japan', severity: 'CRITICAL', oilDependencyPercent: 88, lngDependency: 35, description: 'Japan imports nearly 88% of its crude oil through the Strait of Hormuz, making it one of the most exposed nations to any disruption. As the world\'s fourth-largest oil importer, Japan relies on Gulf crude not just for transportation but for its entire industrial base, including petrochemicals and power generation. The country\'s strategic petroleum reserves provide approximately 38 days of coverage, but with no viable pipeline alternatives and limited ability to substitute Russian or American crude at scale, Japan faces an existential energy security challenge.', economicImpact: 'Estimated $420B annual economic impact from the Hormuz closure. Japan\'s trade surplus has evaporated as energy import costs surge. The Bank of Japan has been forced to intervene in currency markets as the yen weakens against the dollar. Manufacturing output has declined 12% as energy costs force production cuts. The government is accelerating renewable energy deployment and reconsidering nuclear power plant restarts, but these are medium-term solutions to an immediate crisis.', keyFacts: ['World\'s 4th largest oil importer', '88% crude from Gulf region', '38-day SPR reserve', 'Major LNG buyer from Qatar', 'Yen under severe pressure', 'Manufacturing output -12%'] },
+    { slug: 'south-korea', name: 'South Korea', severity: 'CRITICAL', oilDependencyPercent: 73, lngDependency: 40, description: 'South Korea\'s petrochemical industry depends heavily on Gulf crude, with 73% of imports transiting Hormuz. The country\'s export-driven economy is uniquely vulnerable because petrochemicals represent a major export category, and the feedstock shortage threatens not just domestic supply but Korea\'s position in global chemical markets. The government has imposed fuel rationing measures and is drawing down strategic reserves at an accelerated rate.', economicImpact: 'Petrochemical sector facing critical feedstock shortage with estimated $310B annual impact. South Korea\'s strategic reserves cover approximately 90 days by mandate, but at current drawdown rates, these will be depleted within months. Major refiners including SK Innovation and GS Caltex have reduced throughput by 30%. The government is seeking emergency supply agreements with the US and Russia.', keyFacts: ['73% crude from Gulf', 'Petrochemical industry at risk', 'Limited alternative suppliers', '90-day reserve mandate', 'Refinery throughput -30%', 'Emergency US/Russia supply talks'] },
+    { slug: 'china', name: 'China', severity: 'HIGH', oilDependencyPercent: 40, lngDependency: 28, description: 'China has diversified oil sources but remains the largest Gulf crude importer by volume, with 40% still transiting Hormuz. The ESPO pipeline from Russia and overland Central Asian routes provide partial mitigation, but the sheer volume of China\'s energy demand means that even a 40% disruption creates a massive supply gap. China\'s strategic petroleum reserves provide approximately 50 days of coverage, and Beijing has been aggressively filling storage when prices dip.', economicImpact: '$380B exposure to the Hormuz disruption. China has leveraged its relationship with both Iran and Russia to partially offset the supply gap, with Russian crude imports via pipeline and rail increasing significantly. However, the loss of Gulf LNG and the increased cost of seaborne crude continue to weigh on the economy. Beijing\'s mediation efforts in the crisis are driven as much by self-interest as by diplomacy.', keyFacts: ['Largest Gulf crude importer by volume', '40% via Hormuz', 'Russian pipeline alternatives (ESPO)', '50-day SPR coverage', 'Active diplomatic mediator', 'Russian oil imports up significantly'] },
+    { slug: 'india', name: 'India', severity: 'HIGH', oilDependencyPercent: 64, lngDependency: 22, description: 'India imports 64% of its crude through Hormuz, though Russian discounted oil has partially offset the disruption. India has been the most aggressive nation in substituting Gulf crude with Russian Urals, with Russian oil now accounting for nearly 40% of total imports. However, the remaining Gulf dependency, combined with surging LNG costs and the weakening rupee, creates significant economic pressure on the world\'s fifth-largest economy.', economicImpact: '$260B annual impact from the Hormuz crisis. Indian refiners have maximized Russian crude processing, but the quality mismatch (Urals are heavier and more sour than Gulf grades) reduces refinery efficiency. The government\'s fuel subsidy bill has ballooned to $18B per quarter, straining the fiscal deficit. The Reserve Bank of India has deployed $70B in foreign exchange reserves to defend the rupee.', keyFacts: ['64% crude via Hormuz', 'Russian oil imports up 40%', 'Refinery utilization at 72%', '$18B quarterly fuel subsidies', 'Rupee under severe pressure', 'FX reserves deployed for defense'] },
+    { slug: 'european-union', name: 'European Union', severity: 'MODERATE', oilDependencyPercent: 14, lngDependency: 18, description: 'The EU has limited direct Hormuz exposure for crude oil (14%), but faces severe LNG supply disruption affecting its energy transition plans. European nations had been rapidly increasing LNG imports to replace Russian pipeline gas, with Qatar as a primary supplier. The Hormuz closure has disrupted this strategy, pushing TTF gas prices up 51% and forcing some member states to reconsider coal and nuclear energy policies.', economicImpact: '$180B impact primarily via LNG and secondary price effects. TTF gas prices have surged 51% from pre-crisis levels, hitting industrial production in Germany and Italy particularly hard. The EU has activated emergency gas storage protocols and is seeking increased supply from the US, Norway, and North Africa. Industrial production across the eurozone has declined 4.2% year-over-year.', keyFacts: ['14% crude via Hormuz', 'Major LNG impact from Qatar disruption', 'TTF gas prices +51%', 'Industrial output declining', 'Emergency gas storage activated', 'Coal/nuclear reconsideration'] },
+    { slug: 'united-states', name: 'United States', severity: 'LOW', oilDependencyPercent: 5, lngDependency: 3, description: 'The United States is a net oil exporter with only 5% of its crude imports transiting Hormuz. However, the crisis has significant domestic price impacts — gasoline has risen 29% from pre-crisis levels to over $4.10 per gallon. The Strategic Petroleum Reserve holds 680 million barrels, providing approximately 140 days of import coverage, and domestic shale production is ramping up in response to elevated prices.', economicImpact: 'Primarily price impact rather than supply disruption. Gasoline prices have increased 29%, creating political pressure and contributing to inflation. US shale producers have added 45 drilling rigs since the crisis began, with production expected to increase by 800K bbl/day over the next quarter. The SPR has been tapped to provide 15M barrels in emergency releases.', keyFacts: ['Net oil exporter', 'Only 5% crude via Hormuz', '680M barrel SPR', 'Gasoline +29%', 'Shale production ramping up', '15M barrel SPR emergency release'] },
+    { slug: 'southeast-asia', name: 'Southeast Asia', severity: 'HIGH', oilDependencyPercent: 55, lngDependency: 30, description: 'Southeast Asian economies are heavily dependent on Gulf crude for their refining and petrochemical industries. Singapore, the region\'s refining hub, has seen throughput decline by 25% as feedstock supplies dry up. Vietnam and Thailand have implemented fuel rationing, while Indonesia has drawn down its strategic reserves to critical levels. The Philippines has declared a state of energy emergency.', economicImpact: '$195B combined impact across ASEAN nations. Singapore\'s refining margins have hit record highs even as throughput declines, creating a paradoxical profit situation that masks the underlying supply crisis. Vietnam\'s manufacturing sector, heavily dependent on energy-intensive processes, has seen output decline 8%. The ASEAN bloc is seeking collective bargaining arrangements with alternative suppliers.', keyFacts: ['55% crude via Hormuz', 'Singapore hub disrupted (-25%)', 'Fuel rationing in Vietnam/Thailand', 'Indonesia reserves critical', 'Philippines energy emergency', 'ASEAN collective supply talks'] },
+    { slug: 'middle-east', name: 'Middle East (Gulf States)', severity: 'MODERATE', oilDependencyPercent: 20, lngDependency: 5, description: 'Gulf states face a paradoxical crisis: they are the world\'s largest oil producers, yet their primary export route is blocked. Saudi Arabia alone is losing an estimated $2 billion per day in export revenue. The UAE has maximized its ADCOP pipeline to Fujairah, but this handles only a fraction of total exports. Domestic supplies remain secure, but the economic impact of lost revenue is massive and growing.', economicImpact: 'Saudi Aramco losing $2B/day in export revenue. UAE\'s ADCOP pipeline running at maximum 1.5M bbl/day capacity. Gulf states are drawing on sovereign wealth reserves — Saudi Arabia has deployed $45B from its Public Investment Fund to cover budget shortfalls. Economic diversification programs (Saudi Vision 2030, UAE Vision 2031) are being accelerated as the crisis underscores the vulnerability of oil-dependent economies.', keyFacts: ['Export revenue severely impacted', 'Pipelines at maximum capacity', 'Domestic supply secure', 'Saudi revenue loss $2B/day', 'Sovereign wealth being deployed', 'Diversification programs accelerated'] },
+  ];
+
+  return regions.map(r => ({ params: { slug: r.slug }, props: r }));
+}
+
+const { slug, name, severity, oilDependencyPercent, lngDependency, description, economicImpact, keyFacts } = Astro.props;
+const sevColors = { CRITICAL: 'text-crisis-red border-crisis-red/30', HIGH: 'text-crisis-orange border-crisis-orange/30', MODERATE: 'text-crisis-amber border-crisis-amber/30', LOW: 'text-crisis-green border-crisis-green/30' };
+---
+
+<Layout title={`${name} — HormuzTracker.tech`} description={`Hormuz crisis impact on ${name}: oil dependency, economic effects, and strategic response.`} path={`/regions/${slug}`}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <!-- Header -->
+    <div class="flex items-center gap-3 mb-2">
+      <a href="/regions" class="text-xs text-crisis-blue hover:text-crisis-blue/80 transition-colors">← All Regions</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-black text-white">{name}</h1>
+      <span class={`px-3 py-1 rounded-full text-xs font-bold border ${sevColors[severity] || ''}`}>{severity}</span>
+    </div>
+
+    <!-- Dependency Bars -->
+    <div class="glass-card p-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Oil Import Dependency</div>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 bg-ops-800 rounded-full h-4 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-crisis-orange to-crisis-red rounded-full" style={`width: ${oilDependencyPercent}%`}></div>
+            </div>
+            <span class="text-lg font-bold text-white">{oilDependencyPercent}%</span>
+          </div>
+        </div>
+        {lngDependency && (
+        <div>
+          <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">LNG Import Dependency</div>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 bg-ops-800 rounded-full h-4 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-crisis-amber to-crisis-orange rounded-full" style={`width: ${lngDependency}%`}></div>
+            </div>
+            <span class="text-lg font-bold text-white">{lngDependency}%</span>
+          </div>
+        </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Situation Overview</h2>
+      <p class="text-sm text-slate-300 leading-relaxed">{description}</p>
+    </div>
+
+    <!-- Economic Impact -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Economic Impact</h2>
+      <p class="text-sm text-slate-300 leading-relaxed">{economicImpact}</p>
+    </div>
+
+    <!-- Key Facts -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-3">Key Facts</h2>
+      <ul class="space-y-2">
+        {keyFacts.map(fact => (
+          <li class="flex items-start gap-2 text-sm text-slate-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-crisis-red mt-1.5 flex-shrink-0"></span>
+            {fact}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Oil & Energy Prices — HormuzTracker.tech" description="Live oil prices, energy market data, Brent crude, WTI, TTF gas, gasoline tracking with pre-crisis comparison and market analysis." path="/oil">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="oil-page">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Oil & Energy Markets</h1>
+      <p class="text-sm text-slate-400 mt-1">Live commodity prices and market analysis amid the Hormuz crisis</p>
+    </div>
+
+    <!-- Price Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="price-cards">
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-orange">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">Brent Crude</div>
+        <div class="text-3xl font-black text-white mt-2" id="brent-price">--</div>
+        <div class="text-sm mt-1" id="brent-change">--</div>
+        <div class="text-xs text-slate-500 mt-2">ICE Futures Europe</div>
+      </div>
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-amber">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">WTI Crude</div>
+        <div class="text-3xl font-black text-white mt-2" id="wti-price">--</div>
+        <div class="text-sm mt-1" id="wti-change">--</div>
+        <div class="text-xs text-slate-500 mt-2">NYMEX</div>
+      </div>
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-blue">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">EU Gas (TTF)</div>
+        <div class="text-3xl font-black text-white mt-2" id="ttf-price">--</div>
+        <div class="text-sm mt-1" id="ttf-change">--</div>
+        <div class="text-xs text-slate-500 mt-2">Dutch Title Transfer Facility</div>
+      </div>
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-red">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">US Gasoline</div>
+        <div class="text-3xl font-black text-white mt-2" id="gas-price">--</div>
+        <div class="text-sm mt-1" id="gas-change">--</div>
+        <div class="text-xs text-slate-500 mt-2">National Average ($/gal)</div>
+      </div>
+    </div>
+
+    <!-- Pre-Crisis Comparison -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Pre-Crisis vs Current Comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Commodity</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Pre-Crisis</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Current</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Change</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-table">
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Brent Crude</td><td class="text-right text-slate-400" id="pre-brent">--</td><td class="text-right text-white font-bold" id="cur-brent">--</td><td class="text-right" id="chg-brent">--</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">WTI Crude</td><td class="text-right text-slate-400" id="pre-wti">--</td><td class="text-right text-white font-bold" id="cur-wti">--</td><td class="text-right" id="chg-wti">--</td></tr>
+            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">EU Gas (TTF)</td><td class="text-right text-slate-400" id="pre-ttf">--</td><td class="text-right text-white font-bold" id="cur-ttf">--</td><td class="text-right" id="chg-ttf">--</td></tr>
+            <tr><td class="py-2 text-white">US Gasoline</td><td class="text-right text-slate-400" id="pre-gas">--</td><td class="text-right text-white font-bold" id="cur-gas">--</td><td class="text-right" id="chg-gas">--</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TradingView Chart -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Brent Crude — Historical Chart</h2>
+      <div class="tradingview-widget-container" style="height: 500px;">
+        <div id="tradingview_chart" style="height: 100%;"></div>
+      </div>
+    </div>
+
+    <!-- Tanker Rates -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Tanker Freight Rates</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="tanker-rates">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="text-xs text-slate-500 uppercase">VLCC TD3C (Ras Tanura → East)</div>
+          <div class="text-2xl font-black text-white mt-2" id="vlcc-rate">--</div>
+          <div class="text-xs mt-1" id="vlcc-change">--</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="text-xs text-slate-500 uppercase">Suezmax TD6 (Black Sea → Med)</div>
+          <div class="text-2xl font-black text-white mt-2">85 WS</div>
+          <div class="text-xs text-crisis-red mt-1">+95% vs pre-crisis (43 WS)</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="text-xs text-slate-500 uppercase">Aframax TD7 (North Sea → UKC)</div>
+          <div class="text-2xl font-black text-white mt-2">72 WS</div>
+          <div class="text-xs text-crisis-orange mt-1">+80% vs pre-crisis (40 WS)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Oil Explained -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Why Hormuz Oil Matters</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The Strait of Hormuz is the world's most critical oil chokepoint, with approximately 21% of global petroleum consumption — roughly 20-21 million barrels per day — transiting through this narrow waterway between Oman and Iran. At its narrowest point, the strait is just 21 nautical miles wide, with only two 2-mile-wide navigation channels for inbound and outbound traffic. This geographic bottleneck makes it both indispensable for global energy supply and uniquely vulnerable to disruption.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">Brent crude, priced from the North Sea, serves as the international benchmark for two-thirds of the world's oil. When Hormuz closes, Brent reacts first and most violently because it reflects the price of seaborne crude that would normally transit the strait. The price transmission chain works as follows: the physical disruption reduces available supply, creating an immediate premium on any crude that can still reach market; this premium is reflected in the Brent futures market within minutes; from there, the price signal propagates to refined products like gasoline and diesel within days, and to consumer prices within weeks. The current crisis has demonstrated this chain with remarkable clarity — Brent surged from $74.50 to over $116, and US gasoline followed from $3.20 to over $4.10 within weeks.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The historical comparison is sobering. The 1973 OPEC embargo saw oil prices quadruple, but that was a deliberate production cut. The 1990 Kuwait invasion saw prices double, but the disruption was partial and short-lived. The current Hormuz closure is unprecedented because it blocks the physical transit route, not just production. Even if oil is pumped from Saudi wells, it cannot reach Asian or European markets without the 12-day, $650,000-per-vessel detour around the Cape of Good Hope. This is why tanker spot rates have doubled and why the economic impact exceeds anything seen in previous oil shocks.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    async function loadOilData() {
+      try {
+        const [oil, dash] = await Promise.all([
+          fetch(`${API}/api/oil`).then(r => r.json()),
+          fetch(`${API}/api/dashboard`).then(r => r.json()),
+        ]);
+
+        const fmt = (n, p='$') => n != null ? p + Number(n).toFixed(2) : '--';
+        const pctChg = (cur, pre) => pre ? ((cur - pre) / pre * 100).toFixed(1) + '%' : '--';
+
+        document.getElementById('brent-price').textContent = fmt(oil.brent);
+        document.getElementById('wti-price').textContent = fmt(oil.wti);
+        document.getElementById('ttf-price').textContent = fmt(oil.ttf, '€');
+        document.getElementById('gas-price').textContent = fmt(oil.gasoline);
+
+        const bc = oil.brentChange || 0;
+        const bcp = oil.brentChangePercent || 0;
+        const bEl = document.getElementById('brent-change');
+        bEl.textContent = `${bc > 0 ? '+' : ''}${bc.toFixed(2)} (${bcp > 0 ? '+' : ''}${bcp.toFixed(2)}%)`;
+        bEl.className = `text-sm mt-1 ${bc >= 0 ? 'text-crisis-green' : 'text-crisis-red'}`;
+
+        // Pre-crisis comparison
+        const pre = oil.preCrisis || { brent: 74.50, wti: 72.30, ttf: 28.50, gasoline: 3.20 };
+        document.getElementById('pre-brent').textContent = fmt(pre.brent);
+        document.getElementById('cur-brent').textContent = fmt(oil.brent);
+        const chgB = document.getElementById('chg-brent');
+        chgB.textContent = '+' + pctChg(oil.brent, pre.brent);
+        chgB.className = 'text-right text-crisis-red font-bold';
+
+        document.getElementById('pre-wti').textContent = fmt(pre.wti);
+        document.getElementById('cur-wti').textContent = fmt(oil.wti);
+        const chgW = document.getElementById('chg-wti');
+        chgW.textContent = '+' + pctChg(oil.wti, pre.wti);
+        chgW.className = 'text-right text-crisis-red font-bold';
+
+        document.getElementById('pre-ttf').textContent = fmt(pre.ttf, '€');
+        document.getElementById('cur-ttf').textContent = fmt(oil.ttf, '€');
+        const chgT = document.getElementById('chg-ttf');
+        chgT.textContent = '+' + pctChg(oil.ttf, pre.ttf);
+        chgT.className = 'text-right text-crisis-red font-bold';
+
+        document.getElementById('pre-gas').textContent = fmt(pre.gasoline);
+        document.getElementById('cur-gas').textContent = fmt(oil.gasoline);
+        const chgG = document.getElementById('chg-gas');
+        chgG.textContent = '+' + pctChg(oil.gasoline, pre.gasoline);
+        chgG.className = 'text-right text-crisis-red font-bold';
+
+        // Tanker rates
+        const tr = dash.tankerRates;
+        document.getElementById('vlcc-rate').textContent = (tr?.currentRate || 100) + ' WS';
+        const vChg = document.getElementById('vlcc-change');
+        vChg.textContent = `+${tr?.changePercent || 100}% vs pre-crisis (${tr?.preCrisisRate || 50} WS)`;
+        vChg.className = 'text-xs mt-1 text-crisis-red';
+
+      } catch (e) { console.error('Oil data load failed:', e); }
+    }
+    loadOilData();
+    setInterval(loadOilData, 300000);
+  </script>
+
+  <!-- TradingView Widget -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    function initTV() {
+      if (typeof TradingView === 'undefined') { setTimeout(initTV, 1000); return; }
+      new TradingView.widget({
+        "autosize": true,
+        "symbol": "TVC:UKOIL",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#0a1628",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "container_id": "tradingview_chart",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "save_image": false,
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initTV);
+    else initTV();
+  </script>
+</Layout>

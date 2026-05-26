@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Carrier Status — HormuzTracker.tech" description="Track suspended shipping carriers, affected vessels, and container surcharges during the Hormuz crisis." path="/carriers">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="carriers-page">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Carrier Status</h1>
+      <p class="text-sm text-slate-400 mt-1">All major container carriers have suspended Hormuz transit</p>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="carrier-stats">
+      <div class="glass-card p-4 text-center">
+        <div class="text-3xl font-black text-crisis-red" id="stat-suspended">9</div>
+        <div class="text-xs text-slate-500 mt-1">Suspended</div>
+      </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-3xl font-black text-crisis-orange" id="stat-vessels">--</div>
+        <div class="text-xs text-slate-500 mt-1">Vessels Affected</div>
+      </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-3xl font-black text-crisis-amber" id="stat-teu">--</div>
+        <div class="text-xs text-slate-500 mt-1">TEU Affected</div>
+      </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-3xl font-black text-crisis-green" id="stat-active">0</div>
+        <div class="text-xs text-slate-500 mt-1">Active Through Hormuz</div>
+      </div>
+    </div>
+
+    <!-- Carrier Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="carrier-cards">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- Carrier Breakdown Chart -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Carrier TEU Breakdown</h2>
+      <div id="carrier-chart" class="space-y-3"></div>
+    </div>
+
+    <!-- Historical Context -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Impact on Global Shipping</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The suspension of all nine major container carriers from Hormuz transit represents an unprecedented disruption to global maritime trade. These carriers collectively control over 85% of world container shipping capacity, and their withdrawal from the Persian Gulf route has effectively severed the primary trade artery connecting the energy-rich Gulf states with the manufacturing hubs of Asia and the consumer markets of Europe.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The cascading effects extend far beyond the immediate Gulf region. Vessels that would normally transit Hormuz in 1-2 days now face a 12-14 day detour around the Cape of Good Hope, adding approximately $500,000-$700,000 per voyage in fuel and operational costs. This has triggered a container shortage crisis as ships are tied up on longer routes, leaving ports in Asia and Europe with empty container yards. The surcharges imposed by carriers — ranging from $2,100 to $2,500 per TEU — are the highest ever seen in container shipping, surpassing even the pandemic-era peaks of 2021-2022.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    async function loadCarriers() {
+      try {
+        const carriers = await fetch(`${API}/api/carriers`).then(r => r.json());
+        let totalVessels = 0, totalTeu = 0;
+        const maxTeu = Math.max(...carriers.map(c => c.teuTrapped || 0));
+
+        const html = carriers.map(c => {
+          totalVessels += c.vesselsTrapped || 0;
+          totalTeu += c.teuTrapped || 0;
+          return `
+          <div class="glass-card p-5 card-hover">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-lg font-bold text-white">${c.name}</h3>
+              <span class="px-2 py-1 rounded text-xs font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30">${c.status}</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="bg-ops-900/50 rounded p-2">
+                <div class="text-lg font-bold text-crisis-orange">${c.vesselsTrapped || 0}</div>
+                <div class="text-[10px] text-slate-500">Vessels</div>
+              </div>
+              <div class="bg-ops-900/50 rounded p-2">
+                <div class="text-lg font-bold text-crisis-amber">${(c.teuTrapped/1000).toFixed(0)}K</div>
+                <div class="text-[10px] text-slate-500">TEU</div>
+              </div>
+              <div class="bg-ops-900/50 rounded p-2">
+                <div class="text-sm font-bold text-white">${c.surcharge || '--'}</div>
+                <div class="text-[10px] text-slate-500">Surcharge</div>
+              </div>
+            </div>
+          </div>`;
+        }).join('');
+        document.getElementById('carrier-cards').innerHTML = html;
+        document.getElementById('stat-vessels').textContent = totalVessels;
+        document.getElementById('stat-teu').textContent = (totalTeu/1000).toFixed(0) + 'K';
+
+        // Chart
+        const chartHtml = carriers.map(c => `
+          <div class="flex items-center gap-3">
+            <div class="w-24 text-xs text-slate-300 font-medium text-right">${c.name}</div>
+            <div class="flex-1 bg-ops-800 rounded-full h-6 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-crisis-orange to-crisis-red rounded-full flex items-center pl-2 transition-all duration-500"
+                   style="width: ${((c.teuTrapped || 0) / maxTeu * 100)}%">
+                <span class="text-[10px] text-white font-bold">${(c.teuTrapped/1000).toFixed(0)}K TEU</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+        document.getElementById('carrier-chart').innerHTML = chartHtml;
+      } catch (e) { console.error('Carrier load failed:', e); }
+    }
+    loadCarriers();
+  </script>
+</Layout>

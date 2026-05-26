@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="War Risk Insurance — HormuzTracker.tech" description="P&I club status, war risk premiums, and transit insurance cost analysis during the Hormuz shipping crisis." path="/insurance">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="insurance-page">
+    <div>
+      <h1 class="text-2xl font-bold text-white">War Risk Insurance Monitor</h1>
+      <p class="text-sm text-slate-400 mt-1">P&I club withdrawals and war risk premium tracking</p>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="insurance-status">
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-red">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">Risk Level</div>
+        <div class="text-3xl font-black text-crisis-red mt-2" id="risk-level">EXTREME</div>
+        <div class="text-xs text-slate-400 mt-1">All major P&I clubs have withdrawn</div>
+      </div>
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-orange">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">War Risk Premium</div>
+        <div class="text-3xl font-black text-white mt-2" id="war-risk">--</div>
+        <div class="text-xs text-crisis-red mt-1" id="war-risk-normal">Normal: --</div>
+      </div>
+      <div class="glass-card p-5 card-hover border-l-4 border-l-crisis-amber">
+        <div class="text-xs text-slate-500 uppercase tracking-wider">Premium Multiplier</div>
+        <div class="text-3xl font-black text-crisis-orange mt-2" id="multiplier">--</div>
+        <div class="text-xs text-slate-400 mt-1">Increase from pre-crisis levels</div>
+      </div>
+    </div>
+
+    <!-- Premium Rate Comparison -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Premium Rate Comparison</h2>
+      <div class="bg-ops-900/50 rounded-lg p-4">
+        <div class="flex items-end gap-8 h-48" id="premium-bars">
+          <div class="flex-1 flex flex-col items-center">
+            <div class="w-full bg-crisis-green/30 rounded-t" style="height: 3%" id="bar-normal"></div>
+            <div class="text-xs text-slate-400 mt-2 text-center">Normal<br/><span class="text-crisis-green font-bold" id="bar-normal-val">0.15%</span></div>
+          </div>
+          <div class="flex-1 flex flex-col items-center">
+            <div class="w-full bg-crisis-red/60 rounded-t" style="height: 60%" id="bar-current"></div>
+            <div class="text-xs text-slate-400 mt-2 text-center">Current<br/><span class="text-crisis-red font-bold" id="bar-current-val">--</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P&I Club Status -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">P&I Club Status</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Club</th>
+              <th class="text-center py-2 text-slate-400 font-medium">Status</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Withdrawal Date</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Previous Premium</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Current Premium</th>
+            </tr>
+          </thead>
+          <tbody id="pi-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Transit Cost Calculator -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Transit Insurance Cost Calculator</h2>
+      <p class="text-sm text-slate-400 mb-4">Estimated war risk insurance cost for a single transit through the Strait of Hormuz</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="cost-calc">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="text-xs text-slate-500 uppercase">VLCC ($100M hull value)</div>
+          <div class="text-sm text-slate-400 mt-2">Pre-Crisis:</div>
+          <div class="text-lg font-bold text-crisis-green" id="vlcc-pre">--</div>
+          <div class="text-sm text-slate-400 mt-1">Current:</div>
+          <div class="text-lg font-bold text-crisis-red" id="vlcc-cur">--</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="text-xs text-slate-500 uppercase">Container Ship ($50M hull value)</div>
+          <div class="text-sm text-slate-400 mt-2">Pre-Crisis:</div>
+          <div class="text-lg font-bold text-crisis-green" id="container-pre">--</div>
+          <div class="text-sm text-slate-400 mt-1">Current:</div>
+          <div class="text-lg font-bold text-crisis-red" id="container-cur">--</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="text-xs text-slate-500 uppercase">LNG Carrier ($120M hull value)</div>
+          <div class="text-sm text-slate-400 mt-2">Pre-Crisis:</div>
+          <div class="text-lg font-bold text-crisis-green" id="lng-pre">--</div>
+          <div class="text-sm text-slate-400 mt-1">Current:</div>
+          <div class="text-lg font-bold text-crisis-red" id="lng-cur">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impact Analysis -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Insurance Market Impact</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The withdrawal of all six major Protection and Indemnity (P&I) clubs from Hormuz transit coverage represents an extraordinary development in maritime insurance. P&I clubs, which provide third-party liability cover to shipowners, have traditionally been the most stable and reliable source of maritime insurance. Their collective withdrawal signals that the underwriting community considers Hormuz transit to carry unacceptable risk, regardless of premium level.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The war risk premium surge from 0.15% to 3% or higher means that a VLCC with a $100 million hull value now faces a single-transit insurance cost of $3 million, compared to just $150,000 before the crisis. For a typical shipping company operating a fleet of 10 vessels, this translates to an additional $28.5 million in annual insurance costs alone, an amount that makes many routes commercially unviable. The result is a self-reinforcing cycle: fewer ships transit, which increases the per-vessel risk, which drives premiums even higher.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The insurance crisis also has secondary effects on global trade finance. Banks require proof of adequate insurance before issuing letters of credit for cargo shipments. Without P&I coverage, cargoes cannot be financed, and without financing, they cannot move. This creates a bureaucratic bottleneck that compounds the physical bottleneck at the strait itself, effectively doubling the barrier to resumed trade flows.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    async function loadInsurance() {
+      try {
+        const ins = await fetch(`${API}/api/insurance`).then(r => r.json());
+        document.getElementById('risk-level').textContent = ins.level || 'EXTREME';
+        document.getElementById('war-risk').textContent = (ins.warRiskPercent || 3) + '%';
+        document.getElementById('war-risk-normal').textContent = 'Normal: ' + (ins.normalPercent || 0.15) + '%';
+        document.getElementById('multiplier').textContent = (ins.multiplier || 20) + 'x';
+
+        // Premium bars
+        const normalPct = ins.normalPercent || 0.15;
+        const currentPct = ins.warRiskPercent || 3;
+        document.getElementById('bar-normal').style.height = (normalPct / currentPct * 100) + '%';
+        document.getElementById('bar-current').style.height = '100%';
+        document.getElementById('bar-normal-val').textContent = normalPct + '%';
+        document.getElementById('bar-current-val').textContent = currentPct + '%';
+
+        // P&I table
+        const clubs = ins.piClubs || [];
+        document.getElementById('pi-table').innerHTML = clubs.map(c => `
+          <tr class="border-b border-ops-800/50">
+            <td class="py-2 text-white font-medium">${c.name}</td>
+            <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-red/20 text-crisis-red">${c.status}</span></td>
+            <td class="text-right text-slate-400">${c.date}</td>
+            <td class="text-right text-slate-400">${c.premiumBefore}</td>
+            <td class="text-right text-crisis-red font-bold">${c.premiumCurrent}</td>
+          </tr>
+        `).join('');
+
+        // Cost calculator
+        const wp = currentPct / 100;
+        const np = normalPct / 100;
+        document.getElementById('vlcc-pre').textContent = '$' + (100000000 * np / 1000).toFixed(0) + 'K';
+        document.getElementById('vlcc-cur').textContent = '$' + (100000000 * wp / 1000000).toFixed(1) + 'M';
+        document.getElementById('container-pre').textContent = '$' + (50000000 * np / 1000).toFixed(0) + 'K';
+        document.getElementById('container-cur').textContent = '$' + (50000000 * wp / 1000000).toFixed(1) + 'M';
+        document.getElementById('lng-pre').textContent = '$' + (120000000 * np / 1000).toFixed(0) + 'K';
+        document.getElementById('lng-cur').textContent = '$' + (120000000 * wp / 1000000).toFixed(1) + 'M';
+      } catch (e) { console.error('Insurance load failed:', e); }
+    }
+    loadInsurance();
+  </script>
+</Layout>

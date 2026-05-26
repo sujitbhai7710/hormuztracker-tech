@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Crisis Timeline — HormuzTracker.tech" description="Chronological timeline of the Strait of Hormuz crisis events including military, diplomatic, and economic developments." path="/timeline">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="timeline-page">
+    <div>
+      <h1 class="text-2xl font-bold text-white">Crisis Timeline</h1>
+      <p class="text-sm text-slate-400 mt-1">Chronological events from the Hormuz crisis</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-2" id="timeline-filters">
+      <button data-filter="ALL" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30 hover:bg-crisis-red/30 transition-colors active-filter">All</button>
+      <button data-filter="ESCALATION" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Escalation</button>
+      <button data-filter="MILITARY" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Military</button>
+      <button data-filter="DIPLOMATIC" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Diplomatic</button>
+      <button data-filter="ECONOMIC" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Economic</button>
+      <button data-filter="DE-ESCALATION" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">De-escalation</button>
+    </div>
+
+    <!-- Timeline -->
+    <div id="timeline-container" class="space-y-0"></div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    let allEvents = [];
+    const typeColors = { ESCALATION: 'bg-crisis-red', MILITARY: 'bg-red-700', ECONOMIC: 'bg-crisis-amber', DIPLOMATIC: 'bg-crisis-blue', 'DE-ESCALATION': 'bg-crisis-green' };
+
+    async function loadTimeline() {
+      try {
+        const events = await fetch(`${API}/api/timeline`).then(r => r.json());
+        allEvents = events;
+        renderTimeline('ALL');
+      } catch (e) { console.error('Timeline load failed:', e); }
+    }
+
+    function renderTimeline(filter) {
+      const filtered = filter === 'ALL' ? allEvents : allEvents.filter(e => e.type === filter);
+      document.getElementById('timeline-container').innerHTML = filtered.map((e, i) => {
+        const color = typeColors[e.type] || 'bg-slate-500';
+        const isLeft = i % 2 === 0;
+        return `
+        <div class="flex gap-4 animate-fade-in" style="animation-delay: ${i * 50}ms">
+          <div class="flex flex-col items-center">
+            <div class="w-4 h-4 rounded-full ${color} border-2 border-ops-950 flex-shrink-0 z-10"></div>
+            <div class="w-0.5 flex-1 bg-ops-700/50"></div>
+          </div>
+          <div class="pb-6 flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-mono text-slate-500">${e.date}</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${color} text-white">${e.type}</span>
+            </div>
+            <div class="glass-card p-4 card-hover">
+              <h3 class="text-sm font-bold text-white mb-1">${e.title}</h3>
+              <p class="text-xs text-slate-400">${e.description}</p>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    // Filter buttons
+    document.querySelectorAll('#timeline-filters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#timeline-filters button').forEach(b => {
+          b.className = b.className.replace(/bg-crisis-red\/20 text-crisis-red border-crisis-red\/30/g, '').replace('active-filter', '') + ' text-slate-400 border-ops-700/50';
+        });
+        btn.className = btn.className.replace('text-slate-400 border-ops-700/50', '') + ' bg-crisis-red/20 text-crisis-red border-crisis-red/30 active-filter';
+        renderTimeline(btn.dataset.filter);
+      });
+    });
+
+    loadTimeline();
+  </script>
+</Layout>

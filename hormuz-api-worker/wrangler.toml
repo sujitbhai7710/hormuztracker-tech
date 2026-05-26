@@ -1,0 +1,14 @@
+name = "hormuz-api"
+main = "src/index.js"
+compatibility_date = "2026-04-15"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+
+[[kv_namespaces]]
+binding = "DATA_CACHE"
+id = "d4574bbf41fa4a1fa0e76f03fcfbb3a7"
+
+[triggers]
+crons = ["*/5 * * * *"]

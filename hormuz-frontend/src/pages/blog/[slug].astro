@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  const BLOG_POSTS = [
+    { slug: 'walls-closing-in', title: 'Walls Closing In: The Geopolitics of a Choked Strait', date: '2026-05-20', category: 'Analysis', readingTime: '8 min', excerpt: 'As the Hormuz crisis enters its third month, the geopolitical walls are closing in on all parties. Iran faces escalating economic pressure, while Gulf states hemorrhage revenue and consumer nations scramble for alternatives.' },
+    { slug: 'when-hormuz-stopped', title: 'When Hormuz Stopped: The Day Global Trade Froze', date: '2026-03-15', category: 'Analysis', readingTime: '10 min', excerpt: 'February 28, 2026 will be remembered as the day the global trading system experienced its most severe shock since the 1973 oil embargo. Within hours, the implications cascaded through every major market.' },
+    { slug: 'beijing-summit', title: 'The Beijing Summit: Can China Broker a Deal?', date: '2026-05-24', category: 'Diplomacy', readingTime: '7 min', excerpt: 'China\'s emergency summit brings together Iran, Saudi Arabia, UAE, and Oman in the most significant diplomatic push since the crisis began.' },
+    { slug: 'insurance-markets', title: 'Insurance Markets in Uncharted Territory', date: '2026-04-10', category: 'Analysis', readingTime: '6 min', excerpt: 'The withdrawal of all six major P&I clubs from Hormuz coverage has created an unprecedented situation in maritime insurance.' },
+    { slug: 'cape-of-good-hope', title: 'Life on the Cape Route: 12 Extra Days, $650K More', date: '2026-04-05', category: 'Explainer', readingTime: '5 min', excerpt: 'The Cape of Good Hope has become the world\'s busiest shipping lane overnight.' },
+    { slug: 'lng-crisis', title: 'The LNG Crisis: No Pipeline Can Carry Gas', date: '2026-04-15', category: 'Explainer', readingTime: '6 min', excerpt: 'Unlike crude oil, LNG cannot be piped over land, making this the most intractable aspect of the crisis.' },
+    { slug: 'iran-safe-transit', title: 'Iran\'s "Safe Transit" Proposal: Genuine or Stalling?', date: '2026-05-18', category: 'Analysis', readingTime: '7 min', excerpt: 'Iran has proposed a safe transit corridor for neutral-flagged vessels, but the conditions make acceptance unlikely.' },
+    { slug: 'project-freedom', title: 'Operation Freedom of Navigation: The Naval Escort Mission', date: '2026-05-12', category: 'Military', readingTime: '8 min', excerpt: 'The US-led naval escort operation has completed three convoy transits.' },
+  ];
+  return BLOG_POSTS.map(p => ({ params: { slug: p.slug }, props: p }));
+}
+
+const { slug, title, date, category, readingTime, excerpt } = Astro.props;
+const catColors = { Analysis: 'bg-crisis-red/20 text-crisis-red', Diplomacy: 'bg-crisis-blue/20 text-crisis-blue', Explainer: 'bg-crisis-amber/20 text-crisis-amber', Military: 'bg-red-700/20 text-red-400' };
+---
+
+<Layout title={`${title} — HormuzTracker.tech`} description={excerpt} path={`/blog/${slug}`}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div class="flex items-center gap-2 mb-2">
+      <a href="/blog" class="text-xs text-crisis-blue hover:text-crisis-blue/80">← All Articles</a>
+    </div>
+    <div>
+      <span class={`px-2 py-0.5 rounded text-xs font-bold ${catColors[category] || 'bg-slate-700 text-slate-300'}`}>{category}</span>
+      <h1 class="text-3xl font-black text-white mt-3">{title}</h1>
+      <div class="flex items-center gap-3 mt-3 text-xs text-slate-500">
+        <span>{new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+        <span>·</span>
+        <span>{readingTime} read</span>
+      </div>
+    </div>
+
+    <div class="glass-card p-6">
+      <p class="text-slate-300 leading-relaxed text-lg font-medium">{excerpt}</p>
+      <div class="mt-6 prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The Strait of Hormuz crisis continues to reshape global trade patterns in ways that will persist long after the immediate disruption is resolved. Energy security strategies, supply chain architectures, and maritime insurance frameworks are all being fundamentally reconsidered by governments and corporations worldwide. The lessons learned from this crisis will inform infrastructure investment decisions for decades to come, particularly regarding pipeline alternatives, strategic reserve levels, and the geographic diversification of energy sources.</p>
+        <p class="text-slate-300 leading-relaxed mt-4">The economic ripple effects extend far beyond the energy sector. Shipping companies face existential challenges as insurance costs have made many routes commercially unviable. Manufacturing industries dependent on just-in-time supply chains are being forced to rebuild their logistics around longer lead times and higher inventory costs. Consumer prices for energy, transportation, and manufactured goods continue to rise, with inflationary pressure building across both developed and emerging economies.</p>
+        <p class="text-slate-300 leading-relaxed mt-4">Perhaps most significantly, the crisis has exposed the fragility of the global trading system's dependence on a handful of geographic chokepoints. The Suez Canal blockage of 2021 was a warning; the Hormuz closure is the catastrophe that was always feared. The question now is whether the international community will invest in the infrastructure needed to prevent future disruptions, or whether the lessons of 2026 will be forgotten once the strait reopens and oil prices normalize. History suggests the latter, but the scale of the current disruption may finally force a different outcome.</p>
+      </div>
+    </div>
+
+    <!-- Share -->
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-slate-500">Share:</span>
+      <button onclick="navigator.clipboard.writeText(window.location.href)" class="px-3 py-1 rounded text-xs bg-ops-800 text-slate-300 hover:bg-ops-700 transition-colors">Copy Link</button>
+      <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(Astro.url.href)}&text=${encodeURIComponent(title)}`} class="px-3 py-1 rounded text-xs bg-ops-800 text-slate-300 hover:bg-ops-700 transition-colors" target="_blank" rel="noopener">Twitter</a>
+    </div>
+  </article>
+</Layout>
