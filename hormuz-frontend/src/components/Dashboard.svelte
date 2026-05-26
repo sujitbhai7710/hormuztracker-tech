@@ -70,6 +70,9 @@ let durationHours = $derived(() => {
             <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-crisis-red/20 text-crisis-red border border-crisis-red/30 animate-glow-red">
               {data.straitStatus?.status || 'RESTRICTED'}
             </span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-crisis-amber/20 text-crisis-amber border border-crisis-amber/30">
+              SEVERITY {data.severityScore || 10}/10
+            </span>
             <span class="text-sm text-slate-500">Since Feb 28, 2026</span>
           </div>
           <h1 class="text-3xl sm:text-4xl font-black text-white mb-2">
@@ -114,9 +117,9 @@ let durationHours = $derived(() => {
       </div>
       <!-- Throughput -->
       <div class="glass-card p-4 card-hover">
-        <div class="text-xs text-slate-500 uppercase tracking-wider">Throughput</div>
-        <div class="text-2xl font-black text-white mt-1">{formatPct(data.throughput?.percentOfNormal)}</div>
-        <div class="text-xs text-slate-500">of normal</div>
+        <div class="text-xs text-slate-500 uppercase tracking-wider">Daily Throughput</div>
+        <div class="text-2xl font-black text-white mt-1">{data.throughput?.percentOfNormal || 50}%</div>
+        <div class="text-xs text-slate-500">{(data.throughput?.todayDWT / 1000000).toFixed(1)}M / {(data.throughput?.averageDWT / 1000000).toFixed(1)}M DWT</div>
       </div>
       <!-- Carriers Suspended -->
       <div class="glass-card p-4 card-hover">
