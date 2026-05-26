@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Pipeline Bypass Capacity — HormuzTracker.tech" description="Pipeline infrastructure that can bypass the Strait of Hormuz. Capacity analysis and the 13M bbl/day gap." path="/pipelines">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="pipelines-page">
+
+    <!-- Hero -->
+    <div class="relative overflow-hidden glass-card p-8">
+      <div class="absolute inset-0 bg-gradient-to-br from-crisis-amber/5 via-transparent to-crisis-red/5"></div>
+      <div class="relative">
+        <h1 class="text-3xl font-black text-white mb-2">Pipeline Bypass Capacity</h1>
+        <p class="text-slate-400 mb-6">Can existing pipelines replace the Strait of Hormuz? (Spoiler: they can't)</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20 text-center">
+            <div class="text-3xl font-black gradient-text-gold">7M</div>
+            <div class="text-xs text-slate-400 mt-1">bbl/day bypass</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-green/20 text-center">
+            <div class="text-3xl font-black text-crisis-green">35%</div>
+            <div class="text-xs text-slate-400 mt-1">of normal flow</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/20 text-center">
+            <div class="text-3xl font-black text-crisis-red">13M</div>
+            <div class="text-xs text-slate-400 mt-1">bbl/day gap</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-orange/20 text-center">
+            <div class="text-3xl font-black text-crisis-orange">0</div>
+            <div class="text-xs text-slate-400 mt-1">LNG pipelines</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gap Visualization -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">The 13 Million Barrel Gap</h2>
+      <p class="text-sm text-slate-400 mb-4">The combined capacity of all bypass pipelines covers just 35% of normal Hormuz flow. The remaining 65% has no alternative route.</p>
+      <div class="bg-ops-900/50 rounded-lg p-5 border border-ops-700/30">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>0 bbl/day</span>
+          <span>20M bbl/day (normal Hormuz flow)</span>
+        </div>
+        <div class="h-12 bg-ops-800 rounded-lg overflow-hidden relative">
+          <div class="h-full bg-gradient-to-r from-crisis-green to-crisis-green/70 absolute left-0 rounded-l-lg" style="width: 35%"></div>
+          <div class="h-full bg-gradient-to-r from-crisis-red/70 to-crisis-red absolute rounded-r-lg" style="width: 65%; left: 35%"></div>
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-[35%] text-center">
+              <span class="text-xs text-white font-bold">Pipeline: 7M bbl/day</span>
+            </div>
+            <div class="w-[65%] text-center">
+              <span class="text-xs text-white font-bold">No Bypass: 13M bbl/day</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-6 mt-3">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded bg-crisis-green"></div>
+            <span class="text-xs text-slate-400">Pipeline capacity (35%)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded bg-crisis-red"></div>
+            <span class="text-xs text-slate-400">Cannot be rerouted (65%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pipeline Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Saudi East-West Pipeline -->
+      <div class="glass-card p-5 card-hover border-t-4 border-t-crisis-amber">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-base font-bold text-white">Saudi East-West (Petroline)</h3>
+          <span class="px-2 py-0.5 rounded text-xs bg-crisis-amber/20 text-crisis-amber border border-crisis-amber/30">Max Capacity</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div>
+            <div class="text-xs text-slate-500">Capacity</div>
+            <div class="text-xl font-black text-white font-mono">5M</div>
+            <div class="text-[10px] text-slate-500">bbl/day</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Operator</div>
+            <div class="text-sm font-bold text-white">Saudi Aramco</div>
+            <div class="text-[10px] text-slate-500">Since 1981</div>
+          </div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3 mb-3">
+          <div class="text-xs text-slate-500 mb-1">Route</div>
+          <div class="text-xs text-slate-300">Abqaiq (Eastern Province) → Yanbu (Red Sea)</div>
+          <div class="text-xs text-slate-500 mt-1">Length: 1,200 km · Diameter: 48-56 inches</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3">
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-500">Utilization</span>
+            <span class="text-white font-bold">5M / 5M bbl/day (100%)</span>
+          </div>
+          <div class="h-3 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-crisis-amber rounded-full" style="width: 100%"></div>
+          </div>
+          <div class="text-[10px] text-crisis-amber mt-1">Running at maximum capacity since crisis began</div>
+        </div>
+      </div>
+
+      <!-- UAE ADCOP Pipeline -->
+      <div class="glass-card p-5 card-hover border-t-4 border-t-crisis-amber">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-base font-bold text-white">UAE ADCOP Pipeline</h3>
+          <span class="px-2 py-0.5 rounded text-xs bg-crisis-amber/20 text-crisis-amber border border-crisis-amber/30">Max Capacity</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div>
+            <div class="text-xs text-slate-500">Capacity</div>
+            <div class="text-xl font-black text-white font-mono">1.5M</div>
+            <div class="text-[10px] text-slate-500">bbl/day</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Operator</div>
+            <div class="text-sm font-bold text-white">ADNOC</div>
+            <div class="text-[10px] text-slate-500">Since 2012</div>
+          </div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3 mb-3">
+          <div class="text-xs text-slate-500 mb-1">Route</div>
+          <div class="text-xs text-slate-300">Habshan → Fujairah (Gulf of Oman)</div>
+          <div class="text-xs text-slate-500 mt-1">Length: 380 km · Diameter: 48 inches</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3">
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-500">Utilization</span>
+            <span class="text-white font-bold">1.5M / 1.5M bbl/day (100%)</span>
+          </div>
+          <div class="h-3 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-crisis-amber rounded-full" style="width: 100%"></div>
+          </div>
+          <div class="text-[10px] text-crisis-amber mt-1">Bypasses Strait entirely to Gulf of Oman</div>
+        </div>
+      </div>
+
+      <!-- Iraq-Turkey Pipeline -->
+      <div class="glass-card p-5 card-hover border-t-4 border-t-crisis-orange">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-base font-bold text-white">Iraq-Turkey Pipeline</h3>
+          <span class="px-2 py-0.5 rounded text-xs bg-crisis-orange/20 text-crisis-orange border border-crisis-orange/30">Limited</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div>
+            <div class="text-xs text-slate-500">Capacity</div>
+            <div class="text-xl font-black text-white font-mono">0.5M</div>
+            <div class="text-[10px] text-slate-500">bbl/day</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Operator</div>
+            <div class="text-sm font-bold text-white">BOTAS / NIOC</div>
+            <div class="text-[10px] text-slate-500">Since 1977</div>
+          </div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3 mb-3">
+          <div class="text-xs text-slate-500 mb-1">Route</div>
+          <div class="text-xs text-slate-300">Kirkuk → Ceyhan (Mediterranean)</div>
+          <div class="text-xs text-slate-500 mt-1">Length: 970 km · Subject to Baghdad-Erbil disputes</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3">
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-500">Utilization</span>
+            <span class="text-white font-bold">0.5M / 0.5M bbl/day (100%)</span>
+          </div>
+          <div class="h-3 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-crisis-orange rounded-full" style="width: 100%"></div>
+          </div>
+          <div class="text-[10px] text-crisis-orange mt-1">Political disputes limit throughput</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Red Alert Box -->
+    <div class="glass-card p-5 border border-crisis-red/40 bg-crisis-red/5">
+      <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-full bg-crisis-red/20 flex items-center justify-center flex-shrink-0 mt-0.5 animate-pulse-live">
+          <svg class="w-4 h-4 text-crisis-red" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-crisis-red mb-2">Critical: 13M bbl/day Cannot Be Rerouted</h3>
+          <p class="text-sm text-slate-300">Even with all three pipelines running at maximum capacity, approximately 13 million barrels per day of crude oil — representing 65% of normal Hormuz throughput — has no alternative route to market. This includes virtually all of Kuwait's and Iraq's southern exports, Qatar's LNG (which cannot be transported by pipeline at all), and the majority of Saudi and UAE production. The only alternative for this oil is the 12-14 day detour around the Cape of Good Hope, at an additional cost of $500,000-$700,000 per vessel.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LNG Gap -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">The LNG Pipeline Gap</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">While crude oil has limited pipeline bypass options, Liquefied Natural Gas has <strong class="text-crisis-red">zero pipeline alternatives</strong>. Qatar, the world's largest LNG exporter at 77 million tonnes per year, ships all of its gas via LNG carriers through the Strait of Hormuz. There are no pipelines capable of transporting LNG around the strait — the gas must be liquefied at origin, shipped as a cryogenic liquid at -162°C, and regasified at the destination terminal.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">This means that Qatar's 25% share of global LNG trade is entirely dependent on the strait remaining open. The force majeure declared by QatarEnergy LNG has removed approximately 8.5 million tonnes of monthly LNG supply from the market, driving TTF gas prices from €28.50/MWh to over €80/MWh. For LNG-importing nations like Japan (which sources 40% of its LNG from Qatar), South Korea, and India, there is no pipeline alternative — only expensive spot market purchases from the US, Australia, or East Africa, assuming available shipping capacity.</p>
+      </div>
+    </div>
+  </div>
+</Layout>

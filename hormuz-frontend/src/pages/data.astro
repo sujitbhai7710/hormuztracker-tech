@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Data & Downloads — HormuzTracker.tech" description="Download crisis data in CSV format, access the API, and embed live widgets on your site." path="/data">
+<Layout title="Data & Downloads — HormuzTracker.tech" description="Download crisis data in CSV format, access the API, and embed live widgets on your site. CC BY 4.0 licensed." path="/data">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
     <div>
       <h1 class="text-2xl font-bold text-white">Data & Downloads</h1>
@@ -11,36 +11,97 @@ import Layout from '../layouts/Layout.astro';
     <!-- CSV Downloads -->
     <div class="glass-card p-5">
       <h2 class="text-lg font-bold text-white mb-4">CSV Data Downloads</h2>
-      <p class="text-sm text-slate-400 mb-4">All data is available under Creative Commons Attribution 4.0 (CC BY 4.0) license. Please attribute HormuzTracker.tech when using this data.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <a href="#" class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors block">
+      <p class="text-sm text-slate-400 mb-2">All data is available under <strong class="text-white">Creative Commons Attribution 4.0 (CC BY 4.0)</strong> license. Please attribute HormuzTracker.tech when using this data.</p>
+      <p class="text-xs text-slate-500 mb-4">Downloads are generated live from the API and will contain the most current data available.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="csv-downloads">
+        <button data-endpoint="dashboard" data-filename="hormuz-daily-transits.csv" data-description="Date, transit count, ship types, events, impact" class="csv-btn bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors text-left w-full">
           <div class="flex items-center gap-2 mb-1">
             <svg class="w-4 h-4 text-crisis-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span class="text-sm font-semibold text-white">Daily Transits</span>
           </div>
-          <p class="text-xs text-slate-500">hormuz-daily-transits.csv — Date, transit count, events, impact</p>
-        </a>
-        <a href="#" class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors block">
+          <p class="text-xs text-slate-500">hormuz-daily-transits.csv</p>
+          <span class="csv-status text-xs text-crisis-blue hidden">Generating...</span>
+        </button>
+        <button data-endpoint="oil" data-filename="hormuz-oil-prices.csv" data-description="Date, Brent, WTI, TTF, US Gasoline, changes" class="csv-btn bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors text-left w-full">
           <div class="flex items-center gap-2 mb-1">
             <svg class="w-4 h-4 text-crisis-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span class="text-sm font-semibold text-white">Oil Prices</span>
           </div>
-          <p class="text-xs text-slate-500">hormuz-oil-prices.csv — Date, Brent, WTI, TTF, US Gasoline</p>
-        </a>
-        <a href="#" class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors block">
+          <p class="text-xs text-slate-500">hormuz-oil-prices.csv</p>
+          <span class="csv-status text-xs text-crisis-blue hidden">Generating...</span>
+        </button>
+        <button data-endpoint="carriers" data-filename="hormuz-carrier-status.csv" data-description="Carrier, status, vessels trapped, TEU, surcharge" class="csv-btn bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors text-left w-full">
           <div class="flex items-center gap-2 mb-1">
             <svg class="w-4 h-4 text-crisis-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span class="text-sm font-semibold text-white">Carrier Status</span>
           </div>
-          <p class="text-xs text-slate-500">hormuz-carrier-status.csv — Carrier, status, vessels, TEU, surcharge</p>
-        </a>
-        <a href="#" class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors block">
+          <p class="text-xs text-slate-500">hormuz-carrier-status.csv</p>
+          <span class="csv-status text-xs text-crisis-blue hidden">Generating...</span>
+        </button>
+        <button data-endpoint="insurance" data-filename="hormuz-insurance.csv" data-description="Club, status, date, premium before/current" class="csv-btn bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors text-left w-full">
           <div class="flex items-center gap-2 mb-1">
             <svg class="w-4 h-4 text-crisis-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span class="text-sm font-semibold text-white">Insurance Data</span>
           </div>
-          <p class="text-xs text-slate-500">hormuz-insurance.csv — Club, status, date, premium before/current</p>
-        </a>
+          <p class="text-xs text-slate-500">hormuz-insurance.csv</p>
+          <span class="csv-status text-xs text-crisis-blue hidden">Generating...</span>
+        </button>
+        <button data-endpoint="seizures" data-filename="hormuz-seizures.csv" data-description="Date, entity, vessel, flag, type, status" class="csv-btn bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors text-left w-full">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-4 h-4 text-crisis-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span class="text-sm font-semibold text-white">Vessel Seizures</span>
+          </div>
+          <p class="text-xs text-slate-500">hormuz-seizures.csv</p>
+          <span class="csv-status text-xs text-crisis-blue hidden">Generating...</span>
+        </button>
+        <button data-endpoint="timeline" data-filename="hormuz-timeline.csv" data-description="Date, type, title, description" class="csv-btn bg-ops-900/50 rounded-lg p-4 border border-ops-700/30 hover:border-crisis-blue/50 transition-colors text-left w-full">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-4 h-4 text-crisis-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span class="text-sm font-semibold text-white">Crisis Timeline</span>
+          </div>
+          <p class="text-xs text-slate-500">hormuz-timeline.csv</p>
+          <span class="csv-status text-xs text-crisis-blue hidden">Generating...</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Embed Widgets -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Embed Widgets</h2>
+      <p class="text-sm text-slate-400 mb-4">Add live Hormuz crisis data to your website with these embeddable widgets.</p>
+      <div class="space-y-4">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-white">Severity Widget</h3>
+            <button class="copy-btn px-2 py-1 rounded text-xs bg-ops-800 text-slate-400 hover:text-white transition-colors" data-code='<iframe src="https://hormuztracker.tech/embed/severity" width="220" height="80" frameborder="0" style="border-radius:10px"></iframe>'>Copy</button>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Compact severity score, strait status, and day count. 220x80px.</p>
+          <pre class="bg-ops-950 rounded p-2 text-xs text-slate-400 overflow-x-auto">&lt;iframe src="https://hormuztracker.tech/embed/severity" width="220" height="80" frameborder="0" style="border-radius:10px"&gt;&lt;/iframe&gt;</pre>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-white">Ship Count Widget</h3>
+            <button class="copy-btn px-2 py-1 rounded text-xs bg-ops-800 text-slate-400 hover:text-white transition-colors" data-code='<iframe src="https://hormuztracker.tech/embed/ships" width="300" height="200" frameborder="0" style="border-radius:12px"></iframe>'>Copy</button>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Ships detected, vs normal, with progress bar. 300x200px.</p>
+          <pre class="bg-ops-950 rounded p-2 text-xs text-slate-400 overflow-x-auto">&lt;iframe src="https://hormuztracker.tech/embed/ships" width="300" height="200" frameborder="0" style="border-radius:12px"&gt;&lt;/iframe&gt;</pre>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-white">Oil Price Widget</h3>
+            <button class="copy-btn px-2 py-1 rounded text-xs bg-ops-800 text-slate-400 hover:text-white transition-colors" data-code='<iframe src="https://hormuztracker.tech/embed/oil" width="300" height="400" frameborder="0" style="border-radius:12px"></iframe>'>Copy</button>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Brent, WTI, TTF, Gasoline prices with change indicators. 300x400px.</p>
+          <pre class="bg-ops-950 rounded p-2 text-xs text-slate-400 overflow-x-auto">&lt;iframe src="https://hormuztracker.tech/embed/oil" width="300" height="400" frameborder="0" style="border-radius:12px"&gt;&lt;/iframe&gt;</pre>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-white">Full Dashboard Widget</h3>
+            <button class="copy-btn px-2 py-1 rounded text-xs bg-ops-800 text-slate-400 hover:text-white transition-colors" data-code='<iframe src="https://hormuztracker.tech/embed/dashboard" width="100%" height="800" frameborder="0" style="border-radius:12px"></iframe>'>Copy</button>
+          </div>
+          <p class="text-xs text-slate-500 mb-2">Complete crisis dashboard with metrics, prices, and events. 100%x800px.</p>
+          <pre class="bg-ops-950 rounded p-2 text-xs text-slate-400 overflow-x-auto">&lt;iframe src="https://hormuztracker.tech/embed/dashboard" width="100%" height="800" frameborder="0" style="border-radius:12px"&gt;&lt;/iframe&gt;</pre>
+        </div>
       </div>
     </div>
 
@@ -92,7 +153,127 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <p class="text-xs text-slate-400">Crisis timeline events with date, type (ESCALATION/MILITARY/ECONOMIC/DIPLOMATIC), title, description.</p>
         </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-green/20 text-crisis-green">GET</span>
+            <code class="text-sm text-white font-mono">https://hormuz-api.tradesapi.workers.dev/api/seizures</code>
+          </div>
+          <p class="text-xs text-slate-400">Vessel seizure log: date, entity, vessel name, flag, type, current status.</p>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-green/20 text-crisis-green">GET</span>
+            <code class="text-sm text-white font-mono">https://hormuz-api.tradesapi.workers.dev/api/routes</code>
+          </div>
+          <p class="text-xs text-slate-400">Alternative route data: route names, normal/cape days, extra distance, extra cost per vessel.</p>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-green/20 text-crisis-green">GET</span>
+            <code class="text-sm text-white font-mono">https://hormuz-api.tradesapi.workers.dev/api/news</code>
+          </div>
+          <p class="text-xs text-slate-400">Latest crisis news: headline, source, description, publication date, URL.</p>
+        </div>
       </div>
     </div>
+
+    <!-- Attribution -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Attribution</h2>
+      <p class="text-sm text-slate-400">This data is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" class="text-crisis-blue hover:underline" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>. You are free to share and adapt the data for any purpose, including commercial use, provided you give appropriate credit to HormuzTracker.tech and link to the license.</p>
+      <p class="text-xs text-slate-500 mt-3">Suggested attribution: "Data from HormuzTracker.tech, licensed under CC BY 4.0"</p>
+    </div>
   </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+
+    // CSV Download — generates actual CSV from live API data
+    function jsonToCsv(data, filename) {
+      if (!data) return;
+      let csv = '';
+      if (Array.isArray(data) && data.length > 0) {
+        const headers = Object.keys(data[0]);
+        csv = headers.join(',') + '\n';
+        data.forEach(row => {
+          csv += headers.map(h => {
+            const val = row[h];
+            if (val == null) return '';
+            const str = String(val);
+            return str.includes(',') || str.includes('"') || str.includes('\n') ? '"' + str.replace(/"/g, '""') + '"' : str;
+          }).join(',') + '\n';
+        });
+      } else if (typeof data === 'object') {
+        // Flatten single object
+        const headers = Object.keys(data);
+        csv = 'Key,Value\n';
+        headers.forEach(h => {
+          const val = data[h];
+          csv += `${h},"${val == null ? '' : (typeof val === 'object' ? JSON.stringify(val) : String(val))}"\n`;
+        });
+      }
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.querySelectorAll('.csv-btn').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const endpoint = this.dataset.endpoint;
+        const filename = this.dataset.filename;
+        const statusEl = this.querySelector('.csv-status');
+        statusEl.classList.remove('hidden');
+        statusEl.textContent = 'Generating...';
+        try {
+          const data = await fetch(`${API}/api/${endpoint}`).then(r => r.json());
+          jsonToCsv(data, filename);
+          statusEl.textContent = 'Downloaded!';
+          statusEl.className = 'csv-status text-xs text-crisis-green';
+          setTimeout(() => {
+            statusEl.classList.add('hidden');
+            statusEl.className = 'csv-status text-xs text-crisis-blue hidden';
+          }, 3000);
+        } catch (e) {
+          statusEl.textContent = 'Error generating CSV';
+          statusEl.className = 'csv-status text-xs text-crisis-red';
+          setTimeout(() => {
+            statusEl.classList.add('hidden');
+            statusEl.className = 'csv-status text-xs text-crisis-blue hidden';
+          }, 3000);
+        }
+      });
+    });
+
+    // Copy to clipboard
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const code = this.dataset.code;
+        navigator.clipboard.writeText(code).then(() => {
+          const orig = this.textContent;
+          this.textContent = 'Copied!';
+          this.classList.add('text-crisis-green');
+          setTimeout(() => {
+            this.textContent = orig;
+            this.classList.remove('text-crisis-green');
+          }, 2000);
+        }).catch(() => {
+          // Fallback
+          const textarea = document.createElement('textarea');
+          textarea.value = code;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          const orig = this.textContent;
+          this.textContent = 'Copied!';
+          setTimeout(() => { this.textContent = orig; }, 2000);
+        });
+      });
+    });
+  </script>
 </Layout>

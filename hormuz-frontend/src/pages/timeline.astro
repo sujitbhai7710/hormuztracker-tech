@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Crisis Timeline — HormuzTracker.tech" description="Chronological timeline of the Strait of Hormuz crisis events including military, diplomatic, and economic developments." path="/timeline">
+<Layout title="Crisis Timeline — HormuzTracker.tech" description="Chronological timeline of the Strait of Hormuz crisis events including military, diplomatic, and economic developments with color-coded categories." path="/timeline">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="timeline-page">
     <div>
       <h1 class="text-2xl font-bold text-white">Crisis Timeline</h1>
@@ -11,12 +11,25 @@ import Layout from '../layouts/Layout.astro';
     <!-- Filters -->
     <div class="flex flex-wrap gap-2" id="timeline-filters">
       <button data-filter="ALL" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30 hover:bg-crisis-red/30 transition-colors active-filter">All</button>
-      <button data-filter="ESCALATION" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Escalation</button>
-      <button data-filter="MILITARY" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Military</button>
-      <button data-filter="DIPLOMATIC" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Diplomatic</button>
-      <button data-filter="ECONOMIC" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">Economic</button>
-      <button data-filter="DE-ESCALATION" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">De-escalation</button>
+      <button data-filter="ESCALATION" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">
+        <span class="inline-block w-2 h-2 rounded-full bg-crisis-red mr-1"></span>Escalation
+      </button>
+      <button data-filter="MILITARY" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">
+        <span class="inline-block w-2 h-2 rounded-full bg-red-700 mr-1"></span>Military
+      </button>
+      <button data-filter="DIPLOMATIC" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">
+        <span class="inline-block w-2 h-2 rounded-full bg-crisis-blue mr-1"></span>Diplomatic
+      </button>
+      <button data-filter="ECONOMIC" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">
+        <span class="inline-block w-2 h-2 rounded-full bg-crisis-amber mr-1"></span>Economic
+      </button>
+      <button data-filter="DE-ESCALATION" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 border border-ops-700/50 hover:bg-ops-800 transition-colors">
+        <span class="inline-block w-2 h-2 rounded-full bg-crisis-green mr-1"></span>De-escalation
+      </button>
     </div>
+
+    <!-- Event Count -->
+    <div class="text-xs text-slate-500" id="event-count">Loading events...</div>
 
     <!-- Timeline -->
     <div id="timeline-container" class="space-y-0"></div>
@@ -25,21 +38,37 @@ import Layout from '../layouts/Layout.astro';
   <script>
     const API = 'https://hormuz-api.tradesapi.workers.dev';
     let allEvents = [];
-    const typeColors = { ESCALATION: 'bg-crisis-red', MILITARY: 'bg-red-700', ECONOMIC: 'bg-crisis-amber', DIPLOMATIC: 'bg-crisis-blue', 'DE-ESCALATION': 'bg-crisis-green' };
+    const typeColors = {
+      ESCALATION: 'bg-crisis-red',
+      MILITARY: 'bg-red-700',
+      ECONOMIC: 'bg-crisis-amber',
+      DIPLOMATIC: 'bg-crisis-blue',
+      'DE-ESCALATION': 'bg-crisis-green'
+    };
+    const typeBgColors = {
+      ESCALATION: 'border-crisis-red/20',
+      MILITARY: 'border-red-700/20',
+      ECONOMIC: 'border-crisis-amber/20',
+      DIPLOMATIC: 'border-crisis-blue/20',
+      'DE-ESCALATION': 'border-crisis-green/20'
+    };
 
     async function loadTimeline() {
       try {
         const events = await fetch(`${API}/api/timeline`).then(r => r.json());
+        // Ensure we have enough events; the API should return 12+
         allEvents = events;
+        document.getElementById('event-count').textContent = `${events.length} events loaded`;
         renderTimeline('ALL');
       } catch (e) { console.error('Timeline load failed:', e); }
     }
 
     function renderTimeline(filter) {
       const filtered = filter === 'ALL' ? allEvents : allEvents.filter(e => e.type === filter);
+      document.getElementById('event-count').textContent = `Showing ${filtered.length} of ${allEvents.length} events`;
       document.getElementById('timeline-container').innerHTML = filtered.map((e, i) => {
         const color = typeColors[e.type] || 'bg-slate-500';
-        const isLeft = i % 2 === 0;
+        const borderColor = typeBgColors[e.type] || 'border-ops-700/30';
         return `
         <div class="flex gap-4 animate-fade-in" style="animation-delay: ${i * 50}ms">
           <div class="flex flex-col items-center">
@@ -51,7 +80,7 @@ import Layout from '../layouts/Layout.astro';
               <span class="text-xs font-mono text-slate-500">${e.date}</span>
               <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${color} text-white">${e.type}</span>
             </div>
-            <div class="glass-card p-4 card-hover">
+            <div class="glass-card p-4 card-hover border ${borderColor}">
               <h3 class="text-sm font-bold text-white mb-1">${e.title}</h3>
               <p class="text-xs text-slate-400">${e.description}</p>
             </div>

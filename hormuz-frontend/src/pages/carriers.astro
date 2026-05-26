@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Carrier Status — HormuzTracker.tech" description="Track suspended shipping carriers, affected vessels, and container surcharges during the Hormuz crisis." path="/carriers">
+<Layout title="Carrier Status — HormuzTracker.tech" description="Track suspended shipping carriers, affected vessels, container surcharges, and emergency cost details during the Hormuz crisis." path="/carriers">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="carriers-page">
     <div>
       <h1 class="text-2xl font-bold text-white">Carrier Status</h1>
@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Summary Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="carrier-stats">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3" id="carrier-stats">
       <div class="glass-card p-4 text-center">
         <div class="text-3xl font-black text-crisis-red" id="stat-suspended">9</div>
         <div class="text-xs text-slate-500 mt-1">Suspended</div>
@@ -26,11 +26,70 @@ import Layout from '../layouts/Layout.astro';
         <div class="text-3xl font-black text-crisis-green" id="stat-active">0</div>
         <div class="text-xs text-slate-500 mt-1">Active Through Hormuz</div>
       </div>
+      <div class="glass-card p-4 text-center border border-crisis-red/30">
+        <div class="text-3xl font-black text-crisis-red" id="stat-trapped">45+</div>
+        <div class="text-xs text-slate-500 mt-1">Vessels Trapped</div>
+      </div>
+    </div>
+
+    <!-- Trapped Vessels Alert -->
+    <div class="glass-card p-5 border border-crisis-red/30 bg-crisis-red/5">
+      <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-full bg-crisis-red/20 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-crisis-red" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-crisis-red mb-1">45+ Vessels Trapped in Persian Gulf</h3>
+          <p class="text-sm text-slate-300">An estimated 45 or more commercial vessels are currently unable to exit the Persian Gulf due to the suspension of Hormuz transit. These vessels — including tankers, container ships, and bulk carriers — are anchored at ports in Dubai, Bahrain, and Kuwait awaiting either a strait reopening or the long detour around the Cape of Good Hope. Daily demurrage costs exceed $50,000 per vessel.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Carrier Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="carrier-cards">
-      <!-- Filled by JS -->
+    </div>
+
+    <!-- Emergency Surcharge Details -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Emergency Surcharges</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Surcharge Type</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Pre-Crisis</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Current</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Increase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">War Risk Premium (per transit)</td>
+              <td class="text-right text-slate-400 font-mono">$125K</td>
+              <td class="text-right text-crisis-red font-bold font-mono">$2M-$3M</td>
+              <td class="text-right text-crisis-red font-bold">16-24x</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">Container Surcharge (per TEU)</td>
+              <td class="text-right text-slate-400 font-mono">$0</td>
+              <td class="text-right text-crisis-orange font-bold font-mono">$2,100-$2,500</td>
+              <td class="text-right text-crisis-orange font-bold">NEW</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">Cape of Good Hope Detour (per vessel)</td>
+              <td class="text-right text-slate-400 font-mono">$0</td>
+              <td class="text-right text-crisis-orange font-bold font-mono">$500K-$700K</td>
+              <td class="text-right text-crisis-orange font-bold">NEW</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-white">Bunker Adjustment Factor</td>
+              <td class="text-right text-slate-400 font-mono">$45/TEU</td>
+              <td class="text-right text-crisis-amber font-bold font-mono">$185/TEU</td>
+              <td class="text-right text-crisis-amber font-bold">+311%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Carrier Breakdown Chart -->
@@ -39,7 +98,62 @@ import Layout from '../layouts/Layout.astro';
       <div id="carrier-chart" class="space-y-3"></div>
     </div>
 
-    <!-- Historical Context -->
+    <!-- Historical Comparison -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Historical Comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Crisis</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Duration</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Peak Oil Spike</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Trade Impact</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Carriers Affected</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50 bg-crisis-red/5">
+              <td class="py-2 text-crisis-red font-bold">Hormuz 2026</td>
+              <td class="text-right text-crisis-orange font-bold" id="hist-duration">88+ days</td>
+              <td class="text-right text-crisis-red font-bold">+56%</td>
+              <td class="text-right text-crisis-red">21% world oil</td>
+              <td class="text-right text-crisis-red font-bold">9/9 major</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">OPEC Embargo 1973</td>
+              <td class="text-right text-slate-400">5 months</td>
+              <td class="text-right text-crisis-red font-bold">+400%</td>
+              <td class="text-right text-slate-400">7M bbl/day cut</td>
+              <td class="text-right text-slate-400">N/A (pre-container)</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">Tanker War 1984-88</td>
+              <td class="text-right text-slate-400">4 years</td>
+              <td class="text-right text-crisis-amber font-bold">+30%</td>
+              <td class="text-right text-slate-400">Reduced traffic</td>
+              <td class="text-right text-slate-400">Partial rerouting</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">Red Sea 2024-25</td>
+              <td class="text-right text-slate-400">12+ months</td>
+              <td class="text-right text-crisis-amber font-bold">+8%</td>
+              <td class="text-right text-slate-400">12% traffic rerouted</td>
+              <td class="text-right text-slate-400">4/9 major</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-white">Suez Blockage 2021</td>
+              <td class="text-right text-slate-400">6 days</td>
+              <td class="text-right text-slate-400">+5%</td>
+              <td class="text-right text-slate-400">$60B trade delayed</td>
+              <td class="text-right text-slate-400">All (temporarily)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Impact Analysis -->
     <div class="glass-card p-5">
       <h2 class="text-lg font-bold text-white mb-4">Impact on Global Shipping</h2>
       <div class="prose prose-invert prose-sm max-w-none">
@@ -66,7 +180,7 @@ import Layout from '../layouts/Layout.astro';
               <h3 class="text-lg font-bold text-white">${c.name}</h3>
               <span class="px-2 py-1 rounded text-xs font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30">${c.status}</span>
             </div>
-            <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="grid grid-cols-3 gap-2 text-center mb-3">
               <div class="bg-ops-900/50 rounded p-2">
                 <div class="text-lg font-bold text-crisis-orange">${c.vesselsTrapped || 0}</div>
                 <div class="text-[10px] text-slate-500">Vessels</div>
@@ -80,6 +194,8 @@ import Layout from '../layouts/Layout.astro';
                 <div class="text-[10px] text-slate-500">Surcharge</div>
               </div>
             </div>
+            ${c.reroute ? `<div class="text-xs text-slate-500 bg-ops-900/50 rounded p-2"><span class="text-crisis-blue">Reroute:</span> ${c.reroute}</div>` : ''}
+            ${c.effectiveDate ? `<div class="text-xs text-slate-500 mt-2">Suspended since: <span class="text-white font-mono">${c.effectiveDate}</span></div>` : ''}
           </div>`;
         }).join('');
         document.getElementById('carrier-cards').innerHTML = html;
@@ -99,6 +215,11 @@ import Layout from '../layouts/Layout.astro';
           </div>
         `).join('');
         document.getElementById('carrier-chart').innerHTML = chartHtml;
+
+        // Duration
+        const crisisStart = new Date('2026-02-28T00:00:00Z');
+        const dayNum = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
+        document.getElementById('hist-duration').textContent = dayNum + '+ days';
       } catch (e) { console.error('Carrier load failed:', e); }
     }
     loadCarriers();

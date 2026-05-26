@@ -6,11 +6,13 @@ const FAQ_DATA = [
   { q: 'How many ships are currently transiting?', a: 'dynamic', dynamicKey: 'shipCount' },
   { q: 'What is the current oil price?', a: 'dynamic', dynamicKey: 'oilPrice' },
   { q: 'What is the war risk insurance premium?', a: 'dynamic', dynamicKey: 'insurance' },
+  { q: 'How long has the crisis been going on?', a: 'dynamic', dynamicKey: 'duration' },
   { q: 'Why is the Strait of Hormuz so important?', a: 'The Strait of Hormuz is the world\'s most critical oil chokepoint, with approximately 21% of global petroleum consumption transiting through it daily. At its narrowest point, the strait is only 21 nautical miles wide, with just two 2-mile-wide navigation channels. No alternative route can replace even a fraction of this volume — the combined pipeline bypass capacity is only 35% of normal flow.' },
   { q: 'What happens if the strait remains closed?', a: 'A prolonged closure would trigger a global recession. Oil prices would likely exceed $150-200 per barrel, gasoline could reach $6-8 per gallon in the US, and supply chain disruptions would cascade through every industry dependent on energy and shipping. Strategic petroleum reserves worldwide would be depleted within 2-3 months, after which nations without alternative supply sources would face energy rationing.' },
   { q: 'Can pipelines replace the strait?', a: 'No. The combined pipeline bypass capacity (Saudi Petroline at 5M bbl/day, UAE ADCOP at 1.5M bbl/day, and Iraq-Turkey at 0.5M bbl/day) totals just 7M bbl/day — only 35% of the 20M bbl/day that normally flows through Hormuz. Furthermore, LNG cannot be transported by pipeline at all, meaning Qatar\'s gas exports have no alternative route.' },
   { q: 'How are shipping companies responding?', a: 'All nine major container carriers have suspended Hormuz transit. Vessels are being rerouted around the Cape of Good Hope, adding 12-14 days and approximately $500,000-$700,000 per voyage. Carriers have imposed emergency surcharges of $2,100-$2,500 per TEU. The rerouting has caused a global container shortage as ships are tied up on longer routes.' },
   { q: 'What diplomatic efforts are underway?', a: 'Oman initiated back-channel mediation in April, and China hosted an emergency summit in Beijing on May 24, 2026, bringing together Iran, Saudi Arabia, UAE, and Oman. The US-led Operation Freedom of Navigation has conducted three naval escort convoys. Iran has proposed a "safe transit corridor" but with conditions (sanctions relief, maritime claims recognition) that make acceptance unlikely in the near term.' },
+  { q: 'How is the crisis affecting consumer gas prices?', a: 'US gasoline has risen approximately 38.7% from $3.20 to over $4.44 per gallon. UK petrol is up 26.8%, EU diesel up 31.2%, and India petrol up 42.5%. The price transmission typically takes 4-6 weeks from crude oil spikes to reach the pump, with pass-through rates varying by country due to different tax structures.' },
   { q: 'How reliable is the data on this site?', a: 'Data is aggregated from multiple established maritime intelligence sources including AISstream.io, oilpriceapi.com, and verified news agencies. Vessel position data represents a lower bound as ships may disable transponders. Oil prices may lag real-time markets by up to 5 minutes. See our Methodology page for detailed information on data sources, update frequency, and known limitations.' },
 ];
 ---
@@ -19,15 +21,15 @@ const FAQ_DATA = [
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-6">
     <div>
       <h1 class="text-2xl font-bold text-white">Frequently Asked Questions</h1>
-      <p class="text-sm text-slate-400 mt-1">Common questions about the Hormuz crisis</p>
+      <p class="text-sm text-slate-400 mt-1">Common questions about the Hormuz crisis — updated with live data</p>
     </div>
 
     <div class="space-y-3" id="faq-container">
       {FAQ_DATA.map((item, i) => (
-        <div class="glass-card overflow-hidden">
-          <button class="w-full px-5 py-4 flex items-center justify-between text-left" onclick={`this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180')`}>
+        <div class="glass-card overflow-hidden faq-item">
+          <button class="w-full px-5 py-4 flex items-center justify-between text-left" onclick={`this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.faq-chevron').classList.toggle('rotate-180')`}>
             <span class="text-sm font-semibold text-white pr-4">{item.q}</span>
-            <svg class="w-4 h-4 text-slate-500 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="faq-chevron w-4 h-4 text-slate-500 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
           <div class="px-5 pb-4 hidden">
             {item.a === 'dynamic' ? (
@@ -45,18 +47,39 @@ const FAQ_DATA = [
     const API = 'https://hormuz-api.tradesapi.workers.dev';
     async function loadFaqData() {
       try {
-        const dash = await fetch(`${API}/api/dashboard`).then(r => r.json());
+        const [dash, oil] = await Promise.all([
+          fetch(`${API}/api/dashboard`).then(r => r.json()),
+          fetch(`${API}/api/oil`).then(r => r.json()),
+        ]);
+
         const el1 = document.getElementById('faq-dynamic-straitStatus');
         if (el1) el1.textContent = `The strait is currently ${dash.straitStatus?.status || 'CLOSED'} to commercial shipping, as it has been since February 28, 2026. ${dash.straitStatus?.description || ''}`;
+
         const el2 = document.getElementById('faq-dynamic-shipCount');
-        if (el2) el2.textContent = `Currently ${dash.shipCount?.currentTransits || 0} ships are transiting, with ${dash.shipCount?.last24h || 0} in the last 24 hours. Normal daily traffic is approximately ${dash.shipCount?.normalDaily || 60} ships. This represents just ${dash.shipCount?.percentOfNormal || 3}% of normal traffic levels.`;
+        if (el2) el2.textContent = `Currently ${dash.shipCount?.last24h || 0} ships are transiting, with ${dash.shipCount?.last24h || 0} in the last 24 hours. Normal daily traffic is approximately ${dash.shipCount?.normalDaily || 60} ships. This represents just ${dash.shipCount?.percentOfNormal || 3}% of normal traffic levels.`;
+
         const el3 = document.getElementById('faq-dynamic-oilPrice');
-        if (el3) el3.textContent = `Brent crude is currently at $${dash.oilPrice?.brentPrice?.toFixed(2) || '116.73'}, up ${dash.oilPrice?.changePercent24h?.toFixed(1) || '1.1'}% in the last 24 hours. Pre-crisis Brent was approximately $74.50, representing a ${((dash.oilPrice?.brentPrice || 116.73) / 74.50 * 100 - 100).toFixed(0)}% increase since the crisis began.`;
+        if (el3) {
+          const brentPrice = oil?.brent || dash.oilPrice?.brentPrice || 116.73;
+          const preCrisis = oil?.preCrisis?.brent || 74.50;
+          const changePct = ((brentPrice - preCrisis) / preCrisis * 100).toFixed(1);
+          el3.textContent = `Brent crude is currently at $${brentPrice.toFixed(2)}, up ${changePct}% since the crisis began. Pre-crisis Brent was approximately $${preCrisis.toFixed(2)}. WTI is at $${(oil?.wti || 113.40).toFixed(2)}, and US gasoline averages $${(oil?.gasoline || 4.44).toFixed(2)} per gallon.`;
+        }
+
         const el4 = document.getElementById('faq-dynamic-insurance');
-        if (el4) el4.textContent = `The war risk insurance premium is currently ${dash.insurance?.warRiskPercent || 3}% of hull value per transit, compared to the normal rate of ${dash.insurance?.normalPercent || 0.15}%. This represents a ${dash.insurance?.multiplier || 20}x increase. All six major P&I clubs have withdrawn coverage for Hormuz transit.`;
+        if (el4) el4.textContent = `The war risk insurance premium is currently ${dash.insurance?.warRiskPercent || 3}% of hull value per transit, compared to the normal rate of ${dash.insurance?.normalPercent || 0.15}%. This represents a ${dash.insurance?.multiplier || 20}x increase. All six major P&I clubs have withdrawn coverage for Hormuz transit. A VLCC transit now costs $2-3M in insurance alone, versus $125K pre-crisis.`;
+
+        const el5 = document.getElementById('faq-dynamic-duration');
+        if (el5) {
+          const crisisStart = new Date('2026-02-28T00:00:00Z');
+          const dayNum = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
+          const months = (dayNum / 30).toFixed(1);
+          el5.textContent = `The crisis has been ongoing for ${dayNum} days (approximately ${months} months), since February 28, 2026. The strait has been ${dash.straitStatus?.status || 'restricted'} for the entire duration with no resolution in sight.`;
+        }
       } catch (e) { console.error('FAQ data load failed:', e); }
     }
     loadFaqData();
+    setInterval(loadFaqData, 300000);
   </script>
 
   <script type="application/ld+json" set:html={JSON.stringify({

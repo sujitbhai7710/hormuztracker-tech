@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Strategic Petroleum Reserves — HormuzTracker.tech" description="Strategic Petroleum Reserve data for major nations. How many days of emergency oil supply do countries have?" path="/spr">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="spr-page">
+
+    <!-- Hero -->
+    <div class="relative overflow-hidden glass-card p-8">
+      <div class="absolute inset-0 bg-gradient-to-br from-crisis-amber/5 via-transparent to-crisis-orange/5"></div>
+      <div class="relative">
+        <h1 class="text-3xl font-black text-white mb-2">Strategic Petroleum Reserves</h1>
+        <p class="text-slate-400 mb-4">Emergency oil stockpiles that buffer nations against supply disruptions</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20 text-center">
+            <div class="text-3xl font-black gradient-text-gold">1.2B</div>
+            <div class="text-xs text-slate-400 mt-1">Total OECD Barrels</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20 text-center">
+            <div class="text-3xl font-black text-crisis-amber">90</div>
+            <div class="text-xs text-slate-400 mt-1">IEA Mandate (Days)</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-orange/20 text-center">
+            <div class="text-3xl font-black text-crisis-orange">680M</div>
+            <div class="text-xs text-slate-400 mt-1">US SPR Barrels</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/20 text-center">
+            <div class="text-3xl font-black text-crisis-red">38</div>
+            <div class="text-xs text-slate-400 mt-1">US SPR Days Cover</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What is SPR? -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">What Are Strategic Petroleum Reserves?</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">Strategic Petroleum Reserves (SPR) are emergency stockpiles of crude oil maintained by governments to mitigate the economic impact of supply disruptions. The concept was born from the 1973 OPEC oil embargo, which caught importing nations without any buffer against supply shocks. The International Energy Agency (IEA) requires all member nations to maintain reserves equivalent to at least 90 days of net oil imports.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">During the current Hormuz crisis, SPRs serve as the primary short-term buffer. The US has already authorized a drawdown of 30 million barrels, and other IEA members have coordinated a 60-million-barrel collective release. However, at current consumption rates, global SPR capacity covers approximately 4-5 months of disrupted supply — after which nations without alternative sources face energy rationing.</p>
+      </div>
+    </div>
+
+    <!-- Country-by-Country SPR Data -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Country-by-Country Reserve Levels</h2>
+      <div class="space-y-4" id="spr-countries"></div>
+    </div>
+
+    <!-- Visual Progress Bars -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Reserve Level as % of IEA 90-Day Mandate</h2>
+      <div class="space-y-3" id="spr-bars"></div>
+    </div>
+
+    <!-- How SPR Works in Crisis -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">How SPR Works During a Crisis</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-full bg-crisis-amber/20 flex items-center justify-center text-crisis-amber font-bold text-sm">1</div>
+            <h3 class="text-sm font-bold text-white">Decision Phase</h3>
+          </div>
+          <p class="text-xs text-slate-400">IEA coordinates with member governments. A collective action requires a vote by the IEA Governing Board. The US President can independently authorize a drawdown of the US SPR. Decision typically takes 2-5 days from crisis trigger.</p>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-full bg-crisis-orange/20 flex items-center justify-center text-crisis-orange font-bold text-sm">2</div>
+            <h3 class="text-sm font-bold text-white">Drawdown Phase</h3>
+          </div>
+          <p class="text-xs text-slate-400">US SPR can deliver 4.4M barrels/day within 13 days of a presidential decision. Oil is sold via competitive auction to refiners. Other IEA nations activate their respective mechanisms. Physical oil reaches markets within 2-3 weeks.</p>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-full bg-crisis-red/20 flex items-center justify-center text-crisis-red font-bold text-sm">3</div>
+            <h3 class="text-sm font-bold text-white">Depletion Risk</h3>
+          </div>
+          <p class="text-xs text-slate-400">At maximum drawdown rate, US SPR would be depleted in ~150 days. Global IEA coordinated releases last approximately 4-5 months at 2M bbl/day. After depletion, no further buffer exists — nations must rely on market purchases at whatever price prevails.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historical SPR Usage -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Historical SPR Releases</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Year</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Event</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Volume</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Duration</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Price Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white font-mono text-xs">1991</td>
+              <td class="py-2 text-white">Gulf War</td>
+              <td class="text-right text-slate-400">33.75M bbl</td>
+              <td class="text-right text-slate-400">3 months</td>
+              <td class="text-right text-crisis-green">-9%</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white font-mono text-xs">2005</td>
+              <td class="py-2 text-white">Hurricane Katrina</td>
+              <td class="text-right text-slate-400">20.8M bbl</td>
+              <td class="text-right text-slate-400">2 weeks</td>
+              <td class="text-right text-crisis-green">-3%</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white font-mono text-xs">2011</td>
+              <td class="py-2 text-white">Libya Civil War</td>
+              <td class="text-right text-slate-400">60.6M bbl (IEA)</td>
+              <td class="text-right text-slate-400">1 month</td>
+              <td class="text-right text-crisis-green">-6%</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white font-mono text-xs">2022</td>
+              <td class="py-2 text-white">Russia-Ukraine War</td>
+              <td class="text-right text-slate-400">180M bbl (US)</td>
+              <td class="text-right text-slate-400">6 months</td>
+              <td class="text-right text-crisis-green">-12%</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-crisis-red font-mono text-xs font-bold">2026</td>
+              <td class="py-2 text-crisis-red font-bold">Hormuz Crisis</td>
+              <td class="text-right text-crisis-orange font-bold">90M bbl (planned)</td>
+              <td class="text-right text-crisis-orange">Ongoing</td>
+              <td class="text-right text-crisis-amber">TBD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sprCountries = [
+      { name: 'United States', flag: '🇺🇸', barrels: 680, days: 38, maxDrawdown: 4.4, pctOfMandate: 42, status: 'Drawdown authorized' },
+      { name: 'Japan', flag: '🇯🇵', barrels: 320, days: 45, maxDrawdown: 1.2, pctOfMandate: 50, status: 'Standby' },
+      { name: 'China', flag: '🇨🇳', barrels: 475, days: 40, maxDrawdown: 1.5, pctOfMandate: 44, status: 'Gradual release' },
+      { name: 'South Korea', flag: '🇰🇷', barrels: 140, days: 90, maxDrawdown: 0.8, pctOfMandate: 100, status: 'IEA compliant' },
+      { name: 'India', flag: '🇮🇳', barrels: 39, days: 9, maxDrawdown: 0.3, pctOfMandate: 10, status: 'Below mandate' },
+      { name: 'Germany', flag: '🇩🇪', barrels: 58, days: 100, maxDrawdown: 0.4, pctOfMandate: 111, status: 'IEA compliant' },
+      { name: 'France', flag: '🇫🇷', barrels: 42, days: 92, maxDrawdown: 0.3, pctOfMandate: 102, status: 'IEA compliant' },
+      { name: 'United Kingdom', flag: '🇬🇧', barrels: 22, days: 45, maxDrawdown: 0.2, pctOfMandate: 50, status: 'Partial' },
+      { name: 'Australia', flag: '🇦🇺', barrels: 15, days: 55, maxDrawdown: 0.1, pctOfMandate: 61, status: 'Below mandate' },
+    ];
+
+    const container = document.getElementById('spr-countries');
+    container.innerHTML = sprCountries.map(c => {
+      const statusClass = c.status === 'IEA compliant' ? 'text-crisis-green bg-crisis-green/10 border-crisis-green/30' :
+        c.status === 'Below mandate' ? 'text-crisis-red bg-crisis-red/10 border-crisis-red/30' :
+        c.status === 'Drawdown authorized' ? 'text-crisis-orange bg-crisis-orange/10 border-crisis-orange/30' :
+        'text-crisis-amber bg-crisis-amber/10 border-crisis-amber/30';
+      return `<div class="bg-ops-900/50 rounded-lg p-4 border border-ops-700/30">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">${c.flag}</span>
+            <h3 class="text-sm font-bold text-white">${c.name}</h3>
+          </div>
+          <span class="px-2 py-0.5 rounded text-xs font-bold border ${statusClass}">${c.status}</span>
+        </div>
+        <div class="grid grid-cols-3 gap-3 text-center">
+          <div>
+            <div class="text-lg font-black text-white font-mono">${c.barrels}M</div>
+            <div class="text-[10px] text-slate-500">Barrels</div>
+          </div>
+          <div>
+            <div class="text-lg font-black text-crisis-amber font-mono">${c.days}</div>
+            <div class="text-[10px] text-slate-500">Days Cover</div>
+          </div>
+          <div>
+            <div class="text-lg font-black text-slate-300 font-mono">${c.maxDrawdown}M</div>
+            <div class="text-[10px] text-slate-500">Max bbl/day</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    const barsContainer = document.getElementById('spr-bars');
+    barsContainer.innerHTML = sprCountries.map(c => {
+      const pct = Math.min(c.pctOfMandate, 120);
+      const barColor = c.pctOfMandate >= 90 ? 'bg-crisis-green' : c.pctOfMandate >= 50 ? 'bg-crisis-amber' : 'bg-crisis-red';
+      return `<div class="flex items-center gap-3">
+        <div class="w-24 text-xs text-slate-300 font-medium text-right">${c.flag} ${c.name.split(' ').pop()}</div>
+        <div class="flex-1 bg-ops-800 rounded-full h-5 overflow-hidden">
+          <div class="h-full ${barColor} rounded-full flex items-center pl-2 transition-all duration-700" style="width: ${pct / 1.2}%">
+            <span class="text-[10px] text-white font-bold">${c.pctOfMandate}%</span>
+          </div>
+        </div>
+        <div class="w-12 text-xs text-slate-500 text-right">${c.days}d</div>
+      </div>`;
+    }).join('');
+  </script>
+</Layout>

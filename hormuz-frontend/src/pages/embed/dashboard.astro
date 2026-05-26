@@ -1,0 +1,221 @@
+---
+// Embeddable Full Dashboard Widget — no Layout, minimal inline CSS
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hormuz Crisis Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #050a14; color: #e2e8f0; }
+    .widget { width: 100%; max-width: 100%; min-height: 800px; padding: 20px; background: #050a14; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(58,84,120,0.25); }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #ef4444, #f97316); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 900; }
+    .site-name { font-size: 14px; font-weight: 700; color: #fff; }
+    .site-name span { color: #f97316; }
+    .badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: 4px; animation: glow 2s ease-in-out infinite; }
+    .badge-closed { color: #ef4444; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-restricted { color: #f97316; background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); }
+    @keyframes glow { 0%,100% { box-shadow: 0 0 4px rgba(239,68,68,0.3); } 50% { box-shadow: 0 0 12px rgba(239,68,68,0.6); } }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .card { background: linear-gradient(135deg, rgba(15,32,53,0.8), rgba(10,22,40,0.9)); border: 1px solid rgba(58,84,120,0.25); border-radius: 10px; padding: 14px; }
+    .card-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: #5a7a9e; margin-bottom: 6px; }
+    .card-value { font-size: 22px; font-weight: 900; color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .card-sub { font-size: 10px; color: #5a7a9e; margin-top: 3px; }
+    .red { color: #ef4444; }
+    .orange { color: #f97316; }
+    .amber { color: #f59e0b; }
+    .green { color: #22c55e; }
+    .blue { color: #3b82f6; }
+    .section-title { font-size: 12px; font-weight: 700; color: #8aa4c0; text-transform: uppercase; letter-spacing: 0.06em; margin: 20px 0 10px; }
+    .oil-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(58,84,120,0.15); }
+    .oil-label { font-size: 12px; color: #5a7a9e; }
+    .oil-price { font-size: 16px; font-weight: 900; color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .oil-chg { font-size: 10px; font-weight: 700; }
+    .bar-row { margin: 8px 0; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #5a7a9e; margin-bottom: 3px; }
+    .bar { height: 6px; background: #0f2035; border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+    .timeline-item { display: flex; gap: 8px; padding: 6px 0; }
+    .timeline-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    .timeline-date { font-size: 9px; color: #3a5478; font-family: 'JetBrains Mono', monospace; }
+    .timeline-title { font-size: 11px; color: #e2e8f0; font-weight: 600; }
+    .timeline-desc { font-size: 10px; color: #5a7a9e; }
+    .footer { margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(58,84,120,0.2); display: flex; justify-content: space-between; font-size: 9px; color: #3a5478; }
+    .footer a { color: #3b82f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="header">
+      <div class="header-left">
+        <div class="logo">H</div>
+        <div class="site-name">Hormuz<span>Tracker</span>.tech</div>
+      </div>
+      <span class="badge badge-restricted" id="strait-badge">LOADING</span>
+    </div>
+
+    <div class="grid" id="metrics">
+      <div class="card">
+        <div class="card-label">Severity</div>
+        <div class="card-value red" id="severity">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Ships Today</div>
+        <div class="card-value" id="ships">—</div>
+        <div class="card-sub" id="ships-vs">vs — normal</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Day of Crisis</div>
+        <div class="card-value orange" id="day-count">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Carriers Suspended</div>
+        <div class="card-value red" id="carriers">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Pipeline Coverage</div>
+        <div class="card-value amber" id="pipeline">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">War Risk Premium</div>
+        <div class="card-value red" id="war-risk">—</div>
+      </div>
+    </div>
+
+    <div class="section-title">Energy Prices</div>
+    <div id="oil-section">
+      <div class="oil-row">
+        <div>
+          <div class="oil-label">Brent Crude</div>
+          <div style="font-size:9px;color:#3a5478">Pre-crisis: $74.50</div>
+        </div>
+        <div style="text-align:right">
+          <div class="oil-price" id="brent">—</div>
+          <div class="oil-chg red" id="brent-chg">—</div>
+        </div>
+      </div>
+      <div class="oil-row">
+        <div>
+          <div class="oil-label">WTI Crude</div>
+          <div style="font-size:9px;color:#3a5478">Pre-crisis: $72.30</div>
+        </div>
+        <div style="text-align:right">
+          <div class="oil-price" id="wti">—</div>
+          <div class="oil-chg red" id="wti-chg">—</div>
+        </div>
+      </div>
+      <div class="oil-row">
+        <div>
+          <div class="oil-label">EU Gas (TTF)</div>
+          <div style="font-size:9px;color:#3a5478">Pre-crisis: €28.50</div>
+        </div>
+        <div style="text-align:right">
+          <div class="oil-price" id="ttf">—</div>
+          <div class="oil-chg red" id="ttf-chg">—</div>
+        </div>
+      </div>
+      <div class="oil-row" style="border-bottom:none">
+        <div>
+          <div class="oil-label">US Gasoline</div>
+          <div style="font-size:9px;color:#3a5478">Pre-crisis: $3.20</div>
+        </div>
+        <div style="text-align:right">
+          <div class="oil-price" id="gas">—</div>
+          <div class="oil-chg red" id="gas-chg">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Tanker Rates</div>
+    <div class="bar-row">
+      <div class="bar-label">
+        <span>VLCC TD3C</span>
+        <span id="vlcc-rate">—</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="vlcc-bar" style="width:50%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div>
+    </div>
+
+    <div class="section-title">Latest Events</div>
+    <div id="events"></div>
+
+    <div class="footer">
+      <span>Data for informational purposes only</span>
+      <a href="https://hormuztracker.tech" target="_blank" rel="noopener">hormuztracker.tech</a>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    const typeColors = { ESCALATION: '#ef4444', MILITARY: '#b91c1c', ECONOMIC: '#f59e0b', DIPLOMATIC: '#3b82f6', 'DE-ESCALATION': '#22c55e' };
+
+    async function load() {
+      try {
+        const [dash, oil] = await Promise.all([
+          fetch(`${API}/api/dashboard`).then(r => r.json()),
+          fetch(`${API}/api/oil`).then(r => r.json()),
+        ]);
+
+        // Metrics
+        document.getElementById('severity').textContent = (dash.severityScore || 10) + '/10';
+        document.getElementById('ships').textContent = dash.shipCount?.last24h || 0;
+        document.getElementById('ships-vs').textContent = 'vs ' + (dash.shipCount?.normalDaily || 60) + ' normal';
+        document.getElementById('carriers').textContent = dash.carriersSuspended || '9/9';
+        document.getElementById('pipeline').textContent = dash.pipelineCoverage || '35%';
+        document.getElementById('war-risk').textContent = (dash.insurance?.warRiskPercent || 3) + '%';
+
+        const status = (dash.straitStatus?.status || 'RESTRICTED').toUpperCase();
+        const badge = document.getElementById('strait-badge');
+        badge.textContent = status;
+        badge.className = 'badge ' + (status.includes('CLOSED') ? 'badge-closed' : 'badge-restricted');
+
+        const crisisStart = new Date('2026-02-28T00:00:00Z');
+        const dayNum = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
+        document.getElementById('day-count').textContent = dayNum;
+
+        // Oil
+        const fmt = (n, p='$') => n != null ? p + Number(n).toFixed(2) : '—';
+        document.getElementById('brent').textContent = fmt(oil.brent);
+        document.getElementById('wti').textContent = fmt(oil.wti);
+        document.getElementById('ttf').textContent = fmt(oil.ttf, '€');
+        document.getElementById('gas').textContent = fmt(oil.gasoline);
+
+        const pre = oil.preCrisis || { brent: 74.50, wti: 72.30, ttf: 28.50, gasoline: 3.20 };
+        const setPct = (id, cur, pre) => {
+          const el = document.getElementById(id);
+          if (!cur || !pre) { el.textContent = '—'; return; }
+          const pct = ((cur - pre) / pre * 100).toFixed(1);
+          el.textContent = '+' + pct + '% vs pre-crisis';
+        };
+        setPct('brent-chg', oil.brent, pre.brent);
+        setPct('wti-chg', oil.wti, pre.wti);
+        setPct('ttf-chg', oil.ttf, pre.ttf);
+        setPct('gas-chg', oil.gasoline, pre.gasoline);
+
+        // Tanker
+        document.getElementById('vlcc-rate').textContent = (dash.tankerRates?.currentRate || 100) + ' WS (+' + (dash.tankerRates?.changePercent || 100) + '%)';
+
+        // Events
+        const events = (dash.crisisTimeline?.events || []).slice(0, 5);
+        document.getElementById('events').innerHTML = events.map(e => `
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:${typeColors[e.type] || '#5a7a9e'}"></div>
+            <div>
+              <div class="timeline-date">${e.date} · ${e.type}</div>
+              <div class="timeline-title">${e.title}</div>
+              <div class="timeline-desc">${e.description}</div>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        console.error('Dashboard widget load failed:', e);
+      }
+    }
+    load();
+    setInterval(load, 300000);
+  </script>
+</body>
+</html>

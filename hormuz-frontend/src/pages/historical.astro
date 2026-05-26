@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Historical Crisis Comparison — HormuzTracker.tech" description="How the 2026 Hormuz crisis compares to historical oil shocks: 1973 OPEC embargo, 1984 Tanker War, 1990 Gulf War, 2021 Suez blockage, and 2024 Red Sea crisis." path="/historical">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="historical-page">
+
+    <!-- Hero -->
+    <div class="relative overflow-hidden glass-card p-8">
+      <div class="absolute inset-0 bg-gradient-to-br from-crisis-red/5 via-transparent to-crisis-amber/5"></div>
+      <div class="relative">
+        <h1 class="text-3xl font-black text-white mb-2">Historical Crisis Comparison</h1>
+        <p class="text-slate-400">How the 2026 Hormuz crisis stacks up against history's biggest oil shocks</p>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Crisis Comparison Table</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Event</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Year</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Duration</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Peak Oil Spike</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Trade Impact</th>
+              <th class="text-center py-2 text-slate-400 font-medium">Severity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50 bg-crisis-red/5">
+              <td class="py-3 text-crisis-red font-bold">Hormuz Closure</td>
+              <td class="py-3 text-crisis-red font-mono font-bold">2026</td>
+              <td class="text-right text-crisis-orange font-bold" id="hormuz-duration">88+ days</td>
+              <td class="text-right text-crisis-red font-bold font-mono">+56%</td>
+              <td class="text-right text-crisis-red">21% world oil cut</td>
+              <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-red/20 text-crisis-red">EXTREME</span></td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-3 text-white">OPEC Oil Embargo</td>
+              <td class="py-3 text-slate-400 font-mono">1973</td>
+              <td class="text-right text-slate-400">5 months</td>
+              <td class="text-right text-crisis-red font-bold font-mono">+400%</td>
+              <td class="text-right text-slate-400">7M bbl/day cut</td>
+              <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-red/20 text-crisis-red">EXTREME</span></td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-3 text-white">Iran-Iraq Tanker War</td>
+              <td class="py-3 text-slate-400 font-mono">1984-88</td>
+              <td class="text-right text-slate-400">4 years</td>
+              <td class="text-right text-crisis-amber font-bold font-mono">+30%</td>
+              <td class="text-right text-slate-400">Reduced Gulf traffic</td>
+              <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-orange/20 text-crisis-orange">HIGH</span></td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-3 text-white">Kuwait Invasion / Gulf War</td>
+              <td class="py-3 text-slate-400 font-mono">1990</td>
+              <td class="text-right text-slate-400">6 months</td>
+              <td class="text-right text-crisis-orange font-bold font-mono">+100%</td>
+              <td class="text-right text-slate-400">4.3M bbl/day lost</td>
+              <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-orange/20 text-crisis-orange">HIGH</span></td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-3 text-white">Suez Canal Blockage</td>
+              <td class="py-3 text-slate-400 font-mono">2021</td>
+              <td class="text-right text-slate-400">6 days</td>
+              <td class="text-right text-slate-400 font-mono">+5%</td>
+              <td class="text-right text-slate-400">$60B trade delayed</td>
+              <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-amber/20 text-crisis-amber">MODERATE</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 text-white">Red Sea / Houthi Attacks</td>
+              <td class="py-3 text-slate-400 font-mono">2024-25</td>
+              <td class="text-right text-slate-400">12+ months</td>
+              <td class="text-right text-crisis-amber font-bold font-mono">+8%</td>
+              <td class="text-right text-slate-400">12% traffic rerouted</td>
+              <td class="text-center"><span class="px-2 py-0.5 rounded text-xs font-bold bg-crisis-amber/20 text-crisis-amber">MODERATE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Visual Comparison Chart -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Oil Price Increase Comparison</h2>
+      <p class="text-sm text-slate-400 mb-4">Peak oil price spike by crisis (percentage increase from pre-crisis baseline)</p>
+      <div class="space-y-4" id="crisis-bars">
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-300 font-medium">OPEC Embargo 1973</span>
+            <span class="text-crisis-red font-bold font-mono">+400%</span>
+          </div>
+          <div class="h-8 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-crisis-red to-crisis-orange rounded-full flex items-center pl-3 transition-all duration-700" style="width: 100%">
+              <span class="text-xs text-white font-bold">Oil quadrupled</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-300 font-medium">Gulf War 1990</span>
+            <span class="text-crisis-orange font-bold font-mono">+100%</span>
+          </div>
+          <div class="h-8 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-crisis-orange to-crisis-amber rounded-full flex items-center pl-3 transition-all duration-700" style="width: 25%">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-crisis-red font-bold">Hormuz 2026 (Current)</span>
+            <span class="text-crisis-red font-bold font-mono">+56%</span>
+          </div>
+          <div class="h-8 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-crisis-red/80 to-crisis-red rounded-full flex items-center pl-3 transition-all duration-700 animate-glow-red" style="width: 14%">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-300 font-medium">Tanker War 1984-88</span>
+            <span class="text-crisis-amber font-bold font-mono">+30%</span>
+          </div>
+          <div class="h-8 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-crisis-amber/80 rounded-full flex items-center pl-3 transition-all duration-700" style="width: 7.5%">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-300 font-medium">Red Sea 2024-25</span>
+            <span class="text-crisis-amber font-bold font-mono">+8%</span>
+          </div>
+          <div class="h-8 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-crisis-amber/60 rounded-full flex items-center pl-3 transition-all duration-700" style="width: 2%">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-300 font-medium">Suez Blockage 2021</span>
+            <span class="text-slate-400 font-bold font-mono">+5%</span>
+          </div>
+          <div class="h-8 bg-ops-800 rounded-full overflow-hidden">
+            <div class="h-full bg-slate-500/60 rounded-full flex items-center pl-3 transition-all duration-700" style="width: 1.25%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Narrative Section -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">How the Current Crisis Compares</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">The 2026 Hormuz crisis is <strong class="text-crisis-red">fundamentally different</strong> from any previous oil shock. While the 1973 OPEC embargo saw a larger percentage price increase (+400%), it was a deliberate production cut that left the physical shipping infrastructure intact. Oil still flowed from non-embargoing nations, and within months, alternative supply arrangements were in place. The 1990 Gulf War disrupted 4.3M barrels/day, but the strait itself remained open for neutral shipping.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">What makes 2026 unique is the <strong class="text-crisis-orange">physical bottleneck</strong>. The Strait of Hormuz is a geographic chokepoint — 21 nautical miles wide at its narrowest — and its closure means that even oil that has been pumped from the ground cannot reach its destination. Saudi Arabia's 7.2M bbl/day of Hormuz-bound exports can't simply be rerouted; only 5M bbl/day can reach the Red Sea via the Petroline, and the remaining 2.2M bbl/day is trapped behind the geographic barrier.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">The 2021 Suez Canal blockage, while dramatic, lasted only 6 days and affected a different trade route. The 2024-25 Red Sea crisis saw 12% of global traffic rerouted around the Cape of Good Hope — the same solution being applied now, but at a vastly larger scale. The current crisis reroutes not 12% but <strong class="text-crisis-red">65% of Hormuz traffic</strong>, requiring three times as many vessels to take the detour, at a time when global shipping capacity is already strained.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">Perhaps most concerning is the <strong class="text-crisis-red">insurance dimension</strong>. In all previous crises, ships could still transit at some level of risk premium. In 2026, all six major P&I clubs have withdrawn entirely, meaning no commercially viable insurance exists for Hormuz transit. This is unprecedented and creates a self-reinforcing closure: even if military escorts were provided, shipowners cannot legally or financially transit without insurance coverage.</p>
+      </div>
+    </div>
+
+    <!-- Key Metrics Comparison -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Key Metrics Comparison</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/20">
+          <div class="text-xs text-slate-500 uppercase">Supply Disrupted</div>
+          <div class="text-sm font-bold text-crisis-red mt-2">Hormuz: 20M bbl/day</div>
+          <div class="text-xs text-slate-400">vs OPEC 1973: 7M bbl/day</div>
+          <div class="text-xs text-slate-400">vs Gulf War: 4.3M bbl/day</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-orange/20">
+          <div class="text-xs text-slate-500 uppercase">Brent Price</div>
+          <div class="text-sm font-bold text-crisis-orange mt-2">Hormuz: $116.73</div>
+          <div class="text-xs text-slate-400">vs OPEC 1973: $12 (nominal)</div>
+          <div class="text-xs text-slate-400">vs Gulf War: $40 peak</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20">
+          <div class="text-xs text-slate-500 uppercase">Insurance Impact</div>
+          <div class="text-sm font-bold text-crisis-amber mt-2">Hormuz: All P&I withdrawn</div>
+          <div class="text-xs text-slate-400">vs OPEC 1973: Premiums up 3x</div>
+          <div class="text-xs text-slate-400">vs Red Sea 2024: Limited wr withdrawals</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const crisisStart = new Date('2026-02-28T00:00:00Z');
+    const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
+    document.getElementById('hormuz-duration').textContent = dayNumber + '+ days';
+  </script>
+</Layout>

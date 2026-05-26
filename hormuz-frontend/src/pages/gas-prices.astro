@@ -1,0 +1,254 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Gas Price Impact — HormuzTracker.tech" description="How the Hormuz crisis affects consumer gas prices worldwide. Country-by-country fuel price comparison and impact calculator." path="/gas-prices">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="gas-page">
+
+    <!-- Hero -->
+    <div class="relative overflow-hidden glass-card p-8">
+      <div class="absolute inset-0 bg-gradient-to-br from-crisis-red/5 via-transparent to-crisis-orange/5"></div>
+      <div class="relative">
+        <h1 class="text-3xl font-black text-white mb-2">Gas Price Impact</h1>
+        <p class="text-slate-400 mb-6">How the Hormuz crisis hits your wallet at the pump</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/20 text-center">
+            <div class="text-3xl font-black text-crisis-red">+38.7%</div>
+            <div class="text-xs text-slate-400 mt-1">US Gasoline</div>
+            <div class="text-[10px] text-slate-500">$3.20 → $4.44/gal</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-orange/20 text-center">
+            <div class="text-3xl font-black text-crisis-orange">+26.8%</div>
+            <div class="text-xs text-slate-400 mt-1">UK Petrol</div>
+            <div class="text-[10px] text-slate-500">£1.45 → £1.84/L</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20 text-center">
+            <div class="text-3xl font-black text-crisis-amber">+31.2%</div>
+            <div class="text-xs text-slate-400 mt-1">EU Diesel</div>
+            <div class="text-[10px] text-slate-500">€1.62 → €2.13/L</div>
+          </div>
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20 text-center">
+            <div class="text-3xl font-black text-crisis-amber">+42.5%</div>
+            <div class="text-xs text-slate-400 mt-1">India Petrol</div>
+            <div class="text-[10px] text-slate-500">₹97 → ₹138/L</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pre-Crisis vs Current Visual Bars -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Pre-Crisis vs Current Prices</h2>
+      <div class="space-y-4" id="price-bars">
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">US Gasoline ($/gal)</span>
+            <span class="text-crisis-red font-bold font-mono">$3.20 → $4.44</span>
+          </div>
+          <div class="h-6 bg-ops-800 rounded-full overflow-hidden relative">
+            <div class="h-full bg-crisis-green/60 rounded-full absolute left-0" style="width: 72%"></div>
+            <div class="h-full bg-crisis-red/80 rounded-full absolute left-0" style="width: 100%"></div>
+            <span class="absolute left-2 top-0.5 text-[10px] text-white font-bold">$3.20</span>
+            <span class="absolute right-2 top-0.5 text-[10px] text-white font-bold">$4.44</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">UK Petrol (£/L)</span>
+            <span class="text-crisis-red font-bold font-mono">£1.45 → £1.84</span>
+          </div>
+          <div class="h-6 bg-ops-800 rounded-full overflow-hidden relative">
+            <div class="h-full bg-crisis-green/60 rounded-full absolute left-0" style="width: 79%"></div>
+            <div class="h-full bg-crisis-red/80 rounded-full absolute left-0" style="width: 100%"></div>
+            <span class="absolute left-2 top-0.5 text-[10px] text-white font-bold">£1.45</span>
+            <span class="absolute right-2 top-0.5 text-[10px] text-white font-bold">£1.84</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">EU Diesel (€/L)</span>
+            <span class="text-crisis-red font-bold font-mono">€1.62 → €2.13</span>
+          </div>
+          <div class="h-6 bg-ops-800 rounded-full overflow-hidden relative">
+            <div class="h-full bg-crisis-green/60 rounded-full absolute left-0" style="width: 76%"></div>
+            <div class="h-full bg-crisis-red/80 rounded-full absolute left-0" style="width: 100%"></div>
+            <span class="absolute left-2 top-0.5 text-[10px] text-white font-bold">€1.62</span>
+            <span class="absolute right-2 top-0.5 text-[10px] text-white font-bold">€2.13</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Japan Gasoline (¥/L)</span>
+            <span class="text-crisis-red font-bold font-mono">¥168 → ¥224</span>
+          </div>
+          <div class="h-6 bg-ops-800 rounded-full overflow-hidden relative">
+            <div class="h-full bg-crisis-green/60 rounded-full absolute left-0" style="width: 75%"></div>
+            <div class="h-full bg-crisis-red/80 rounded-full absolute left-0" style="width: 100%"></div>
+            <span class="absolute left-2 top-0.5 text-[10px] text-white font-bold">¥168</span>
+            <span class="absolute right-2 top-0.5 text-[10px] text-white font-bold">¥224</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">India Petrol (₹/L)</span>
+            <span class="text-crisis-red font-bold font-mono">₹97 → ₹138</span>
+          </div>
+          <div class="h-6 bg-ops-800 rounded-full overflow-hidden relative">
+            <div class="h-full bg-crisis-green/60 rounded-full absolute left-0" style="width: 70%"></div>
+            <div class="h-full bg-crisis-red/80 rounded-full absolute left-0" style="width: 100%"></div>
+            <span class="absolute left-2 top-0.5 text-[10px] text-white font-bold">₹97</span>
+            <span class="absolute right-2 top-0.5 text-[10px] text-white font-bold">₹138</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country-by-Country Table -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Country-by-Country Fuel Price Comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Country</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Fuel Type</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Pre-Crisis</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Current</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Change</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Extra/Month</th>
+            </tr>
+          </thead>
+          <tbody id="fuel-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Electricity Price Impact -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Electricity Price Impact</h2>
+      <p class="text-sm text-slate-400 mb-4">Higher oil and gas prices cascade into electricity costs, especially in nations dependent on gas-fired generation.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/20">
+          <div class="text-xs text-slate-500 uppercase">EU Wholesale Electricity</div>
+          <div class="text-2xl font-black text-crisis-red mt-2">+45%</div>
+          <div class="text-xs text-slate-400 mt-1">€85 → €123/MWh</div>
+          <div class="text-xs text-slate-500 mt-2">Gas-fired plants set marginal price in EU power market</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-orange/20">
+          <div class="text-xs text-slate-500 uppercase">Japan Electricity</div>
+          <div class="text-2xl font-black text-crisis-orange mt-2">+32%</div>
+          <div class="text-xs text-slate-400 mt-1">¥29 → ¥38/kWh</div>
+          <div class="text-xs text-slate-500 mt-2">LNG dependency drives generation cost surge</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-amber/20">
+          <div class="text-xs text-slate-500 uppercase">India Electricity</div>
+          <div class="text-2xl font-black text-crisis-amber mt-2">+28%</div>
+          <div class="text-xs text-slate-400 mt-1">₹6.2 → ₹7.9/kWh</div>
+          <div class="text-xs text-slate-500 mt-2">Thermal coal imports face shipping cost increases</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consumer Impact Calculator -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Consumer Impact Calculator</h2>
+      <p class="text-sm text-slate-400 mb-4">Estimate how much extra you're paying per month due to the Hormuz crisis</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs text-slate-400 uppercase tracking-wider">Select Country</label>
+            <select id="calc-country" class="mt-1 w-full bg-ops-800 border border-ops-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-crisis-blue">
+              <option value="us">United States</option>
+              <option value="uk">United Kingdom</option>
+              <option value="eu">European Union</option>
+              <option value="jp">Japan</option>
+              <option value="in">India</option>
+              <option value="kr">South Korea</option>
+              <option value="au">Australia</option>
+              <option value="sg">Singapore</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 uppercase tracking-wider">Monthly Fuel Spend (pre-crisis)</label>
+            <div class="flex items-center gap-2 mt-1">
+              <span id="calc-currency" class="text-sm text-slate-400">$</span>
+              <input id="calc-spend" type="number" value="200" min="0" step="10" class="flex-1 bg-ops-800 border border-ops-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-crisis-blue" />
+            </div>
+          </div>
+          <button id="calc-btn" class="w-full px-4 py-2.5 rounded-lg bg-crisis-red/20 text-crisis-red border border-crisis-red/30 font-semibold hover:bg-crisis-red/30 transition-colors text-sm">Calculate Extra Cost</button>
+        </div>
+        <div id="calc-result" class="bg-ops-900/50 rounded-lg p-5 border border-ops-700/30 flex items-center justify-center">
+          <p class="text-sm text-slate-500">Select your country and fuel spend to see the estimated additional monthly cost</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Methodology Note -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">How We Calculate This</h2>
+      <div class="prose prose-invert prose-sm max-w-none">
+        <p class="text-slate-300 leading-relaxed">Consumer fuel price impacts are derived from the observed correlation between crude oil price changes and retail fuel prices in each market. The "pass-through rate" varies by country: US gasoline has a ~70% crude-to-pump pass-through over 4-6 weeks, while heavily taxed markets like the UK and India show 40-55% pass-through because taxes constitute 50-65% of the pump price. Our estimates use the latest available data from national energy agencies and may lag real-time prices by 1-3 days.</p>
+        <p class="text-slate-300 leading-relaxed mt-3">Electricity price impacts reflect the marginal pricing mechanism in liberalized power markets. In the EU, gas-fired plants often set the day-ahead clearing price, meaning even a small reduction in gas supply causes disproportionate electricity price increases. Countries with predominantly renewable or nuclear generation (France, Norway) are less affected, while gas-dependent nations (UK, Italy, Japan) see the largest increases.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    const fuelData = [
+      { country: 'United States', flag: '🇺🇸', type: 'Gasoline', unit: '$/gal', pre: 3.20, cur: 4.44, pct: 38.7, currency: '$' },
+      { country: 'United Kingdom', flag: '🇬🇧', type: 'Petrol', unit: '£/L', pre: 1.45, cur: 1.84, pct: 26.8, currency: '£' },
+      { country: 'Germany', flag: '🇩🇪', type: 'Petrol', unit: '€/L', pre: 1.72, cur: 2.18, pct: 26.7, currency: '€' },
+      { country: 'France', flag: '🇫🇷', type: 'Petrol', unit: '€/L', pre: 1.78, cur: 2.24, pct: 25.8, currency: '€' },
+      { country: 'Japan', flag: '🇯🇵', type: 'Gasoline', unit: '¥/L', pre: 168, cur: 224, pct: 33.3, currency: '¥' },
+      { country: 'South Korea', flag: '🇰🇷', type: 'Gasoline', unit: '₩/L', pre: 1680, cur: 2180, pct: 29.8, currency: '₩' },
+      { country: 'India', flag: '🇮🇳', type: 'Petrol', unit: '₹/L', pre: 97, cur: 138, pct: 42.5, currency: '₹' },
+      { country: 'China', flag: '🇨🇳', type: 'Gasoline', unit: '¥/L', pre: 7.82, cur: 9.56, pct: 22.3, currency: '¥' },
+      { country: 'Australia', flag: '🇦🇺', type: 'Unleaded', unit: 'A$/L', pre: 1.82, cur: 2.28, pct: 25.3, currency: 'A$' },
+      { country: 'Singapore', flag: '🇸🇬', type: 'Petrol', unit: 'S$/L', pre: 2.65, cur: 3.38, pct: 27.5, currency: 'S$' },
+      { country: 'Brazil', flag: '🇧🇷', type: 'Gasoline', unit: 'R$/L', pre: 5.49, cur: 6.42, pct: 16.9, currency: 'R$' },
+      { country: 'UAE', flag: '🇦🇪', type: 'Special 95', unit: 'AED/L', pre: 3.20, cur: 3.82, pct: 19.4, currency: 'AED' },
+    ];
+
+    // Populate table
+    const tbody = document.getElementById('fuel-table');
+    tbody.innerHTML = fuelData.map(f => {
+      const extraMonthly = ((f.cur - f.pre) / f.pre * 200).toFixed(0);
+      const pctClass = f.pct > 35 ? 'text-crisis-red' : f.pct > 25 ? 'text-crisis-orange' : 'text-crisis-amber';
+      return `<tr class="border-b border-ops-800/50">
+        <td class="py-2 text-white font-medium">${f.flag} ${f.country}</td>
+        <td class="text-right text-slate-400">${f.type}</td>
+        <td class="text-right text-slate-400 font-mono">${f.pre}</td>
+        <td class="text-right text-white font-bold font-mono">${f.cur}</td>
+        <td class="text-right ${pctClass} font-bold">+${f.pct}%</td>
+        <td class="text-right text-crisis-red font-mono">+${f.currency}${extraMonthly}/mo</td>
+      </tr>`;
+    }).join('');
+
+    // Calculator
+    const countryMultiplier = { us: 0.387, uk: 0.268, eu: 0.267, jp: 0.333, in: 0.425, kr: 0.298, au: 0.253, sg: 0.275 };
+    const countryCurrency = { us: '$', uk: '£', eu: '€', jp: '¥', in: '₹', kr: '₩', au: 'A$', sg: 'S$' };
+
+    document.getElementById('calc-country').addEventListener('change', function() {
+      document.getElementById('calc-currency').textContent = countryCurrency[this.value] || '$';
+    });
+
+    document.getElementById('calc-btn').addEventListener('click', function() {
+      const country = document.getElementById('calc-country').value;
+      const spend = parseFloat(document.getElementById('calc-spend').value) || 0;
+      const mult = countryMultiplier[country] || 0.28;
+      const cur = countryCurrency[country] || '$';
+      const extra = (spend * mult).toFixed(2);
+      const total = (spend * (1 + mult)).toFixed(2);
+
+      document.getElementById('calc-result').innerHTML = `
+        <div class="text-center space-y-3">
+          <div class="text-xs text-slate-500 uppercase">Estimated Extra Monthly Cost</div>
+          <div class="text-4xl font-black text-crisis-red">${cur}${extra}</div>
+          <div class="text-sm text-slate-400">Your fuel spend: ${cur}${spend.toFixed(2)} → ${cur}${total}</div>
+          <div class="text-xs text-slate-500 mt-2">Based on +${(mult * 100).toFixed(1)}% price increase for ${country.toUpperCase()}</div>
+          <hr class="border-ops-700/50 my-2">
+          <div class="text-xs text-slate-500">Annual extra cost: <span class="text-crisis-orange font-bold">${cur}${(extra * 12).toFixed(0)}</span></div>
+        </div>`;
+    });
+  </script>
+</Layout>

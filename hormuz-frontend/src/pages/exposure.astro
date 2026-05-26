@@ -1,42 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Trade Exposure — HormuzTracker.tech" description="Country-by-country trade exposure analysis and industry supply chain pathways affected by the Hormuz crisis." path="/exposure">
+<Layout title="Trade Exposure — HormuzTracker.tech" description="Country-by-country trade exposure analysis, oil import dependency, and LNG dependency data affected by the Hormuz crisis." path="/exposure">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="exposure-page">
     <div>
       <h1 class="text-2xl font-bold text-white">Trade Exposure & Industry Impact</h1>
       <p class="text-sm text-slate-400 mt-1">How the Hormuz crisis ripples through global industries</p>
     </div>
 
-    <!-- Regional Oil Import Dependency -->
+    <!-- Country-by-Country Oil Import Dependency -->
     <div class="glass-card p-5">
-      <h2 class="text-lg font-bold text-white mb-4">Regional Oil Import Dependency</h2>
+      <h2 class="text-lg font-bold text-white mb-4">Oil Import Dependency via Hormuz</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-ops-700/50">
               <th class="text-left py-2 text-slate-400 font-medium">Country</th>
-              <th class="text-right py-2 text-slate-400 font-medium">bbl/day</th>
+              <th class="text-right py-2 text-slate-400 font-medium">bbl/day via Hormuz</th>
               <th class="text-right py-2 text-slate-400 font-medium">Hormuz Dependency</th>
+              <th class="text-right py-2 text-slate-400 font-medium">LNG via Hormuz</th>
               <th class="text-center py-2 text-slate-400 font-medium">Risk Level</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Japan</td><td class="text-right text-slate-400">3.1M</td><td class="text-right text-crisis-red font-bold">88%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-red/20 text-crisis-red">CRITICAL</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Saudi Arabia</td><td class="text-right text-slate-400">7.2M</td><td class="text-right text-crisis-red font-bold">95%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-red/20 text-crisis-red">CRITICAL</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">South Korea</td><td class="text-right text-slate-400">2.1M</td><td class="text-right text-crisis-red font-bold">73%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-red/20 text-crisis-red">CRITICAL</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">India</td><td class="text-right text-slate-400">2.5M</td><td class="text-right text-crisis-orange font-bold">64%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-orange/20 text-crisis-orange">HIGH</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">China</td><td class="text-right text-slate-400">4.0M</td><td class="text-right text-crisis-orange font-bold">40%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-orange/20 text-crisis-orange">HIGH</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Singapore</td><td class="text-right text-slate-400">1.1M</td><td class="text-right text-crisis-orange font-bold">85%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-orange/20 text-crisis-orange">HIGH</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Taiwan</td><td class="text-right text-slate-400">0.9M</td><td class="text-right text-crisis-amber font-bold">72%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-amber/20 text-crisis-amber">HIGH</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Thailand</td><td class="text-right text-slate-400">0.8M</td><td class="text-right text-crisis-amber font-bold">65%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-amber/20 text-crisis-amber">MODERATE</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">European Union</td><td class="text-right text-slate-400">1.8M</td><td class="text-right text-crisis-amber font-bold">14%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-amber/20 text-crisis-amber">MODERATE</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Australia</td><td class="text-right text-slate-400">0.4M</td><td class="text-right text-crisis-amber font-bold">35%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-amber/20 text-crisis-amber">MODERATE</span></td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">United States</td><td class="text-right text-slate-400">0.5M</td><td class="text-right text-crisis-green font-bold">5%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-green/20 text-crisis-green">LOW</span></td></tr>
-            <tr><td class="py-2 text-white">Brazil</td><td class="text-right text-slate-400">0.3M</td><td class="text-right text-crisis-green font-bold">8%</td><td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-crisis-green/20 text-crisis-green">LOW</span></td></tr>
-          </tbody>
+          <tbody id="country-table"></tbody>
         </table>
       </div>
+    </div>
+
+    <!-- Visual Dependency Bars -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Hormuz Dependency by Country</h2>
+      <div class="space-y-3" id="dependency-bars"></div>
     </div>
 
     <!-- Industry Supply Chain Pathways -->
@@ -79,4 +73,46 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </div>
+
+  <script>
+    const countries = [
+      { name: 'Japan', flag: '🇯🇵', bblDay: '3.1M', dependency: 88, lngVia: '42%', risk: 'CRITICAL', riskColor: 'crisis-red' },
+      { name: 'Saudi Arabia', flag: '🇸🇦', bblDay: '7.2M', dependency: 95, lngVia: '0%', risk: 'CRITICAL', riskColor: 'crisis-red' },
+      { name: 'South Korea', flag: '🇰🇷', bblDay: '2.1M', dependency: 73, lngVia: '38%', risk: 'CRITICAL', riskColor: 'crisis-red' },
+      { name: 'India', flag: '🇮🇳', bblDay: '2.5M', dependency: 64, lngVia: '15%', risk: 'HIGH', riskColor: 'crisis-orange' },
+      { name: 'China', flag: '🇨🇳', bblDay: '4.0M', dependency: 40, lngVia: '12%', risk: 'HIGH', riskColor: 'crisis-orange' },
+      { name: 'Singapore', flag: '🇸🇬', bblDay: '1.1M', dependency: 85, lngVia: '25%', risk: 'HIGH', riskColor: 'crisis-orange' },
+      { name: 'Taiwan', flag: '🇹🇼', bblDay: '0.9M', dependency: 72, lngVia: '28%', risk: 'HIGH', riskColor: 'crisis-orange' },
+      { name: 'Thailand', flag: '🇹🇭', bblDay: '0.8M', dependency: 65, lngVia: '10%', risk: 'MODERATE', riskColor: 'crisis-amber' },
+      { name: 'Australia', flag: '🇦🇺', bblDay: '0.4M', dependency: 35, lngVia: '0%', risk: 'MODERATE', riskColor: 'crisis-amber' },
+      { name: 'European Union', flag: '🇪🇺', bblDay: '1.8M', dependency: 14, lngVia: '8%', risk: 'MODERATE', riskColor: 'crisis-amber' },
+      { name: 'United States', flag: '🇺🇸', bblDay: '0.5M', dependency: 5, lngVia: '0%', risk: 'LOW', riskColor: 'crisis-green' },
+      { name: 'Brazil', flag: '🇧🇷', bblDay: '0.3M', dependency: 8, lngVia: '0%', risk: 'LOW', riskColor: 'crisis-green' },
+    ];
+
+    // Table
+    document.getElementById('country-table').innerHTML = countries.map(c => {
+      return `<tr class="border-b border-ops-800/50">
+        <td class="py-2 text-white">${c.flag} ${c.name}</td>
+        <td class="text-right text-slate-400 font-mono">${c.bblDay}</td>
+        <td class="text-right text-${c.riskColor} font-bold">${c.dependency}%</td>
+        <td class="text-right text-slate-400 font-mono">${c.lngVia}</td>
+        <td class="text-center"><span class="px-2 py-0.5 rounded text-xs bg-${c.riskColor}/20 text-${c.riskColor}">${c.risk}</span></td>
+      </tr>`;
+    }).join('');
+
+    // Visual dependency bars
+    document.getElementById('dependency-bars').innerHTML = countries.map(c => {
+      const barColor = c.dependency >= 70 ? 'bg-crisis-red' : c.dependency >= 40 ? 'bg-crisis-orange' : c.dependency >= 20 ? 'bg-crisis-amber' : 'bg-crisis-green';
+      return `<div class="flex items-center gap-3">
+        <div class="w-28 text-xs text-slate-300 font-medium text-right">${c.flag} ${c.name.length > 10 ? c.name.substring(0, 10) + '…' : c.name}</div>
+        <div class="flex-1 bg-ops-800 rounded-full h-5 overflow-hidden">
+          <div class="h-full ${barColor} rounded-full flex items-center pl-2 transition-all duration-700" style="width: ${c.dependency}%">
+            <span class="text-[10px] text-white font-bold">${c.dependency}%</span>
+          </div>
+        </div>
+        <div class="w-16 text-xs text-slate-500 text-right font-mono">${c.bblDay}</div>
+      </div>`;
+    }).join('');
+  </script>
 </Layout>

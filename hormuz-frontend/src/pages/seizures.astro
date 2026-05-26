@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Vessel Seizures — HormuzTracker.tech" description="Track vessel seizures and detentions in the Strait of Hormuz crisis. Tit-for-tat seizure monitor." path="/seizures">
+<Layout title="Vessel Seizures — HormuzTracker.tech" description="Track vessel seizures and detentions in the Strait of Hormuz crisis. Tit-for-tat seizure monitor with proportional analysis." path="/seizures">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="seizures-page">
     <div>
       <h1 class="text-2xl font-bold text-white">Vessel Seizure Tracker</h1>
@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- Summary -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="seizure-stats">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3" id="seizure-stats">
       <div class="glass-card p-4 text-center">
         <div class="text-2xl font-black text-crisis-red" id="total-seizures">--</div>
         <div class="text-xs text-slate-500 mt-1">Total Incidents</div>
@@ -26,11 +26,58 @@ import Layout from '../layouts/Layout.astro';
         <div class="text-2xl font-black text-crisis-green" id="us-uk-seizures">--</div>
         <div class="text-xs text-slate-500 mt-1">US/UK Retaliatory</div>
       </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-2xl font-black text-crisis-amber" id="released-vessels">--</div>
+        <div class="text-xs text-slate-500 mt-1">Released</div>
+      </div>
+    </div>
+
+    <!-- Proportional Stacked Bar -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Seizures by Entity</h2>
+      <div id="seizure-bar" class="mb-4"></div>
+      <div class="flex items-center justify-center gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded bg-crisis-blue"></div>
+          <span class="text-xs text-slate-400">Iran (IRGC)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded bg-crisis-green"></div>
+          <span class="text-xs text-slate-400">US/UK</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded bg-slate-500"></div>
+          <span class="text-xs text-slate-400">Other</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Currently Held vs Released -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Status Summary</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/20 text-center">
+          <div class="text-3xl font-black text-crisis-red" id="held-count">--</div>
+          <div class="text-sm text-slate-400 mt-1">Currently Held</div>
+          <div class="text-xs text-slate-500 mt-2">Vessels still in detention</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-green/20 text-center">
+          <div class="text-3xl font-black text-crisis-green" id="released-count">--</div>
+          <div class="text-sm text-slate-400 mt-1">Released</div>
+          <div class="text-xs text-slate-500 mt-2">Vessels freed after negotiation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alternating Timeline -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Seizure Timeline</h2>
+      <div id="seizure-timeline" class="space-y-0"></div>
     </div>
 
     <!-- Seizure Table -->
     <div class="glass-card p-5">
-      <h2 class="text-lg font-bold text-white mb-4">Seizure Log</h2>
+      <h2 class="text-lg font-bold text-white mb-4">Full Seizure Log</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
@@ -64,14 +111,63 @@ import Layout from '../layouts/Layout.astro';
       try {
         const seizures = await fetch(`${API}/api/seizures`).then(r => r.json());
         const held = seizures.filter(s => s.status === 'Held').length;
+        const released = seizures.filter(s => s.status === 'Released').length;
         const iranCount = seizures.filter(s => s.entity.includes('Iran')).length;
         const usUkCount = seizures.filter(s => s.entity.includes('US') || s.entity.includes('UK')).length;
+        const otherCount = seizures.length - iranCount - usUkCount;
 
         document.getElementById('total-seizures').textContent = seizures.length;
         document.getElementById('held-vessels').textContent = held;
         document.getElementById('iran-seizures').textContent = iranCount;
         document.getElementById('us-uk-seizures').textContent = usUkCount;
+        document.getElementById('released-vessels').textContent = released;
+        document.getElementById('held-count').textContent = held;
+        document.getElementById('released-count').textContent = released;
 
+        // Proportional stacked bar
+        const total = seizures.length || 1;
+        const iranPct = (iranCount / total * 100).toFixed(1);
+        const usUkPct = (usUkCount / total * 100).toFixed(1);
+        const otherPct = (otherCount / total * 100).toFixed(1);
+        document.getElementById('seizure-bar').innerHTML = `
+          <div class="h-10 bg-ops-800 rounded-lg overflow-hidden flex">
+            <div class="h-full bg-crisis-blue flex items-center justify-center" style="width:${iranPct}%">
+              <span class="text-xs text-white font-bold">${iranCount} Iran (${iranPct}%)</span>
+            </div>
+            <div class="h-full bg-crisis-green flex items-center justify-center" style="width:${usUkPct}%">
+              <span class="text-xs text-white font-bold">${usUkCount} US/UK (${usUkPct}%)</span>
+            </div>
+            <div class="h-full bg-slate-500 flex items-center justify-center" style="width:${otherPct}%">
+              ${otherCount > 0 ? `<span class="text-xs text-white font-bold">${otherCount} Other</span>` : ''}
+            </div>
+          </div>`;
+
+        // Alternating timeline
+        document.getElementById('seizure-timeline').innerHTML = seizures.map((s, i) => {
+          const isLeft = i % 2 === 0;
+          const entityColor = s.entity.includes('Iran') ? 'bg-crisis-blue' : s.entity.includes('US') || s.entity.includes('UK') ? 'bg-crisis-green' : 'bg-slate-500';
+          const statusClass = s.status === 'Held' ? 'bg-crisis-red/20 text-crisis-red' : 'bg-crisis-green/20 text-crisis-green';
+          return `
+          <div class="flex gap-4 animate-fade-in" style="animation-delay: ${i * 80}ms">
+            <div class="flex flex-col items-center">
+              <div class="w-4 h-4 rounded-full ${entityColor} border-2 border-ops-950 flex-shrink-0 z-10"></div>
+              <div class="w-0.5 flex-1 bg-ops-700/50"></div>
+            </div>
+            <div class="pb-4 flex-1 ${isLeft ? '' : 'md:ml-auto md:max-w-[80%]'}">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-mono text-slate-500">${s.date}</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${entityColor} text-white">${s.entity}</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${statusClass}">${s.status}</span>
+              </div>
+              <div class="glass-card p-3 card-hover">
+                <h3 class="text-sm font-bold text-white">${s.vessel}</h3>
+                <div class="text-xs text-slate-400 mt-1">${s.flag} flag · ${s.type}</div>
+              </div>
+            </div>
+          </div>`;
+        }).join('');
+
+        // Table
         document.getElementById('seizure-table').innerHTML = seizures.map(s => {
           const statusClass = s.status === 'Held' ? 'bg-crisis-red/20 text-crisis-red' : 'bg-crisis-green/20 text-crisis-green';
           return `<tr class="border-b border-ops-800/50">

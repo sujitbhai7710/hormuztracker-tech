@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <channel>
+    <title>HormuzTracker.tech — Strait of Hormuz Crisis Monitor</title>
+    <link>https://hormuztracker-tech.pages.dev</link>
+    <description>Real-time Strait of Hormuz monitoring. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 26 May 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://hormuztracker-tech.pages.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Strait of Hormuz Crisis — Day 87: Restricted Passage Continues</title>
+      <link>https://hormuztracker-tech.pages.dev/</link>
+      <description>The Strait of Hormuz remains restricted to commercial shipping. Brent crude holds above $116 as the crisis enters its 87th day. 9/9 major carriers suspended, P&amp;I clubs withdrawn.</description>
+      <pubDate>Mon, 26 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/</guid>
+    </item>
+    <item>
+      <title>Beijing Summit: China Proposes Multi-Party Security Framework</title>
+      <link>https://hormuztracker-tech.pages.dev/news</link>
+      <description>Chinese Foreign Minister presents comprehensive security framework involving Gulf states and Iran for safe passage through the Strait.</description>
+      <pubDate>Sun, 25 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/news</guid>
+    </item>
+    <item>
+      <title>Oil Prices Surge: Brent Crude Holds Above $116</title>
+      <link>https://hormuztracker-tech.pages.dev/oil</link>
+      <description>Brent crude remains elevated at $116.73, up 56% from pre-crisis levels of $74.50. WTI, TTF, and gasoline prices all significantly higher.</description>
+      <pubDate>Sat, 24 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/oil</guid>
+    </item>
+    <item>
+      <title>All Major Shipping Carriers Suspend Hormuz Transit</title>
+      <link>https://hormuztracker-tech.pages.dev/carriers</link>
+      <description>9 out of 9 major container shipping lines have suspended transits through the Strait of Hormuz. Emergency surcharges of $1,500-$4,000 per TEU in effect.</description>
+      <pubDate>Fri, 23 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/carriers</guid>
+    </item>
+    <item>
+      <title>P&amp;I Insurance Withdrawn: All Major Clubs Cancel Coverage</title>
+      <link>https://hormuztracker-tech.pages.dev/insurance</link>
+      <description>All six major Protection and Indemnity clubs have cancelled Hormuz transit coverage. War risk premiums have increased from 0.125% to over 1.2%.</description>
+      <pubDate>Thu, 22 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/insurance</guid>
+    </item>
+    <item>
+      <title>Consumer Impact: How Much More Are You Paying?</title>
+      <link>https://hormuztracker-tech.pages.dev/gas-prices</link>
+      <description>US gasoline prices up 38.7% from pre-crisis levels. Use our Consumer Impact Calculator to see how the Hormuz crisis affects your wallet.</description>
+      <pubDate>Wed, 21 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/gas-prices</guid>
+    </item>
+    <item>
+      <title>Historical Comparison: How Does This Crisis Stack Up?</title>
+      <link>https://hormuztracker-tech.pages.dev/historical</link>
+      <description>From the 1973 OPEC embargo to the 2024 Red Sea disruption, we compare the current Hormuz crisis to major historical oil supply disruptions.</description>
+      <pubDate>Tue, 20 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://hormuztracker-tech.pages.dev/historical</guid>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,122 @@
+---
+// Embeddable Oil Price Widget — no Layout, minimal inline CSS
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hormuz Oil Prices</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #050a14; color: #e2e8f0; }
+    .widget { width: 300px; padding: 16px; background: linear-gradient(135deg, rgba(15,32,53,0.9), rgba(10,22,40,0.95)); border: 1px solid rgba(58,84,120,0.25); border-radius: 12px; }
+    .title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #8aa4c0; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .pulse { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .price-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(58,84,120,0.2); }
+    .price-row:last-child { border-bottom: none; }
+    .price-label { font-size: 12px; color: #5a7a9e; }
+    .price-value { font-size: 18px; font-weight: 900; color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .price-change { font-size: 10px; font-weight: 700; margin-top: 2px; }
+    .change-up { color: #22c55e; }
+    .change-down { color: #ef4444; }
+    .pre-crisis { font-size: 9px; color: #3a5478; margin-top: 2px; }
+    .update { font-size: 9px; color: #3a5478; margin-top: 12px; text-align: right; }
+    .header-row { font-size: 9px; color: #3a5478; display: flex; justify-content: space-between; padding: 0 0 4px 0; text-transform: uppercase; letter-spacing: 0.05em; }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="title">
+      <div class="pulse"></div>
+      Hormuz Crisis — Oil Prices
+    </div>
+    <div class="header-row">
+      <span>Commodity</span>
+      <span>Price</span>
+    </div>
+    <div id="prices">
+      <div class="price-row">
+        <div>
+          <div class="price-label">Brent Crude</div>
+          <div class="pre-crisis">Pre-crisis: $74.50</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-value" id="brent">—</div>
+          <div class="price-change" id="brent-chg">—</div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-label">WTI Crude</div>
+          <div class="pre-crisis">Pre-crisis: $72.30</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-value" id="wti">—</div>
+          <div class="price-change" id="wti-chg">—</div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-label">EU Gas (TTF)</div>
+          <div class="pre-crisis">Pre-crisis: €28.50</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-value" id="ttf">—</div>
+          <div class="price-change" id="ttf-chg">—</div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="price-label">US Gasoline</div>
+          <div class="pre-crisis">Pre-crisis: $3.20</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price-value" id="gas">—</div>
+          <div class="price-change" id="gas-chg">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="update" id="last-update">Loading...</div>
+  </div>
+  <script>
+    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    async function load() {
+      try {
+        const oil = await fetch(`${API}/api/oil`).then(r => r.json());
+        const fmt = (n, p='$') => n != null ? p + Number(n).toFixed(2) : '—';
+
+        document.getElementById('brent').textContent = fmt(oil.brent);
+        document.getElementById('wti').textContent = fmt(oil.wti);
+        document.getElementById('ttf').textContent = fmt(oil.ttf, '€');
+        document.getElementById('gas').textContent = fmt(oil.gasoline);
+
+        const setChg = (id, val) => {
+          const el = document.getElementById(id);
+          if (val == null) { el.textContent = '—'; return; }
+          const up = val >= 0;
+          el.textContent = (up ? '+' : '') + val.toFixed(2) + '%';
+          el.className = 'price-change ' + (up ? 'change-up' : 'change-down');
+        };
+
+        const brentPct = oil.brent && oil.preCrisis?.brent ? ((oil.brent - oil.preCrisis.brent) / oil.preCrisis.brent * 100) : null;
+        const wtiPct = oil.wti && oil.preCrisis?.wti ? ((oil.wti - oil.preCrisis.wti) / oil.preCrisis.wti * 100) : null;
+        const ttfPct = oil.ttf && oil.preCrisis?.ttf ? ((oil.ttf - oil.preCrisis.ttf) / oil.preCrisis.ttf * 100) : null;
+        const gasPct = oil.gasoline && oil.preCrisis?.gasoline ? ((oil.gasoline - oil.preCrisis.gasoline) / oil.preCrisis.gasoline * 100) : null;
+
+        setChg('brent-chg', brentPct);
+        setChg('wti-chg', wtiPct);
+        setChg('ttf-chg', ttfPct);
+        setChg('gas-chg', gasPct);
+
+        document.getElementById('last-update').textContent = 'Updated ' + new Date().toLocaleTimeString();
+      } catch (e) {
+        document.getElementById('last-update').textContent = 'Error loading data';
+      }
+    }
+    load();
+    setInterval(load, 300000);
+  </script>
+</body>
+</html>

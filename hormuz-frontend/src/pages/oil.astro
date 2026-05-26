@@ -36,7 +36,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
-    <!-- Pre-Crisis Comparison -->
+    <!-- Pre-Crisis Comparison with Visual Bars -->
     <div class="glass-card p-5">
       <h2 class="text-lg font-bold text-white mb-4">Pre-Crisis vs Current Comparison</h2>
       <div class="overflow-x-auto">
@@ -47,23 +47,133 @@ import Layout from '../layouts/Layout.astro';
               <th class="text-right py-2 text-slate-400 font-medium">Pre-Crisis</th>
               <th class="text-right py-2 text-slate-400 font-medium">Current</th>
               <th class="text-right py-2 text-slate-400 font-medium">Change</th>
+              <th class="text-left py-2 text-slate-400 font-medium" style="min-width:200px">Visual</th>
             </tr>
           </thead>
           <tbody id="comparison-table">
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">Brent Crude</td><td class="text-right text-slate-400" id="pre-brent">--</td><td class="text-right text-white font-bold" id="cur-brent">--</td><td class="text-right" id="chg-brent">--</td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">WTI Crude</td><td class="text-right text-slate-400" id="pre-wti">--</td><td class="text-right text-white font-bold" id="cur-wti">--</td><td class="text-right" id="chg-wti">--</td></tr>
-            <tr class="border-b border-ops-800/50"><td class="py-2 text-white">EU Gas (TTF)</td><td class="text-right text-slate-400" id="pre-ttf">--</td><td class="text-right text-white font-bold" id="cur-ttf">--</td><td class="text-right" id="chg-ttf">--</td></tr>
-            <tr><td class="py-2 text-white">US Gasoline</td><td class="text-right text-slate-400" id="pre-gas">--</td><td class="text-right text-white font-bold" id="cur-gas">--</td><td class="text-right" id="chg-gas">--</td></tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">Brent Crude</td>
+              <td class="text-right text-slate-400" id="pre-brent">--</td>
+              <td class="text-right text-white font-bold" id="cur-brent">--</td>
+              <td class="text-right" id="chg-brent">--</td>
+              <td class="py-2"><div class="h-4 bg-ops-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-crisis-green/60 to-crisis-red rounded-full" id="bar-brent" style="width:0%"></div></div></td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">WTI Crude</td>
+              <td class="text-right text-slate-400" id="pre-wti">--</td>
+              <td class="text-right text-white font-bold" id="cur-wti">--</td>
+              <td class="text-right" id="chg-wti">--</td>
+              <td class="py-2"><div class="h-4 bg-ops-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-crisis-green/60 to-crisis-red rounded-full" id="bar-wti" style="width:0%"></div></div></td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-white">EU Gas (TTF)</td>
+              <td class="text-right text-slate-400" id="pre-ttf">--</td>
+              <td class="text-right text-white font-bold" id="cur-ttf">--</td>
+              <td class="text-right" id="chg-ttf">--</td>
+              <td class="py-2"><div class="h-4 bg-ops-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-crisis-green/60 to-crisis-red rounded-full" id="bar-ttf" style="width:0%"></div></div></td>
+            </tr>
+            <tr>
+              <td class="py-2 text-white">US Gasoline</td>
+              <td class="text-right text-slate-400" id="pre-gas">--</td>
+              <td class="text-right text-white font-bold" id="cur-gas">--</td>
+              <td class="text-right" id="chg-gas">--</td>
+              <td class="py-2"><div class="h-4 bg-ops-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-crisis-green/60 to-crisis-red rounded-full" id="bar-gas" style="width:0%"></div></div></td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- TradingView Chart -->
+    <!-- Sparkline Section -->
     <div class="glass-card p-5">
-      <h2 class="text-lg font-bold text-white mb-4">Brent Crude — Historical Chart</h2>
+      <h2 class="text-lg font-bold text-white mb-4">Price Trend (7-Day)</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="sparklines">
+        <div class="bg-ops-900/50 rounded-lg p-3 border border-ops-700/30">
+          <div class="text-xs text-slate-500 mb-1">Brent Crude</div>
+          <canvas id="spark-brent" width="200" height="60"></canvas>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3 border border-ops-700/30">
+          <div class="text-xs text-slate-500 mb-1">WTI Crude</div>
+          <canvas id="spark-wti" width="200" height="60"></canvas>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3 border border-ops-700/30">
+          <div class="text-xs text-slate-500 mb-1">EU Gas (TTF)</div>
+          <canvas id="spark-ttf" width="200" height="60"></canvas>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-3 border border-ops-700/30">
+          <div class="text-xs text-slate-500 mb-1">US Gasoline</div>
+          <canvas id="spark-gas" width="200" height="60"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- TradingView Brent Chart -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Brent Crude — Live Chart</h2>
       <div class="tradingview-widget-container" style="height: 500px;">
         <div id="tradingview_chart" style="height: 100%;"></div>
+      </div>
+    </div>
+
+    <!-- Historical Price Table -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Key Price Milestones</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-ops-700/50">
+              <th class="text-left py-2 text-slate-400 font-medium">Date</th>
+              <th class="text-left py-2 text-slate-400 font-medium">Event</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Brent</th>
+              <th class="text-right py-2 text-slate-400 font-medium">WTI</th>
+              <th class="text-right py-2 text-slate-400 font-medium">Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-slate-400 font-mono text-xs">Feb 27, 2026</td>
+              <td class="py-2 text-white">Pre-crisis baseline</td>
+              <td class="text-right text-slate-400 font-mono">$74.50</td>
+              <td class="text-right text-slate-400 font-mono">$72.30</td>
+              <td class="text-right text-slate-400">—</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-slate-400 font-mono text-xs">Mar 1, 2026</td>
+              <td class="py-2 text-white">Crisis begins</td>
+              <td class="text-right text-white font-mono">$89.20</td>
+              <td class="text-right text-white font-mono">$86.50</td>
+              <td class="text-right text-crisis-red">+19.7%</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-slate-400 font-mono text-xs">Mar 10, 2026</td>
+              <td class="py-2 text-white">P&I clubs withdraw</td>
+              <td class="text-right text-white font-mono">$98.40</td>
+              <td class="text-right text-white font-mono">$95.80</td>
+              <td class="text-right text-crisis-red">+32.1%</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-slate-400 font-mono text-xs">Mar 20, 2026</td>
+              <td class="py-2 text-white">First vessel seizure</td>
+              <td class="text-right text-white font-mono">$105.60</td>
+              <td class="text-right text-white font-mono">$102.30</td>
+              <td class="text-right text-crisis-red">+41.7%</td>
+            </tr>
+            <tr class="border-b border-ops-800/50">
+              <td class="py-2 text-slate-400 font-mono text-xs">Apr 15, 2026</td>
+              <td class="py-2 text-white">SPR drawdown announced</td>
+              <td class="text-right text-white font-mono">$112.80</td>
+              <td class="text-right text-white font-mono">$109.50</td>
+              <td class="text-right text-crisis-red">+51.4%</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-crisis-orange font-mono text-xs font-bold">Current</td>
+              <td class="py-2 text-crisis-orange font-bold">Ongoing crisis</td>
+              <td class="text-right text-crisis-red font-mono font-bold" id="hist-brent">--</td>
+              <td class="text-right text-crisis-red font-mono font-bold" id="hist-wti">--</td>
+              <td class="text-right text-crisis-red font-bold" id="hist-pct">--</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -102,6 +212,37 @@ import Layout from '../layouts/Layout.astro';
 
   <script>
     const API = 'https://hormuz-api.tradesapi.workers.dev';
+
+    function drawSparkline(canvasId, data, color) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas || !data || data.length < 2) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width, h = canvas.height;
+      const min = Math.min(...data), max = Math.max(...data);
+      const range = max - min || 1;
+      ctx.clearRect(0, 0, w, h);
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      data.forEach((v, i) => {
+        const x = (i / (data.length - 1)) * w;
+        const y = h - ((v - min) / range) * (h - 8) - 4;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      // Fill
+      const lastX = w, lastY = h - ((data[data.length - 1] - min) / range) * (h - 8) - 4;
+      ctx.lineTo(lastX, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, color + '30');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
     async function loadOilData() {
       try {
         const [oil, dash] = await Promise.all([
@@ -117,37 +258,65 @@ import Layout from '../layouts/Layout.astro';
         document.getElementById('ttf-price').textContent = fmt(oil.ttf, '€');
         document.getElementById('gas-price').textContent = fmt(oil.gasoline);
 
-        const bc = oil.brentChange || 0;
-        const bcp = oil.brentChangePercent || 0;
-        const bEl = document.getElementById('brent-change');
-        bEl.textContent = `${bc > 0 ? '+' : ''}${bc.toFixed(2)} (${bcp > 0 ? '+' : ''}${bcp.toFixed(2)}%)`;
-        bEl.className = `text-sm mt-1 ${bc >= 0 ? 'text-crisis-green' : 'text-crisis-red'}`;
+        // Change indicators
+        const setChg = (id, val) => {
+          const el = document.getElementById(id);
+          if (val == null) { el.textContent = '--'; return; }
+          const up = val >= 0;
+          el.textContent = `${up ? '+' : ''}${val.toFixed(2)}%`;
+          el.className = `text-sm mt-1 ${up ? 'text-crisis-green' : 'text-crisis-red'}`;
+        };
+        setChg('brent-change', oil.brentChangePercent);
+        setChg('wti-change', oil.wtiChangePercent);
+        setChg('ttf-change', oil.ttfChangePercent);
+        setChg('gas-change', oil.gasolineChangePercent);
 
         // Pre-crisis comparison
         const pre = oil.preCrisis || { brent: 74.50, wti: 72.30, ttf: 28.50, gasoline: 3.20 };
         document.getElementById('pre-brent').textContent = fmt(pre.brent);
         document.getElementById('cur-brent').textContent = fmt(oil.brent);
         const chgB = document.getElementById('chg-brent');
-        chgB.textContent = '+' + pctChg(oil.brent, pre.brent);
+        const bPct = pctChg(oil.brent, pre.brent);
+        chgB.textContent = '+' + bPct;
         chgB.className = 'text-right text-crisis-red font-bold';
+        document.getElementById('bar-brent').style.width = Math.min(parseFloat(bPct), 100) + '%';
 
         document.getElementById('pre-wti').textContent = fmt(pre.wti);
         document.getElementById('cur-wti').textContent = fmt(oil.wti);
         const chgW = document.getElementById('chg-wti');
-        chgW.textContent = '+' + pctChg(oil.wti, pre.wti);
+        const wPct = pctChg(oil.wti, pre.wti);
+        chgW.textContent = '+' + wPct;
         chgW.className = 'text-right text-crisis-red font-bold';
+        document.getElementById('bar-wti').style.width = Math.min(parseFloat(wPct), 100) + '%';
 
         document.getElementById('pre-ttf').textContent = fmt(pre.ttf, '€');
         document.getElementById('cur-ttf').textContent = fmt(oil.ttf, '€');
         const chgT = document.getElementById('chg-ttf');
-        chgT.textContent = '+' + pctChg(oil.ttf, pre.ttf);
+        const tPct = pctChg(oil.ttf, pre.ttf);
+        chgT.textContent = '+' + tPct;
         chgT.className = 'text-right text-crisis-red font-bold';
+        document.getElementById('bar-ttf').style.width = Math.min(parseFloat(tPct), 100) + '%';
 
         document.getElementById('pre-gas').textContent = fmt(pre.gasoline);
         document.getElementById('cur-gas').textContent = fmt(oil.gasoline);
         const chgG = document.getElementById('chg-gas');
-        chgG.textContent = '+' + pctChg(oil.gasoline, pre.gasoline);
+        const gPct = pctChg(oil.gasoline, pre.gasoline);
+        chgG.textContent = '+' + gPct;
         chgG.className = 'text-right text-crisis-red font-bold';
+        document.getElementById('bar-gas').style.width = Math.min(parseFloat(gPct), 100) + '%';
+
+        // Historical price table current row
+        document.getElementById('hist-brent').textContent = fmt(oil.brent);
+        document.getElementById('hist-wti').textContent = fmt(oil.wti);
+        document.getElementById('hist-pct').textContent = '+' + pctChg(oil.brent, pre.brent);
+
+        // Sparklines
+        if (oil.sparkline) {
+          drawSparkline('spark-brent', oil.sparkline.brent || [], '#f97316');
+          drawSparkline('spark-wti', oil.sparkline.wti || [], '#f59e0b');
+          drawSparkline('spark-ttf', oil.sparkline.ttf || [], '#3b82f6');
+          drawSparkline('spark-gas', oil.sparkline.gasoline || [], '#ef4444');
+        }
 
         // Tanker rates
         const tr = dash.tankerRates;

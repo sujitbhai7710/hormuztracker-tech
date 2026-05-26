@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="War Risk Insurance — HormuzTracker.tech" description="P&I club status, war risk premiums, and transit insurance cost analysis during the Hormuz shipping crisis." path="/insurance">
+<Layout title="War Risk Insurance — HormuzTracker.tech" description="P&I club status, war risk premiums, VLCC transit cost comparison, and insurance cost analysis during the Hormuz shipping crisis." path="/insurance">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="insurance-page">
     <div>
       <h1 class="text-2xl font-bold text-white">War Risk Insurance Monitor</h1>
@@ -27,6 +27,26 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
+    <!-- VLCC Transit Cost Comparison -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">VLCC Transit Cost Comparison</h2>
+      <p class="text-sm text-slate-400 mb-4">Insurance cost for a single VLCC transit through the Strait of Hormuz ($100M hull value)</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-ops-900/50 rounded-lg p-5 border border-crisis-green/30">
+          <div class="text-xs text-slate-500 uppercase mb-2">Pre-Crisis</div>
+          <div class="text-3xl font-black text-crisis-green font-mono">$125K</div>
+          <div class="text-xs text-slate-400 mt-2">War risk at 0.125% of hull value</div>
+          <div class="text-xs text-slate-500 mt-1">Standard P&I coverage included</div>
+        </div>
+        <div class="bg-ops-900/50 rounded-lg p-5 border border-crisis-red/30">
+          <div class="text-xs text-slate-500 uppercase mb-2">Current</div>
+          <div class="text-3xl font-black text-crisis-red font-mono">$2M–$3M</div>
+          <div class="text-xs text-slate-400 mt-2">War risk at 2-3% of hull value</div>
+          <div class="text-xs text-crisis-red mt-1">P&I coverage unavailable</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Premium Rate Comparison -->
     <div class="glass-card p-5">
       <h2 class="text-lg font-bold text-white mb-4">Premium Rate Comparison</h2>
@@ -44,7 +64,13 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
-    <!-- P&I Club Status -->
+    <!-- Premium Range Visualization -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">Premium Range by Vessel Type</h2>
+      <div class="space-y-4" id="premium-ranges"></div>
+    </div>
+
+    <!-- P&I Club Status Table -->
     <div class="glass-card p-5">
       <h2 class="text-lg font-bold text-white mb-4">P&I Club Status</h2>
       <div class="overflow-x-auto">
@@ -60,6 +86,13 @@ import Layout from '../layouts/Layout.astro';
           </thead>
           <tbody id="pi-table"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- P&I Club Badges Grid -->
+    <div class="glass-card p-5">
+      <h2 class="text-lg font-bold text-white mb-4">P&I Club Cancellation Status</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" id="pi-badges">
       </div>
     </div>
 
@@ -131,6 +164,43 @@ import Layout from '../layouts/Layout.astro';
             <td class="text-right text-slate-400">${c.premiumBefore}</td>
             <td class="text-right text-crisis-red font-bold">${c.premiumCurrent}</td>
           </tr>
+        `).join('');
+
+        // P&I Club Badges
+        const badgeClubs = clubs.length > 0 ? clubs : [
+          { name: 'NorthStandard', status: 'Cancelled' },
+          { name: 'Britannia', status: 'Cancelled' },
+          { name: 'Gard', status: 'Cancelled' },
+          { name: 'Skuld', status: 'Cancelled' },
+          { name: 'West of England', status: 'Cancelled' },
+          { name: 'UK P&I', status: 'Cancelled' },
+        ];
+        document.getElementById('pi-badges').innerHTML = badgeClubs.map(c => `
+          <div class="bg-ops-900/50 rounded-lg p-4 border border-crisis-red/30 text-center">
+            <div class="text-xs font-bold text-white mb-2">${c.name}</div>
+            <span class="px-2 py-1 rounded text-[10px] font-bold bg-crisis-red/20 text-crisis-red border border-crisis-red/30">${c.status || 'Cancelled'}</span>
+          </div>
+        `).join('');
+
+        // Premium range visualization
+        const vesselTypes = [
+          { name: 'VLCC', hull: 100, preCost: 125, curCost: 2500, color: 'from-crisis-red to-crisis-orange' },
+          { name: 'Container Ship', hull: 50, preCost: 63, curCost: 1250, color: 'from-crisis-orange to-crisis-amber' },
+          { name: 'LNG Carrier', hull: 120, preCost: 150, curCost: 3000, color: 'from-crisis-red to-crisis-red' },
+          { name: 'Suezmax', hull: 75, preCost: 94, curCost: 1875, color: 'from-crisis-amber to-crisis-orange' },
+        ];
+        const maxCost = 3000;
+        document.getElementById('premium-ranges').innerHTML = vesselTypes.map(v => `
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">${v.name} ($${v.hull}M hull)</span>
+              <span class="text-crisis-red font-bold font-mono">$${v.preCost}K → $${v.curCost >= 1000 ? (v.curCost/1000).toFixed(1) + 'M' : v.curCost + 'K'}</span>
+            </div>
+            <div class="h-5 bg-ops-800 rounded-full overflow-hidden relative">
+              <div class="h-full bg-crisis-green/40 rounded-full absolute left-0" style="width: ${(v.preCost / maxCost * 100)}%"></div>
+              <div class="h-full bg-gradient-to-r ${v.color} rounded-full absolute left-0" style="width: ${(v.curCost / maxCost * 100)}%"></div>
+            </div>
+          </div>
         `).join('');
 
         // Cost calculator

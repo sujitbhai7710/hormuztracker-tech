@@ -1,16 +1,26 @@
 ---
 import '../styles/global.css';
+import ShareButton from '../components/ShareButton.svelte';
 
 export interface Props {
   title?: string;
   description?: string;
   path?: string;
+  jsonLd?: object;
 }
 
-const { title = 'HormuzTracker.tech — Live Strait of Hormuz Crisis Monitor', description = 'Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.', path = '/' } = Astro.props;
+const { title = 'HormuzTracker.tech — Live Strait of Hormuz Crisis Monitor', description = 'Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.', path = '/', jsonLd } = Astro.props;
 const canonicalURL = new URL(path, Astro.site);
 const crisisStart = new Date('2026-02-28T00:00:00Z');
 const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
+const currentPath = path;
+
+// Active nav helper
+function isActive(href: string): string {
+  if (href === '/' && currentPath === '/') return 'text-white bg-ops-800';
+  if (href !== '/' && currentPath.startsWith(href)) return 'text-white bg-ops-800';
+  return '';
+}
 ---
 
 <!doctype html>
@@ -19,13 +29,14 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring" />
+  <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring, Hormuz tracker, Strait closure" />
   <meta name="author" content="HormuzTracker.tech" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
   <link rel="canonical" href={canonicalURL} />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" title="HormuzTracker.tech RSS Feed" href="/rss.xml" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,27 +49,49 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:site_name" content="HormuzTracker.tech" />
-  <meta property="og:image" content="https://hormuztracker.tech/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://hormuztracker-tech.pages.dev/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="HormuzTracker.tech — Strait of Hormuz Crisis Monitor" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content="https://hormuztracker.tech/og-image.png" />
+  <meta name="twitter:image" content="https://hormuztracker-tech.pages.dev/og-image.png" />
 
-  <!-- JSON-LD -->
+  <!-- JSON-LD: Organization + WebApplication -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "HormuzTracker.tech",
     "url": "https://hormuztracker.tech",
-    "description": description,
+    "description": "Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.",
     "applicationCategory": "MonitoringApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Organization", "name": "HormuzTracker.tech" },
+    "author": {
+      "@type": "Organization",
+      "name": "HormuzTracker.tech",
+      "url": "https://hormuztracker.tech",
+      "logo": "https://hormuztracker-tech.pages.dev/favicon.svg"
+    },
     "sameAs": []
   })} />
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hormuztracker.tech" },
+      { "@type": "ListItem", "position": 2, "name": title.split('—')[0].trim(), "item": canonicalURL.toString() }
+    ]
+  })} />
+
+  <!-- Page-specific JSON-LD -->
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
   <title>{title}</title>
 </head>
@@ -70,8 +103,8 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
       <span class="font-semibold text-crisis-red" id="strait-status-bar">STRAIT RESTRICTED</span>
       <span class="text-slate-400">—</span>
       <span class="text-slate-300">Day {dayNumber} of disruption</span>
-      <span class="text-slate-400">|</span>
-      <span class="text-slate-400">Live data updates every 5 minutes</span>
+      <span class="text-slate-400 hidden sm:inline">|</span>
+      <span class="text-slate-400 hidden sm:inline">Updated every 30 min</span>
     </span>
   </div>
 
@@ -80,7 +113,7 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex items-center justify-between h-14">
         <!-- Logo -->
-        <a href="/" class="flex items-center gap-2.5 font-bold text-lg group">
+        <a href="/" class="flex items-center gap-2.5 font-bold text-lg group flex-shrink-0">
           <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-crisis-red to-crisis-orange flex items-center justify-center text-white text-sm font-bold">
             H
           </div>
@@ -88,30 +121,37 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
         </a>
 
         <!-- Desktop Nav -->
-        <div class="hidden lg:flex items-center gap-1">
-          <a href="/" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Dashboard</a>
-          <a href="/map" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Live Map</a>
-          <a href="/oil" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Oil & Energy</a>
-          <a href="/carriers" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Carriers</a>
-          <a href="/routes" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Routes</a>
-          <a href="/insurance" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Insurance</a>
-          <a href="/news" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">News</a>
-          <a href="/timeline" class="nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all">Timeline</a>
+        <div class="hidden lg:flex items-center gap-0.5">
+          <a href="/" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/')}`}>Dashboard</a>
+          <a href="/map" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/map')}`}>Map</a>
+          <a href="/oil" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/oil')}`}>Oil</a>
+          <a href="/carriers" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/carriers')}`}>Carriers</a>
+          <a href="/routes" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/routes')}`}>Routes</a>
+          <a href="/insurance" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/insurance')}`}>Insurance</a>
+          <a href="/news" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/news')}`}>News</a>
+          <a href="/timeline" class={`nav-link px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all ${isActive('/timeline')}`}>Timeline</a>
           <div class="relative group">
-            <button class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all flex items-center gap-1">
+            <button class="px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-ops-800 transition-all flex items-center gap-1">
               More
               <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="absolute right-0 mt-1 w-52 rounded-xl glass-card py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl">
+            <div class="absolute right-0 mt-1 w-56 rounded-xl glass-card py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl z-50">
+              <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Deep Dives</div>
+              <a href="/oil-explained" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Oil Explained</a>
+              <a href="/lng-explained" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">LNG Explained</a>
+              <a href="/gas-prices" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Gas Prices Impact</a>
+              <a href="/spr" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Strategic Reserves</a>
+              <a href="/pipelines" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Pipeline Bypass</a>
+              <a href="/historical" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Historical Comparison</a>
+              <hr class="my-1 border-ops-700/50" />
+              <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Data & Tools</div>
               <a href="/regions" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Regions & Exposure</a>
               <a href="/exposure" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Trade Exposure</a>
               <a href="/seizures" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Vessel Seizures</a>
-              <a href="/oil-explained" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Oil Explained</a>
-              <a href="/lng-explained" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">LNG Explained</a>
-              <a href="/blog" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Analysis Blog</a>
               <a href="/data" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Data & Downloads</a>
               <a href="/embed" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Embed Widgets</a>
               <hr class="my-1 border-ops-700/50" />
+              <a href="/blog" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Analysis Blog</a>
               <a href="/glossary" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Glossary</a>
               <a href="/methodology" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Methodology</a>
               <a href="/faq" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">FAQ</a>
@@ -120,10 +160,15 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
           </div>
         </div>
 
-        <!-- Mobile hamburger -->
-        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-ops-800" aria-label="Toggle navigation menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+        <!-- Right side: Share + Mobile hamburger -->
+        <div class="flex items-center gap-2">
+          <div class="hidden sm:block">
+            <ShareButton client:load />
+          </div>
+          <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-ops-800" aria-label="Toggle navigation menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -138,11 +183,23 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
         <a href="/insurance" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Insurance</a>
         <a href="/news" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">News</a>
         <a href="/timeline" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Timeline</a>
+        <hr class="my-2 border-ops-700/50" />
+        <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">Deep Dives</div>
         <a href="/regions" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Regions</a>
-        <a href="/seizures" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Seizures</a>
+        <a href="/exposure" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Trade Exposure</a>
+        <a href="/seizures" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Vessel Seizures</a>
+        <a href="/oil-explained" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Oil Explained</a>
+        <a href="/lng-explained" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">LNG Explained</a>
+        <a href="/gas-prices" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Gas Prices Impact</a>
+        <a href="/spr" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Strategic Reserves</a>
+        <a href="/pipelines" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Pipeline Bypass</a>
+        <a href="/historical" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Historical Comparison</a>
+        <hr class="my-2 border-ops-700/50" />
         <a href="/blog" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Blog</a>
         <a href="/data" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Data</a>
+        <a href="/embed" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Embed</a>
         <a href="/glossary" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Glossary</a>
+        <a href="/methodology" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Methodology</a>
         <a href="/faq" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">FAQ</a>
         <a href="/about" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">About</a>
       </div>
@@ -156,13 +213,14 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
   <!-- Footer -->
   <footer class="border-t border-ops-800 bg-ops-950 mt-16 no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="md:col-span-1">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div class="md:col-span-2">
           <a href="/" class="flex items-center gap-2 font-bold text-lg">
             <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-crisis-red to-crisis-orange flex items-center justify-center text-white text-xs font-bold">H</div>
             <span class="text-white">Hormuz<span class="text-crisis-orange">Tracker</span><span class="text-ops-400 text-sm">.tech</span></span>
           </a>
-          <p class="mt-3 text-sm text-slate-500 leading-relaxed">Real-time Strait of Hormuz crisis monitoring. Data aggregated from multiple maritime intelligence sources.</p>
+          <p class="mt-3 text-sm text-slate-500 leading-relaxed">Real-time Strait of Hormuz crisis monitoring. Data aggregated from AIS tracking systems, maritime intelligence, and energy market feeds. This dashboard provides estimated data for informational purposes only. Not for navigation or trading decisions.</p>
+          <p class="mt-2 text-xs text-slate-600">Data sources: AIS tracking, Maritime Intelligence, Energy Market Feeds, Baltic Exchange, Lloyd's of London</p>
         </div>
         <div>
           <h3 class="text-sm font-semibold text-slate-300 mb-3">Monitoring</h3>
@@ -172,15 +230,18 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
             <li><a href="/oil" class="text-slate-500 hover:text-slate-300 transition-colors">Oil & Energy Prices</a></li>
             <li><a href="/carriers" class="text-slate-500 hover:text-slate-300 transition-colors">Carrier Status</a></li>
             <li><a href="/insurance" class="text-slate-500 hover:text-slate-300 transition-colors">Insurance Monitor</a></li>
+            <li><a href="/timeline" class="text-slate-500 hover:text-slate-300 transition-colors">Crisis Timeline</a></li>
           </ul>
         </div>
         <div>
-          <h3 class="text-sm font-semibold text-slate-300 mb-3">Analysis</h3>
+          <h3 class="text-sm font-semibold text-slate-300 mb-3">Deep Dives</h3>
           <ul class="space-y-2 text-sm">
             <li><a href="/routes" class="text-slate-500 hover:text-slate-300 transition-colors">Alternative Routes</a></li>
+            <li><a href="/pipelines" class="text-slate-500 hover:text-slate-300 transition-colors">Pipeline Bypass</a></li>
             <li><a href="/regions" class="text-slate-500 hover:text-slate-300 transition-colors">Regional Impact</a></li>
-            <li><a href="/seizures" class="text-slate-500 hover:text-slate-300 transition-colors">Vessel Seizures</a></li>
-            <li><a href="/timeline" class="text-slate-500 hover:text-slate-300 transition-colors">Crisis Timeline</a></li>
+            <li><a href="/gas-prices" class="text-slate-500 hover:text-slate-300 transition-colors">Gas Prices Impact</a></li>
+            <li><a href="/spr" class="text-slate-500 hover:text-slate-300 transition-colors">Strategic Reserves</a></li>
+            <li><a href="/historical" class="text-slate-500 hover:text-slate-300 transition-colors">Historical Comparison</a></li>
             <li><a href="/blog" class="text-slate-500 hover:text-slate-300 transition-colors">Analysis Blog</a></li>
           </ul>
         </div>
@@ -193,6 +254,7 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
             <li><a href="/methodology" class="text-slate-500 hover:text-slate-300 transition-colors">Methodology</a></li>
             <li><a href="/faq" class="text-slate-500 hover:text-slate-300 transition-colors">FAQ</a></li>
             <li><a href="/about" class="text-slate-500 hover:text-slate-300 transition-colors">About</a></li>
+            <li><a href="/rss.xml" class="text-slate-500 hover:text-slate-300 transition-colors">RSS Feed</a></li>
           </ul>
         </div>
       </div>
@@ -201,6 +263,7 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
         <div class="flex items-center gap-4 text-xs text-slate-600">
           <a href="/methodology" class="hover:text-slate-400 transition-colors">Methodology</a>
           <a href="/about" class="hover:text-slate-400 transition-colors">About</a>
+          <a href="/rss.xml" class="hover:text-slate-400 transition-colors">RSS</a>
         </div>
       </div>
     </div>
@@ -216,6 +279,17 @@ const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
     menu?.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => menu?.classList.add('hidden'));
     });
+
+    // Update strait status bar from API
+    fetch('https://hormuz-api.tradesapi.workers.dev/api/severity')
+      .then(r => r.json())
+      .then(data => {
+        const bar = document.getElementById('strait-status-bar');
+        if (bar && data?.straitStatus) {
+          bar.textContent = 'STRAIT ' + data.straitStatus;
+        }
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>

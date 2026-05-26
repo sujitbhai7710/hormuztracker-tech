@@ -11,4 +11,4 @@ binding = "DATA_CACHE"
 id = "d4574bbf41fa4a1fa0e76f03fcfbb3a7"
 
 [triggers]
-crons = ["*/5 * * * *"]
+crons = ["*/30 * * * *"]

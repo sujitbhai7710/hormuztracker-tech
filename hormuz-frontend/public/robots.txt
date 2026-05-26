@@ -1,3 +1,38 @@
+# HormuzTracker.tech - robots.txt
+# AI-crawler friendly: we welcome all search and AI crawlers
+
 User-agent: *
 Allow: /
-Sitemap: https://hormuztracker.tech/sitemap-index.xml
+Disallow: /embed/
+Disallow: /api/
+
+# Welcome AI crawlers explicitly
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Sitemap
+Sitemap: https://hormuztracker-tech.pages.dev/sitemap-index.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1

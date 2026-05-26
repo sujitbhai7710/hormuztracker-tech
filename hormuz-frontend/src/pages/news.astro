@@ -1,48 +1,129 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Latest News — HormuzTracker.tech" description="Real-time news coverage of the Strait of Hormuz crisis, shipping disruptions, and global trade impact." path="/news">
+<Layout title="Latest News — HormuzTracker.tech" description="Real-time news coverage of the Strait of Hormuz crisis, shipping disruptions, and global trade impact with source attribution." path="/news">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6" id="news-page">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between flex-wrap gap-4">
       <div>
         <h1 class="text-2xl font-bold text-white">Crisis News Feed</h1>
         <p class="text-sm text-slate-400 mt-1">Latest developments from global news sources</p>
       </div>
-      <span class="text-xs text-slate-500" id="news-updated"></span>
+      <div class="flex items-center gap-3">
+        <select id="date-filter" class="bg-ops-800 border border-ops-600 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-crisis-blue">
+          <option value="all">All Time</option>
+          <option value="today">Today</option>
+          <option value="week">Past Week</option>
+          <option value="month">Past Month</option>
+        </select>
+        <span class="text-xs text-slate-500" id="news-updated"></span>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="news-grid">
-      <!-- Filled by JS -->
     </div>
 
     <div id="news-loading" class="text-center py-8">
       <div class="w-8 h-8 border-2 border-crisis-red/30 border-t-crisis-red rounded-full animate-spin mx-auto"></div>
     </div>
+
+    <!-- Attribution -->
+    <div class="glass-card p-5 mt-6">
+      <div class="flex items-center justify-between">
+        <div class="text-xs text-slate-500">
+          News aggregated from verified international sources. Data may lag real-time events by up to 30 minutes.
+        </div>
+        <div class="text-xs text-slate-600">
+          Powered by <span class="text-slate-400 font-medium">HormuzTracker.tech</span> API
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
     const API = 'https://hormuz-api.tradesapi.workers.dev';
+    let allNews = [];
+
     async function loadNews() {
       try {
         const news = await fetch(`${API}/api/news`).then(r => r.json());
+        allNews = news;
         document.getElementById('news-loading').style.display = 'none';
         document.getElementById('news-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
-
-        document.getElementById('news-grid').innerHTML = news.map(a => `
-          <a href="${a.url || '#'}" class="glass-card p-5 card-hover block" ${a.url !== '#' ? 'target="_blank" rel="noopener"' : ''}>
-            <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
-              <span class="font-medium text-crisis-blue">${a.source}</span>
-              <span>·</span>
-              <span>${new Date(a.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-            </div>
-            <h3 class="text-sm font-semibold text-white leading-snug mb-2">${a.title}</h3>
-            ${a.description ? `<p class="text-xs text-slate-400 line-clamp-3">${a.description}</p>` : ''}
-          </a>
-        `).join('');
+        renderNews('all');
       } catch (e) {
         document.getElementById('news-loading').innerHTML = '<p class="text-slate-500 text-sm">Failed to load news. Retry in a moment.</p>';
       }
     }
+
+    function renderNews(filter) {
+      let filtered = [...allNews];
+      const now = new Date();
+
+      if (filter === 'today') {
+        filtered = filtered.filter(a => {
+          const d = new Date(a.publishedAt);
+          return d.toDateString() === now.toDateString();
+        });
+      } else if (filter === 'week') {
+        const weekAgo = new Date(now.getTime() - 7 * 86400000);
+        filtered = filtered.filter(a => new Date(a.publishedAt) >= weekAgo);
+      } else if (filter === 'month') {
+        const monthAgo = new Date(now.getTime() - 30 * 86400000);
+        filtered = filtered.filter(a => new Date(a.publishedAt) >= monthAgo);
+      }
+
+      document.getElementById('news-grid').innerHTML = filtered.map(a => {
+        const pubDate = new Date(a.publishedAt);
+        const timeAgo = getTimeAgo(pubDate);
+        const sourceColor = getSourceColor(a.source);
+        return `
+          <a href="${a.url || '#'}" class="glass-card p-5 card-hover block group" ${a.url !== '#' ? 'target="_blank" rel="noopener"' : ''}>
+            <div class="flex items-center gap-2 text-xs mb-3">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px] uppercase" style="background:${sourceColor}20;color:${sourceColor}">${a.source || 'Unknown'}</span>
+              <span class="text-slate-500">${timeAgo}</span>
+            </div>
+            <h3 class="text-sm font-semibold text-white leading-snug mb-2 group-hover:text-crisis-orange transition-colors">${a.title}</h3>
+            ${a.description ? `<p class="text-xs text-slate-400 line-clamp-3">${a.description}</p>` : ''}
+            <div class="mt-3 text-xs text-slate-600">${pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+          </a>
+        `;
+      }).join('');
+
+      if (filtered.length === 0) {
+        document.getElementById('news-grid').innerHTML = '<div class="col-span-full text-center py-8 text-slate-500 text-sm">No news found for this time period</div>';
+      }
+    }
+
+    function getTimeAgo(date) {
+      const diff = Date.now() - date.getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 60) return `${mins}m ago`;
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return `${hrs}h ago`;
+      const days = Math.floor(hrs / 24);
+      return `${days}d ago`;
+    }
+
+    function getSourceColor(source) {
+      if (!source) return '#5a7a9e';
+      const s = source.toLowerCase();
+      if (s.includes('reuters')) return '#f59e0b';
+      if (s.includes('bloomberg')) return '#3b82f6';
+      if (s.includes('ft') || s.includes('financial times')) return '#f59e0b';
+      if (s.includes('bbc')) return '#ef4444';
+      if (s.includes('cnn')) return '#ef4444';
+      if (s.includes('al jazeera')) return '#f59e0b';
+      if (s.includes('guardian')) return '#22c55e';
+      if (s.includes('nyt') || s.includes('new york times')) return '#e2e8f0';
+      if (s.includes('wsj') || s.includes('wall street')) return '#e2e8f0';
+      return '#5a7a9e';
+    }
+
+    // Date filter
+    document.getElementById('date-filter').addEventListener('change', function() {
+      renderNews(this.value);
+    });
+
     loadNews();
     setInterval(loadNews, 120000);
   </script>

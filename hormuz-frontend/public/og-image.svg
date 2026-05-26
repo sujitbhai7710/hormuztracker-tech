@@ -1,0 +1,51 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#050a14"/>
+      <stop offset="50%" style="stop-color:#0a1628"/>
+      <stop offset="100%" style="stop-color:#0f2035"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ef4444"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Red accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#redGrad)"/>
+  <!-- Logo area -->
+  <rect x="80" y="80" width="56" height="56" rx="12" fill="url(#redGrad)"/>
+  <text x="108" y="117" font-family="system-ui" font-size="28" font-weight="bold" fill="white" text-anchor="middle">H</text>
+  <!-- Title -->
+  <text x="155" y="100" font-family="system-ui" font-size="22" font-weight="800" fill="white">Hormuz</text>
+  <text x="265" y="100" font-family="system-ui" font-size="22" font-weight="800" fill="#f97316">Tracker</text>
+  <text x="358" y="100" font-family="system-ui" font-size="14" fill="#5a7a9e">.tech</text>
+  <!-- Status badge -->
+  <rect x="80" y="150" width="160" height="36" rx="18" fill="#ef444420" stroke="#ef444460" stroke-width="1"/>
+  <circle cx="102" cy="168" r="5" fill="#ef4444"/>
+  <text x="116" y="173" font-family="system-ui" font-size="13" font-weight="700" fill="#ef4444">RESTRICTED</text>
+  <!-- Main heading -->
+  <text x="80" y="250" font-family="system-ui" font-size="52" font-weight="900" fill="white">Strait of Hormuz</text>
+  <text x="80" y="310" font-family="system-ui" font-size="52" font-weight="900" fill="url(#redGrad)">Crisis Monitor</text>
+  <!-- Subtitle -->
+  <text x="80" y="365" font-family="system-ui" font-size="18" fill="#8aa4c0">Real-time shipping disruption, oil prices, vessel seizures &amp; trade impact</text>
+  <!-- Metrics row -->
+  <rect x="80" y="410" width="220" height="80" rx="12" fill="#0f203580" stroke="#1a2d4a50" stroke-width="1"/>
+  <text x="100" y="443" font-family="system-ui" font-size="12" fill="#8aa4c0">BRENT CRUDE</text>
+  <text x="100" y="475" font-family="monospace" font-size="28" font-weight="700" fill="#ef4444">$116.73</text>
+  <rect x="320" y="410" width="220" height="80" rx="12" fill="#0f203580" stroke="#1a2d4a50" stroke-width="1"/>
+  <text x="340" y="443" font-family="system-ui" font-size="12" fill="#8aa4c0">SHIPS TODAY</text>
+  <text x="340" y="475" font-family="monospace" font-size="28" font-weight="700" fill="white">33</text>
+  <text x="385" y="475" font-family="system-ui" font-size="12" fill="#8aa4c0">vs 60 normal</text>
+  <rect x="560" y="410" width="220" height="80" rx="12" fill="#0f203580" stroke="#1a2d4a50" stroke-width="1"/>
+  <text x="580" y="443" font-family="system-ui" font-size="12" fill="#8aa4c0">SEVERITY</text>
+  <text x="580" y="475" font-family="monospace" font-size="28" font-weight="700" fill="#ef4444">10/10</text>
+  <rect x="800" y="410" width="220" height="80" rx="12" fill="#0f203580" stroke="#1a2d4a50" stroke-width="1"/>
+  <text x="820" y="443" font-family="system-ui" font-size="12" fill="#8aa4c0">CARRIERS SUSPENDED</text>
+  <text x="820" y="475" font-family="monospace" font-size="28" font-weight="700" fill="#f97316">9/9</text>
+  <!-- Bottom bar -->
+  <rect x="0" y="570" width="1200" height="60" fill="#050a1480"/>
+  <text x="80" y="607" font-family="system-ui" font-size="13" fill="#5a7a9e">Day 87 of disruption  |  21% world oil at risk  |  $2.8B daily cost  |  Updated every 30 min</text>
+  <!-- Right side red accent -->
+  <rect x="1100" y="80" width="4" height="470" rx="2" fill="url(#redGrad)" opacity="0.3"/>
+</svg>
