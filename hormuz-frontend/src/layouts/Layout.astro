@@ -310,8 +310,9 @@ function isActive(href: string): string {
       .then(r => r.json())
       .then(data => {
         const bar = document.getElementById('strait-status-bar');
-        if (bar && data?.straitStatus) {
-          bar.textContent = 'STRAIT ' + data.straitStatus;
+        if (bar && data) {
+          const status = typeof data.straitStatus === 'string' ? data.straitStatus : data.straitStatus?.status;
+          if (status) bar.textContent = 'STRAIT ' + status;
         }
       })
       .catch(() => {});

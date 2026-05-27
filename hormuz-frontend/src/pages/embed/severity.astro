@@ -46,7 +46,8 @@
         const el = document.getElementById('severity-score');
         el.textContent = score + '/10';
         el.className = 'severity ' + (score >= 8 ? 'sev-critical' : score >= 6 ? 'sev-high' : score >= 4 ? 'sev-moderate' : 'sev-low');
-        const status = (d.straitStatus?.status || 'RESTRICTED').toUpperCase();
+        const statusStr = typeof d.straitStatus === 'string' ? d.straitStatus : d.straitStatus?.status;
+        const status = (statusStr || 'RESTRICTED').toUpperCase();
         const statusEl = document.getElementById('strait-status');
         statusEl.textContent = status;
         statusEl.className = 'status ' + (status.includes('CLOSED') ? 'status-closed' : status.includes('OPEN') ? 'status-open' : 'status-restricted');

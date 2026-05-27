@@ -167,7 +167,8 @@
         document.getElementById('pipeline').textContent = dash.pipelineCoverage || '35%';
         document.getElementById('war-risk').textContent = (dash.insurance?.warRiskPercent || 3) + '%';
 
-        const status = (dash.straitStatus?.status || 'RESTRICTED').toUpperCase();
+        const statusStr = typeof dash.straitStatus === 'string' ? dash.straitStatus : dash.straitStatus?.status;
+        const status = (statusStr || 'RESTRICTED').toUpperCase();
         const badge = document.getElementById('strait-badge');
         badge.textContent = status;
         badge.className = 'badge ' + (status.includes('CLOSED') ? 'badge-closed' : 'badge-restricted');

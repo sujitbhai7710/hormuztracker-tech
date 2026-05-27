@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-05-26T00:00:00Z",
+  "lastUpdated": "2026-05-27T00:00:00Z",
   "straitStatus": "RESTRICTED",
-  "severityScore": 10,
-  "shipsToday": 33,
-  "normalDaily": 60,
-  "brentPrice": 116.73,
+  "severityScore": 9,
+  "shipsToday": 8,
+  "normalDaily": 55,
+  "brentPrice": 102.30,
   "carriersSuspended": "9/9",
-  "dayOfDisruption": 87
+  "dayOfDisruption": 88
 }

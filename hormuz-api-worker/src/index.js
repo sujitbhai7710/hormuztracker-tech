@@ -259,6 +259,16 @@ const FALLBACK = {
     severityScore: 9,
     dayOfDisruption: Math.floor((Date.now() - new Date('2026-02-28T00:00:00Z').getTime()) / 86400000),
   },
+
+  consumerImpact: {
+    usGasoline: { preCrisis: 3.20, current: 4.12, increasePercent: 28.8, unit: '$/gal' },
+    indiaPetrol: { preCrisis: 96.72, current: 112.50, increasePercent: 16.3, unit: '₹/L' },
+    ukPetrol: { preCrisis: 1.49, current: 1.82, increasePercent: 22.1, unit: '£/L' },
+    euDiesel: { preCrisis: 1.65, current: 2.10, increasePercent: 27.3, unit: '€/L' },
+    japanGasoline: { preCrisis: 168, current: 215, increasePercent: 28.0, unit: '¥/L' },
+    heatingOilUS: { preCrisis: 3.10, current: 4.45, increasePercent: 43.5, unit: '$/gal' },
+    jetFuel: { preCrisis: 2.15, current: 3.82, increasePercent: 77.7, unit: '$/gal' },
+  },
 };
 
 // ===== SCRAPING FUNCTIONS =====
@@ -445,6 +455,9 @@ async function handleAPI(pathname, env) {
     case 'status':
       data = FALLBACK.severity;
       data.dayOfDisruption = Math.floor((Date.now() - new Date('2026-02-28T00:00:00Z').getTime()) / 86400000);
+      break;
+    case 'consumer-impact':
+      data = FALLBACK.consumerImpact;
       break;
     default:
       return jsonResponse({ error: 'Unknown endpoint', available: ['/api/dashboard', '/api/oil', '/api/ais', '/api/carriers', '/api/insurance', '/api/routes', '/api/timeline', '/api/news', '/api/seizures', '/api/regions', '/api/severity'] }, 404);
