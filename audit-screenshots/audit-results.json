@@ -1,0 +1,384 @@
+{
+  "cssLoaded": {
+    "error": "darkBgElements is not defined"
+  },
+  "dashboardData": {
+    "hasStraitStatus": true,
+    "hasShipCount": true,
+    "hasOilPrice": true,
+    "hasWarRisk": true,
+    "fullText": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About      astro-island,astro-slot,astro-static-slot{display:contents}(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();(()=>{var g=Object.defineProperty;var w=(c,s,d)=>s in c?g(c,s,{enumerable:!0,configurable:!0,writable:!0,value:d}):c[s]=d;var l=(c,s,d)=>w(c,typeof s!=\"symbol\"?s+\"\":s,d);var E=new Set([\"__proto__\",\"constructor\",\"prototype\"]);{let c={0:t=>y(t),1:t=>d(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(d(t)),5:t=>new Set(d(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},s=t=>{let[p,e]=t;return p in c?c[p](e):void 0},d=t=>t.map(s),y=t=>typeof t!=\"object\"||t===null?t:Object.fromEntries(Object.entries(t).map(([p,e])=>[p,s(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,\"Component\");l(this,\"hydrator\");l(this,\"hydrate\",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest(\"astro-island[ssr]\");if(e){e.addEventListener(\"astro:hydrate\",this.hydrate,{once:!0});return}let n=this.querySelectorAll(\"astro-slot\"),r={},i=this.querySelectorAll(\"template[data-astro-template]\");for(let o of i){let a=o.closest(this.tagName);a!=null&&a.isSameNode(this)&&(r[o.getAttribute(\"data-astro-template\")||\"default\"]=o.innerHTML,o.remove())}for(let o of n){let a=o.closest(this.tagName);a!=null&&a.isSameNode(this)&&(r[o.getAttribute(\"name\")||\"default\"]=o.innerHT"
+  },
+  "straitStatus": "RESTRICTED found",
+  "shipCount": "33 found somewhere",
+  "oilPrices": {
+    "brent": true,
+    "wti": true,
+    "ttf": true,
+    "gasoline": true
+  },
+  "navLinks": [
+    {
+      "href": "https://hormuztracker-tech.pages.dev/",
+      "text": "H\n HormuzTracker.tech",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/",
+      "text": "Dashboard",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/map",
+      "text": "Live Map",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/oil",
+      "text": "Oil & Energy",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/carriers",
+      "text": "Carriers",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/routes",
+      "text": "Routes",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/insurance",
+      "text": "Insurance",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/news",
+      "text": "News",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/timeline",
+      "text": "Timeline",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/regions",
+      "text": "Regions & Exposure",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/exposure",
+      "text": "Trade Exposure",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/seizures",
+      "text": "Vessel Seizures",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/oil-explained",
+      "text": "Oil Explained",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/lng-explained",
+      "text": "LNG Explained",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/blog",
+      "text": "Analysis Blog",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/data",
+      "text": "Data & Downloads",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/embed",
+      "text": "Embed Widgets",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/glossary",
+      "text": "Glossary",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/methodology",
+      "text": "Methodology",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/faq",
+      "text": "FAQ",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/about",
+      "text": "About",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/",
+      "text": "Dashboard",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/map",
+      "text": "Live Map",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/oil",
+      "text": "Oil & Energy",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/carriers",
+      "text": "Carriers",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/routes",
+      "text": "Routes",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/insurance",
+      "text": "Insurance",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/news",
+      "text": "News",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/timeline",
+      "text": "Timeline",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/regions",
+      "text": "Regions",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/seizures",
+      "text": "Seizures",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/blog",
+      "text": "Blog",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/data",
+      "text": "Data",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/glossary",
+      "text": "Glossary",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/faq",
+      "text": "FAQ",
+      "isActive": false
+    },
+    {
+      "href": "https://hormuztracker-tech.pages.dev/about",
+      "text": "About",
+      "isActive": false
+    }
+  ],
+  "newPages": {
+    "/oil-explained": {
+      "title": "Oil Explained — HormuzTracker.tech",
+      "textLength": 4639,
+      "first500": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        ← Back to ",
+      "hasContent": true,
+      "cssLoaded": true
+    },
+    "/lng-explained": {
+      "title": "LNG Explained — HormuzTracker.tech",
+      "textLength": 3193,
+      "first500": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        ← Back to ",
+      "hasContent": true,
+      "cssLoaded": true
+    },
+    "/exposure": {
+      "title": "Trade Exposure — HormuzTracker.tech",
+      "textLength": 3253,
+      "first500": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Trade Expo",
+      "hasContent": true,
+      "cssLoaded": true
+    }
+  },
+  "interactiveMap": {
+    "hasCanvas": false,
+    "canvasCount": 0,
+    "hasMapDiv": true,
+    "mapDivCount": 3,
+    "hasIframe": false,
+    "text": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+    "allDivClasses": [
+      "leaflet-container leaflet-touch leaflet-fade-anim ",
+      "leaflet-pane leaflet-map-pane",
+      "leaflet-pane leaflet-tile-pane",
+      "leaflet-layer ",
+      "leaflet-tile-container leaflet-zoom-animated"
+    ]
+  },
+  "tradingViewChart": {
+    "hasTradingview": true,
+    "tradingviewCount": 4,
+    "iframes": 1,
+    "scripts": [
+      "https://s3.tradingview.com/tv.js"
+    ],
+    "text": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Oil & Ener"
+  },
+  "carrierCards": {
+    "cardCount": 16,
+    "text": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Carrier St",
+    "hasCarrierNames": true
+  },
+  "routeCalculator": {
+    "inputCount": 1,
+    "buttonCount": 2,
+    "text": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Alternativ",
+    "hasCalculator": true
+  },
+  "timelineFilters": {
+    "buttonCount": 8,
+    "selectCount": 0,
+    "text": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Crisis Tim",
+    "hasFilters": true,
+    "hasTimeline": true
+  },
+  "faqAccordion": {
+    "detailsCount": 0,
+    "accordionCount": 0,
+    "text": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Frequently",
+    "hasFAQ": true
+  },
+  "mobileMenu": {
+    "hasHamburger": false,
+    "navVisible": true,
+    "navClass": "sticky top-0 z-50 glass border-b border-ops-700/50 no-print"
+  },
+  "jsErrors": [],
+  "missingAssets": [
+    {
+      "url": "https://widget-sheriff.tradingview-widget.com/sheriff/api/v1/rules/search?origin=https%3A%2F%2Fhormuztracker-tech.pages.dev",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "screenshots": [
+    "01-homepage.png",
+    "audit-screenshots/_oil-explained.png",
+    "audit-screenshots/_lng-explained.png",
+    "audit-screenshots/_exposure.png",
+    "map.png",
+    "oil.png",
+    "carriers.png",
+    "routes.png",
+    "timeline.png",
+    "faq.png"
+  ],
+  "referenceGaps": [],
+  "reference1": {
+    "title": "Strait of Hormuz Live Tracker — Real-Time Shipping & Oil Crisis Monitor",
+    "textLength": 36641,
+    "first1000": "STRAIT OF HORMUZ — Live Shipping & Oil Crisis TrackerLIVEBlogAboutNewsFAQUpdated May 26, 2026, 08:20 AM UTCStrait StatusRESTRICTEDSince February 28, 2026 · 87 days ago▸ DetailsDuration of RESTRICTION87DAYS:08HOURS:20MINUTESSince February 28, 2026STRAIT OF HORMUZ — TRAFFIC OVERVIEW33 underway50% DWT throughputIRANUAEOMANPERSIAN GULFGULF OF OMANQESHMHORMUZLARAKINBOUND ▶◀ OUTBOUNDDaily Throughput5.2M DWT50% of 10.3M avgTransits (24h)33 ships55% of 60/day normalVessels WaitingData not availableNARROWEST POINT — 21 NAUTICAL MILESSample ad🎯Advertise With UsSample AdShowcase your brand to 340K+ monthly shipping & energy readersYour Ad Here →contact@hormuzstraitmonitor.comAdvertise to maritime & energy professionalsTargeted placement on the leading Strait of Hormuz monitoring dashboardcontact@hormuzstraitmonitor.comShips Transiting Now33Last 24h33Normal daily avg60% of normal55%Vessels WaitingData not availableNo stranded vessel reports at this timeWar Risk InsuranceEXTREMEWar risk premium8%N",
+    "features": {
+      "hasMap": true,
+      "hasShips": true,
+      "hasOil": true,
+      "hasInsurance": true,
+      "hasNews": true,
+      "hasTimeline": true
+    },
+    "navLinks": [
+      {
+        "text": "Blog",
+        "href": "https://hormuzstraitmonitor.com/blog/"
+      },
+      {
+        "text": "About",
+        "href": "https://hormuzstraitmonitor.com/about/"
+      },
+      {
+        "text": "News",
+        "href": "https://hormuzstraitmonitor.com/news/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://hormuzstraitmonitor.com/faq/"
+      }
+    ]
+  },
+  "reference2": {
+    "title": "Strait of Hormuz Live Tracker — Shipping Disruption Dashboard | HormuzTracker",
+    "textLength": 32799,
+    "first1000": "HormuzTrackerEN한국어10/10Day 88StatusOil & EnergyMapPipelinesCarriersInsuranceFAQStrait of Hormuz Live Tracker — Shipping Disruption DashboardClosed to Commercial Shipping — Day 8810/10Updated 1004h ago88Days of disruption~10-93%vs 138 avgVessels detected today9/9Carriers suspended35%Pipeline coverage of normal flowSelective passage via approved corridor. Transit commercially unviable for most carriers — insurance withdrawn, elevated risk.·AIS reliability: transponders off in affected zone. Counts are lower bounds.DISRUPTED — Day 88+−Ports & TerminalsPipelinesChokepointActiveDisruptedOtherEnergy PricesUpdated: Apr 14CurrentPre-crisis:ChangeTrendBrent Crude$94.45$72.00+31.2%WTI Crude$95.72$65.00+47.3%EU Gas (TTF)€43.15€30.00+43.8%US Gasoline$4.12$2.97+38.7%Brent Crude$94.45+31.2%WTI Crude$95.72+47.3%EU Gas (TTF)€43.15+43.8%US Gasoline$4.12+38.7%Bypass Pipeline CapacityTotal bypass: ~7M bbl/dayNormal strait flow: ~20M bbl/day7MGap: ~13M bbl/daySaudi East-West Pipeline (Petroline)~5M bbl/da",
+    "features": {
+      "hasMap": true,
+      "hasShips": true,
+      "hasOil": true,
+      "hasInsurance": true,
+      "hasNews": true,
+      "hasTimeline": true
+    },
+    "navLinks": [
+      {
+        "text": "EN",
+        "href": "https://www.hormuztracker.com/"
+      },
+      {
+        "text": "한국어",
+        "href": "https://www.hormuztracker.com/ko"
+      },
+      {
+        "text": "",
+        "href": "https://www.hormuztracker.com/api/report"
+      },
+      {
+        "text": "Status",
+        "href": "https://www.hormuztracker.com/#crisis-status"
+      },
+      {
+        "text": "Oil & Energy",
+        "href": "https://www.hormuztracker.com/#oil-energy"
+      },
+      {
+        "text": "Map",
+        "href": "https://www.hormuztracker.com/#map"
+      },
+      {
+        "text": "Pipelines",
+        "href": "https://www.hormuztracker.com/#pipelines"
+      },
+      {
+        "text": "Carriers",
+        "href": "https://www.hormuztracker.com/#carriers"
+      },
+      {
+        "text": "Insurance",
+        "href": "https://www.hormuztracker.com/#insurance"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://www.hormuztracker.com/#faq"
+      }
+    ]
+  }
+}

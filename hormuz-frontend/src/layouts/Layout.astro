@@ -7,12 +7,37 @@ export interface Props {
   description?: string;
   path?: string;
   jsonLd?: object;
+  ogType?: string;
+  articlePublishedTime?: string;
+  articleSection?: string;
+  articleTag?: string;
+  newsKeywords?: string;
 }
 
-const { title = 'HormuzTracker.tech — Live Strait of Hormuz Crisis Monitor', description = 'Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.', path = '/', jsonLd } = Astro.props;
+const {
+  title = 'HormuzTracker.tech — Live Strait of Hormuz Crisis Monitor',
+  description = 'Real-time Strait of Hormuz monitoring dashboard. Track shipping disruptions, oil prices, vessel seizures, insurance status, and global trade impact.',
+  path = '/',
+  jsonLd,
+  ogType = 'website',
+  articlePublishedTime,
+  articleSection,
+  articleTag,
+  newsKeywords,
+} = Astro.props;
+
+// Truncate description to 160 chars for meta tag (Google truncates at ~160)
+const metaDescription = description.length > 160 ? description.slice(0, 157) + '...' : description;
+
+// Normalize article published time to ISO 8601 datetime if needed
+const normalizedPublishedTime = articlePublishedTime
+  ? (articlePublishedTime.includes('T') ? articlePublishedTime : `${articlePublishedTime}T00:00:00Z`)
+  : undefined;
+
 const crisisStart = new Date('2026-02-28T00:00:00Z');
 const dayNumber = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
 const currentPath = path;
+const canonicalUrl = `https://hormuztracker.tech${path}`;
 
 // Active nav helper
 function isActive(href: string): string {
@@ -27,19 +52,22 @@ function isActive(href: string): string {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
+  <meta name="description" content={metaDescription} />
   <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring, Hormuz tracker, Strait closure" />
   <meta name="author" content="HormuzTracker.tech" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <!-- Google AdSense placeholder - replace with your publisher ID -->
-  <!-- <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" /> -->
+  <meta name="googlebot" content="index, follow" />
+  <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
   <meta name="theme-color" content="#0a1628" />
+  {newsKeywords && <meta name="news_keywords" content={newsKeywords} />}
 
-  <link rel="canonical" href={`https://hormuztracker.tech${path}`} />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" hreflang="en" href={canonicalUrl} />
   <meta name="date" content={new Date().toISOString().split('T')[0]} />
   <meta name="last-modified" content={new Date().toISOString().split('T')[0]} />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="alternate" type="application/rss+xml" title="HormuzTracker.tech RSS Feed" href="/rss.xml" />
 
   <!-- Fonts -->
@@ -48,24 +76,60 @@ function isActive(href: string): string {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://hormuztracker.tech${path}`} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  <meta property="og:description" content={metaDescription} />
   <meta property="og:site_name" content="HormuzTracker.tech" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://hormuztracker.tech/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="HormuzTracker.tech — Strait of Hormuz Crisis Monitor" />
+  {ogType === 'article' && normalizedPublishedTime && <meta property="article:published_time" content={normalizedPublishedTime} />}
+  {ogType === 'article' && articleSection && <meta property="article:section" content={articleSection} />}
+  {ogType === 'article' && articleTag && <meta property="article:tag" content={articleTag} />}
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
+  <meta name="twitter:description" content={metaDescription} />
   <meta name="twitter:image" content="https://hormuztracker.tech/og-image.png" />
 
-  <!-- JSON-LD: Organization + WebApplication -->
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "HormuzTracker.tech",
+    "url": "https://hormuztracker.tech",
+    "logo": "https://hormuztracker.tech/favicon.svg",
+    "sameAs": [
+      // Add social profile URLs here when available, e.g.:
+      // "https://twitter.com/HormuzTracker",
+      // "https://www.linkedin.com/company/hormuztracker",
+      // "https://www.youtube.com/@HormuzTracker",
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "url": "https://hormuztracker.tech/contact"
+    }
+  })} />
+
+  <!-- JSON-LD: WebSite with SearchAction (for Google sitelinks searchbox) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "HormuzTracker.tech",
+    "url": "https://hormuztracker.tech",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://hormuztracker.tech/blog?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  })} />
+
+  <!-- JSON-LD: WebApplication -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -95,7 +159,7 @@ function isActive(href: string): string {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hormuztracker.tech" },
-      { "@type": "ListItem", "position": 2, "name": title.split('—')[0].trim(), "item": `https://hormuztracker.tech${path}` }
+      { "@type": "ListItem", "position": 2, "name": title.split('—')[0].trim(), "item": canonicalUrl }
     ]
   })} />
 

@@ -662,12 +662,12 @@ const jsonLd = {
   "description": excerpt,
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@@id": `https://hormuztracker.tech/blog/${slug}`
+    "@id": `https://hormuztracker.tech/blog/${slug}`
   }
 };
 ---
 
-<Layout title={`${title} — HormuzTracker.tech`} description={excerpt} path={`/blog/${slug}`}>
+<Layout title={`${title} — HormuzTracker.tech`} description={excerpt} path={`/blog/${slug}`} ogType="article" articlePublishedTime={date} articleSection={category} articleTag={category} newsKeywords={`${category}, Strait of Hormuz, crisis monitoring, ${title.split(' ').slice(0, 5).join(', ')}`}>
   <article class="max-w-3xl mx-auto px-4 sm:px-6 py-6 space-y-6">
     <div class="flex items-center gap-2 mb-2">
       <a href="/blog" class="text-xs text-crisis-blue hover:text-crisis-blue/80">← All Articles</a>

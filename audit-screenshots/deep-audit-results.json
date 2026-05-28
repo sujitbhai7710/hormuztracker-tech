@@ -1,0 +1,546 @@
+{
+  "faqDetails": {
+    "textLength": 9637,
+    "first2000": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Downloads Embed Widgets  Glossary Methodology FAQ About             Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline Regions Seizures Blog Data Glossary FAQ About        Frequently Asked Questions Common questions about the Hormuz crisis     What is the current status of the Strait of Hormuz?    The strait is currently RESTRICTED to commercial shipping, as it has been since February 28, 2026. Strait effectively closed to normal commercial traffic since Feb 28, 2026. Selective permission-based transits allowed for approved vessels. Recent negotiations show modest increase from 2-33 vessels/day by May 25. Iran maintains control; US blockade of Iranian ports continues.    How many ships are currently transiting?    Currently 33 ships are transiting, with 33 in the last 24 hours. Normal daily traffic is approximately 60 ships. This represents just 55% of normal traffic levels.    What is the current oil price?    Brent crude is currently at $116.73, up 2.4% in the last 24 hours. Pre-crisis Brent was approximately $74.50, representing a 57% increase since the crisis began.    What is the war risk insurance premium?    The war risk insurance premium is currently 8% of hull value per transit, compared to the normal rate of 0.15%. This represents a 53.3x increase. All six major P&I clubs have withdrawn coverage for Hormuz transit.    Why is the Strait of Hormuz so important?    The Strait of Hormuz is the world's most critical oil chokepoint, with approximately 21% of global petroleum consumption transiting through it daily. At its narrowest point, the strait is only 21 nautical miles wide, with just two 2-mile-wide navigation channels. No alternative route ca",
+    "expandable": [
+      {
+        "tag": "A",
+        "text": "H\n HormuzTracker.tech",
+        "cls": "flex items-center gap-2.5 font-bold text-lg group",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "SPAN",
+        "text": "HormuzTracker.tech",
+        "cls": "text-white group-hover:text-crisis-orange transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "SPAN",
+        "text": "Tracker",
+        "cls": "text-crisis-orange",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Dashboard",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Live Map",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Oil & Energy",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Carriers",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Routes",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Insurance",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Timeline",
+        "cls": "nav-link px-3 py-1.5 rounded-lg text-sm font-medium text-sla",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Regions & Exposure",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Trade Exposure",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Vessel Seizures",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Oil Explained",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "LNG Explained",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Analysis Blog",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Data & Downloads",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Embed Widgets",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Glossary",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Methodology",
+        "cls": "block px-4 py-2 text-sm text-slate-300 hover:text-white hove",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Dashboard",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Live Map",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Oil & Energy",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Carriers",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Routes",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Insurance",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Timeline",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Regions",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Seizures",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Glossary",
+        "cls": "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What is the current status of the Strait of Hormuz?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "How many ships are currently transiting?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What is the current oil price?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What is the war risk insurance premium?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Why is the Strait of Hormuz so important?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What happens if the strait remains closed?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can pipelines replace the strait?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "How are shipping companies responding?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What diplomatic efforts are underway?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "How reliable is the data on this site?",
+        "cls": "w-full px-5 py-4 flex items-center justify-between text-left",
+        "cursor": "default",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "H HormuzTracker.tech",
+        "cls": "flex items-center gap-2 font-bold text-lg",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "SPAN",
+        "text": "HormuzTracker.tech",
+        "cls": "text-white",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "SPAN",
+        "text": "Tracker",
+        "cls": "text-crisis-orange",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Live Dashboard",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Interactive Map",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Oil & Energy Prices",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Carrier Status",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Insurance Monitor",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Alternative Routes",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Regional Impact",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Vessel Seizures",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Crisis Timeline",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Analysis Blog",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Data & Downloads",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Embed Widgets",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Maritime Glossary",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Methodology",
+        "cls": "text-slate-500 hover:text-slate-300 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      },
+      {
+        "tag": "A",
+        "text": "Methodology",
+        "cls": "hover:text-slate-400 transition-colors",
+        "cursor": "pointer",
+        "role": null
+      }
+    ],
+    "islandCount": 0,
+    "islands": [],
+    "hasQuestionText": true,
+    "detailsElements": 0,
+    "summaryElements": 0
+  },
+  "mobileDetails": {
+    "buttons": 2,
+    "visibleButtons": 1,
+    "svgs": 2,
+    "navComputed": {
+      "display": "block",
+      "visibility": "visible",
+      "height": "58px",
+      "overflow": "visible",
+      "position": "sticky"
+    }
+  },
+  "mapDeep": {
+    "leafletContainers": 1,
+    "tiles": 24,
+    "tileImages": 0,
+    "markers": 8,
+    "popups": 0,
+    "tileLoadStatus": [],
+    "mapHasDimensions": {
+      "width": 1230,
+      "height": 598
+    }
+  },
+  "additionalPages": {
+    "/insurance": {
+      "title": "War Risk Insurance — HormuzTracker.tech",
+      "textLength": 6157,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/news": {
+      "title": "Latest News — HormuzTracker.tech",
+      "textLength": 13652,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/regions": {
+      "title": "Regional Impact — HormuzTracker.tech",
+      "textLength": 8156,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/seizures": {
+      "title": "Vessel Seizures — HormuzTracker.tech",
+      "textLength": 5470,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/blog": {
+      "title": "Analysis Blog — HormuzTracker.tech",
+      "textLength": 2746,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/data": {
+      "title": "Data & Downloads — HormuzTracker.tech",
+      "textLength": 2998,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/embed": {
+      "title": "Embed Widgets — HormuzTracker.tech",
+      "textLength": 2190,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/glossary": {
+      "title": "Maritime Glossary — HormuzTracker.tech",
+      "textLength": 4731,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/methodology": {
+      "title": "Methodology — HormuzTracker.tech",
+      "textLength": 3728,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    },
+    "/about": {
+      "title": "About — HormuzTracker.tech",
+      "textLength": 3609,
+      "first300": "     STRAIT RESTRICTED — Day 87 of disruption | Live data updates every 5 minutes         \nH\n HormuzTracker.tech    Dashboard Live Map Oil & Energy Carriers Routes Insurance News Timeline  \nMore\n   Regions & Exposure Trade Exposure Vessel Seizures Oil Explained LNG Explained Analysis Blog Data & Dow",
+      "hasContent": true,
+      "cssLoaded": true,
+      "bg": "rgb(5, 10, 20)"
+    }
+  },
+  "hydrationCheck": {
+    "islandCount": 1,
+    "svelteComponents": [
+      {
+        "componentUrl": "/_astro/Dashboard.-1JafG7m.js",
+        "propsLength": 2,
+        "hasChildren": true,
+        "innerHTMLLength": 29459
+      }
+    ],
+    "dataPoints": {
+      "hasLiveTimestamp": true,
+      "hasRealTimeCounter": true,
+      "hasDWTData": false,
+      "hasShipTransitData": true,
+      "hasCountryData": true,
+      "hasInsuranceData": true,
+      "hasBrentPrice": "$94.45",
+      "hasWTIPrice": "$95.72"
+    }
+  }
+}
