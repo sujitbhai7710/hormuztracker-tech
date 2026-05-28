@@ -53,11 +53,17 @@ function isActive(href: string): string {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={metaDescription} />
-  <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring, Hormuz tracker, Strait closure" />
-  <meta name="author" content="HormuzTracker.tech" />
+  <meta name="keywords" content="Strait of Hormuz, Hormuz crisis, oil prices, shipping disruption, tanker tracking, war risk insurance, Brent crude, vessel monitoring, Hormuz tracker, Strait closure, Hormuz news, Iran shipping, Persian Gulf crisis" />
+  <meta name="author" content="HormuzTracker Editorial Team" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="googlebot" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
+  <meta name="rating" content="general" />
+  <meta name="revisit-after" content="1 hours" />
+  <meta name="coverage" content="Worldwide" />
+  <meta name="distribution" content="Global" />
+  <meta name="category" content="News and Media" />
+  <meta property="article:publisher" content="https://hormuztracker.tech" />
   <meta name="theme-color" content="#0a1628" />
   {newsKeywords && <meta name="news_keywords" content={newsKeywords} />}
 
@@ -96,24 +102,43 @@ function isActive(href: string): string {
   <meta name="twitter:description" content={metaDescription} />
   <meta name="twitter:image" content="https://hormuztracker.tech/og-image.png" />
 
-  <!-- JSON-LD: Organization -->
+  <!-- JSON-LD: Organization (E-E-A-T Publisher) -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "NewsMediaOrganization",
     "name": "HormuzTracker.tech",
     "url": "https://hormuztracker.tech",
-    "logo": "https://hormuztracker.tech/favicon.svg",
-    "sameAs": [
-      // Add social profile URLs here when available, e.g.:
-      // "https://twitter.com/HormuzTracker",
-      // "https://www.linkedin.com/company/hormuztracker",
-      // "https://www.youtube.com/@HormuzTracker",
-    ],
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hormuztracker.tech/og-image.png",
+      "width": 1200,
+      "height": 630
+    },
+    "sameAs": [],
     "contactPoint": {
       "@type": "ContactPoint",
-      "contactType": "customer support",
+      "contactType": "editorial",
+      "email": "editorial@hormuztracker.tech",
       "url": "https://hormuztracker.tech/contact"
-    }
+    },
+    "ethicsPolicy": "https://hormuztracker.tech/methodology",
+    "correctionsPolicy": "https://hormuztracker.tech/methodology",
+    "diversityPolicy": "https://hormuztracker.tech/about",
+    "verificationFactCheckingPolicy": "https://hormuztracker.tech/methodology",
+    "publishingPrinciples": "https://hormuztracker.tech/methodology",
+    "founder": {
+      "@type": "Organization",
+      "name": "HormuzTracker.tech"
+    },
+    "knowsAbout": [
+      "Strait of Hormuz",
+      "Maritime Security",
+      "Oil Shipping",
+      "Global Trade",
+      "Energy Markets",
+      "Naval Operations",
+      "Iran Sanctions"
+    ]
   })} />
 
   <!-- JSON-LD: WebSite with SearchAction (for Google sitelinks searchbox) -->
