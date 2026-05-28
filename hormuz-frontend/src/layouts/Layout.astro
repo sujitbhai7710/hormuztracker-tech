@@ -57,7 +57,7 @@ function isActive(href: string): string {
   <meta name="author" content="HormuzTracker Editorial Team" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
+  <meta name="google-adsense-account" content="ca-pub-8421191784631095" />
   <meta name="rating" content="general" />
   <meta name="revisit-after" content="1 hours" />
   <meta name="coverage" content="Worldwide" />
@@ -75,6 +75,11 @@ function isActive(href: string): string {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="alternate" type="application/rss+xml" title="HormuzTracker.tech RSS Feed" href="/rss.xml" />
+
+  <!-- AdSense Preconnect (speed optimization — establishes connection early) -->
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -192,6 +197,9 @@ function isActive(href: string): string {
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
   <title>{title}</title>
+
+  <!-- AdSense Auto Ads — loaded last in head with async to avoid blocking render -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8421191784631095" crossorigin="anonymous"></script>
 </head>
 <body class="min-h-screen bg-ops-950 text-slate-200">
   <!-- Top Alert Bar -->

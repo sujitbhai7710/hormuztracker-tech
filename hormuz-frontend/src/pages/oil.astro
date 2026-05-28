@@ -332,8 +332,6 @@ import Layout from '../layouts/Layout.astro';
         const vChg = document.getElementById('vlcc-change');
         vChg.textContent = `+${tr?.changePercent || 100}% vs pre-crisis (${tr?.preCrisisRate || 50} WS)`;
         vChg.className = 'text-xs mt-1 text-crisis-red';
-
-      }
     }
     loadOilData();
   </script>
