@@ -164,11 +164,21 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
-    async function loadCarriers() {
-      try {
-        const res = await fetch(`${API}/api/carriers`).then(r => r.json());
-        const carriers = Array.isArray(res) ? res : (res.carriers || []);
+    // Static carrier data (no external API)
+    const FALLBACK_CARRIERS = [
+      { name: 'MSC', status: 'SUSPENDED', vesselsTrapped: 8, teuTrapped: 520000, surcharge: '$2,400/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 1, 2026' },
+      { name: 'Maersk', status: 'SUSPENDED', vesselsTrapped: 7, teuTrapped: 480000, surcharge: '$2,500/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 1, 2026' },
+      { name: 'CMA CGM', status: 'SUSPENDED', vesselsTrapped: 6, teuTrapped: 390000, surcharge: '$2,300/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 2, 2026' },
+      { name: 'COSCO', status: 'SUSPENDED', vesselsTrapped: 5, teuTrapped: 350000, surcharge: '$2,100/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 2, 2026' },
+      { name: 'Hapag-Lloyd', status: 'SUSPENDED', vesselsTrapped: 4, teuTrapped: 280000, surcharge: '$2,400/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 3, 2026' },
+      { name: 'ONE', status: 'SUSPENDED', vesselsTrapped: 4, teuTrapped: 260000, surcharge: '$2,200/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 3, 2026' },
+      { name: 'Evergreen', status: 'SUSPENDED', vesselsTrapped: 3, teuTrapped: 200000, surcharge: '$2,300/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 2, 2026' },
+      { name: 'Yang Ming', status: 'SUSPENDED', vesselsTrapped: 2, teuTrapped: 120000, surcharge: '$2,200/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 4, 2026' },
+      { name: 'ZIM', status: 'SUSPENDED', vesselsTrapped: 2, teuTrapped: 100000, surcharge: '$2,100/TEU', reroute: 'Cape of Good Hope', effectiveDate: 'Mar 4, 2026' },
+    ];
+
+    function loadCarriers() {
+        const carriers = FALLBACK_CARRIERS;
         let totalVessels = 0, totalTeu = 0;
         const maxTeu = carriers.length > 0 ? Math.max(...carriers.map(c => c.teuTrapped || 0)) : 1;
 
@@ -221,7 +231,6 @@ import Layout from '../layouts/Layout.astro';
         const crisisStart = new Date('2026-02-28T00:00:00Z');
         const dayNum = Math.floor((Date.now() - crisisStart.getTime()) / 86400000);
         document.getElementById('hist-duration').textContent = dayNum + '+ days';
-      } catch (e) { console.error('Carrier load failed:', e); }
     }
     loadCarriers();
   </script>

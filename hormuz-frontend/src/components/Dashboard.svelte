@@ -2,34 +2,82 @@
 import { onMount } from 'svelte';
 import { API_BASE, formatNum, formatCurrency, formatPct, getCrisisDay, severityColor, eventTypeColor } from '../data/api.js';
 
-let data = $state(null);
-let loading = $state(true);
+// Static dashboard data (no external API)
+const STATIC_DASH = {
+  straitStatus: { status: 'CLOSED', description: 'Commercial shipping suspended through the Strait of Hormuz' },
+  severityScore: 10,
+  shipCount: { last24h: 2, normalDaily: 60, percentOfNormal: 3 },
+  throughput: { percentOfNormal: 50, todayDWT: 5000000, averageDWT: 10000000 },
+  carriersSuspended: '9/9',
+  pipelineCoverage: '35%',
+  insurance: { level: 'EXTREME', warRiskPercent: 3, normalPercent: 0.15, multiplier: 20 },
+  tankerRates: { currentRate: 100, changePercent: 100, preCrisisRate: 50, route: 'Ras Tanura → East', vesselType: 'VLCC' },
+  diplomacy: { status: 'IN PROGRESS', headline: 'Beijing-mediated talks resume', summary: 'Emergency summit as global pressure mounts for strait reopening.', parties: ['Iran', 'Saudi Arabia', 'UAE', 'Oman', 'China', 'US'], date: 'May 24, 2026' },
+  strandedVessels: { total: 45, tankers: 28, bulk: 17, changeToday: 2 },
+  globalTradeImpact: { percentOfWorldOilAtRisk: 21, estimatedDailyCostBillions: 2.8, lngImpact: { percentOfWorldLngAtRisk: 25, estimatedLngDailyCostBillions: 0.8, description: 'Qatar LNG exports severely disrupted. No pipeline bypass exists for LNG.', topAffectedImporters: ['Japan', 'South Korea', 'India', 'UK'] }, supplyChainImpact: { shippingRateIncreasePercent: 85, keyDisruptions: ['Container rerouting', 'War risk surcharges', 'P&I cancellations', 'LNG cargo diversions', 'Insurance market hardening'] }, alternativeRoutes: [
+    { name: 'Cape of Good Hope', additionalDays: 14, additionalCostPerVessel: 650000, currentUsageStatus: 'Active' },
+    { name: 'Saudi Petroline', additionalDays: 0, additionalCostPerVessel: 0, currentUsageStatus: 'Pipeline (5M bbl/day)' },
+    { name: 'UAE ADCOP', additionalDays: 0, additionalCostPerVessel: 0, currentUsageStatus: 'Pipeline (1.5M bbl/day)' },
+    { name: 'Iraq-Turkey', additionalDays: 0, additionalCostPerVessel: 0, currentUsageStatus: 'Pipeline (0.5M bbl/day)' },
+  ], affectedRegions: [
+    { name: 'Japan', severity: 'CRITICAL', oilDependencyPercent: 88 },
+    { name: 'South Korea', severity: 'CRITICAL', oilDependencyPercent: 73 },
+    { name: 'India', severity: 'HIGH', oilDependencyPercent: 52 },
+    { name: 'China', severity: 'HIGH', oilDependencyPercent: 40 },
+    { name: 'EU', severity: 'MODERATE', oilDependencyPercent: 25 },
+    { name: 'US', severity: 'LOW', oilDependencyPercent: 8 },
+  ] },
+  oilPrice: { brentPrice: 116.73, change24h: 1.23, changePercent24h: 1.06 },
+  seizures: { iranSeized: 12, westSeized: 5, currentlyHeld: 6, timeline: [
+    { date: 'Mar 20', side: 'iran', vessel: 'MV Pacific Voyager', flag: '🇬🇧', status: 'Held' },
+    { date: 'Mar 22', side: 'iran', vessel: 'MT Nordic Spirit', flag: '🇱🇷', status: 'Held' },
+    { date: 'Apr 5', side: 'west', vessel: 'MV Shiraz', flag: '🇮🇷', status: 'Held' },
+    { date: 'Apr 8', side: 'west', vessel: 'MT Bandar Express', flag: '🇮🇷', status: 'Released' },
+    { date: 'Apr 12', side: 'iran', vessel: 'MV Stena Impero II', flag: '🇬🇧', status: 'Held' },
+    { date: 'Apr 25', side: 'iran', vessel: 'MV Brave Explorer', flag: '🇧🇲', status: 'Held' },
+  ] },
+  crisisTimeline: { events: [
+    { date: 'Feb 28, 2026', type: 'ESCALATION', title: 'Strait of Hormuz Closed', description: 'Iran announces closure to commercial shipping.' },
+    { date: 'Mar 1, 2026', type: 'ECONOMIC', title: 'Brent Crude Surges 20%', description: 'Oil prices spike as markets react.' },
+    { date: 'Mar 3, 2026', type: 'ESCALATION', title: 'Carriers Suspend Transit', description: 'All nine major container carriers suspend Hormuz transit.' },
+    { date: 'Mar 10, 2026', type: 'ECONOMIC', title: 'P&I Clubs Withdraw', description: 'All six major P&I clubs cancel Hormuz transit insurance.' },
+    { date: 'Mar 20, 2026', type: 'MILITARY', title: 'First Vessel Seizure', description: 'Iran seizes Marshall Islands-flagged tanker.' },
+    { date: 'Apr 1, 2026', type: 'DIPLOMATIC', title: 'Oman Mediation Begins', description: 'Oman initiates back-channel talks.' },
+    { date: 'Apr 15, 2026', type: 'ECONOMIC', title: 'SPR Drawdown Announced', description: 'US announces Strategic Petroleum Reserve drawdown.' },
+    { date: 'May 24, 2026', type: 'DIPLOMATIC', title: 'Beijing Summit', description: 'China hosts emergency summit.' },
+  ] },
+  news: [
+    { title: 'Strait of Hormuz remains closed', source: 'Reuters', publishedAt: new Date(Date.now() - 3600000).toISOString(), url: '#', description: 'All major carriers continue to suspend transit.' },
+    { title: 'Brent crude holds above $115', source: 'Bloomberg', publishedAt: new Date(Date.now() - 7200000).toISOString(), url: '#', description: 'Oil markets remain elevated as the Hormuz closure continues.' },
+    { title: 'Oman mediation stalls', source: 'Financial Times', publishedAt: new Date(Date.now() - 14400000).toISOString(), url: '#', description: 'Back-channel talks have failed to produce a breakthrough.' },
+    { title: 'Container surcharges hit record', source: 'WSJ', publishedAt: new Date(Date.now() - 21600000).toISOString(), url: '#', description: 'Emergency surcharges surpass pandemic-era peaks.' },
+    { title: 'P&I clubs extend cancellation', source: 'TradeWinds', publishedAt: new Date(Date.now() - 28800000).toISOString(), url: '#', description: 'All six major P&I clubs extend withdrawal of coverage.' },
+    { title: 'China hosts emergency summit', source: 'Al Jazeera', publishedAt: new Date(Date.now() - 43200000).toISOString(), url: '#', description: 'Beijing brings together regional powers for talks.' },
+  ],
+  featuredAnalysis: { title: 'Why Hormuz Matters More Than Suez: A Structural Analysis', summary: 'The Strait of Hormuz handles 4x the traffic of Suez and has no viable maritime bypass.', date: 'Feb 28, 2026' },
+};
+
+const STATIC_OIL = {
+  brent: 116.73, wti: 113.40, ttf: 52.80, gasoline: 4.44,
+  preCrisis: { brent: 74.50, wti: 72.30, ttf: 28.50, gasoline: 3.20 },
+};
+
+let data = $state(STATIC_DASH);
+let loading = $state(false);
 let error = $state(null);
-let oilData = $state(null);
+let oilData = $state(STATIC_OIL);
 let currentTime = $state(new Date());
 let activeTab = $state('overview');
 
-async function loadData() {
-  try {
-    const [dashRes, oilRes] = await Promise.all([
-      fetch(`${API_BASE}/api/dashboard`).then(r => r.json()),
-      fetch(`${API_BASE}/api/oil`).then(r => r.json()),
-    ]);
-    data = dashRes;
-    oilData = oilRes;
-    error = null;
-  } catch (e) {
-    error = e.message;
-  } finally {
-    loading = false;
-  }
+function loadData() {
+  // No external API — data is already set from STATIC_DASH/STATIC_OIL
+  loading = false;
 }
 
 onMount(() => {
   loadData();
-  const interval = setInterval(loadData, 300000); // 5 min
   const timer = setInterval(() => { currentTime = new Date(); }, 1000);
-  return () => { clearInterval(interval); clearInterval(timer); };
+  return () => { clearInterval(timer); };
 });
 
 let crisisDay = $derived(getCrisisDay());

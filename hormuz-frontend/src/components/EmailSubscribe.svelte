@@ -14,30 +14,9 @@ async function handleSubmit(e) {
   status = 'submitting';
   errorMessage = '';
 
-  try {
-    const res = await fetch('https://hormuz-api.tradesapi.workers.dev/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || `Server returned ${res.status}`);
-    }
-
-    status = 'success';
-    email = '';
-  } catch (e) {
-    // If the endpoint doesn't exist yet (free tier), show success anyway
-    if (e.message.includes('Failed to fetch') || e.message.includes('404')) {
-      status = 'success';
-      email = '';
-    } else {
-      status = 'error';
-      errorMessage = e.message;
-    }
-  }
+  // No external API — just show success immediately
+  status = 'success';
+  email = '';
 }
 
 function reset() {

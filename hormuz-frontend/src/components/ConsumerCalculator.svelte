@@ -2,8 +2,19 @@
 import { onMount } from 'svelte';
 import { API_BASE, formatCurrency } from '../data/api.js';
 
-let impactData = $state(null);
-let loading = $state(true);
+let impactData = $state({
+  countries: [
+    { code: 'US', name: 'United States', fuelType: 'Gasoline', unit: '$', increasePercent: 38.7 },
+    { code: 'UK', name: 'United Kingdom', fuelType: 'Petrol', unit: '£', increasePercent: 26.8 },
+    { code: 'IN', name: 'India', fuelType: 'Petrol', unit: '₹', increasePercent: 16.3 },
+    { code: 'JP', name: 'Japan', fuelType: 'Gasoline', unit: '¥', increasePercent: 28.0 },
+    { code: 'DE', name: 'Germany', fuelType: 'Petrol', unit: '€', increasePercent: 27.4 },
+    { code: 'KR', name: 'South Korea', fuelType: 'Gasoline', unit: '₩', increasePercent: 28.0 },
+    { code: 'CN', name: 'China', fuelType: 'Gasoline', unit: '¥', increasePercent: 17.0 },
+    { code: 'AU', name: 'Australia', fuelType: 'Unleaded', unit: 'A$', increasePercent: 25.4 },
+  ]
+});
+let loading = $state(false);
 let error = $state(null);
 let selectedCountry = $state('US');
 let monthlySpend = $state('');
@@ -59,18 +70,9 @@ let equivalencies = $derived.by(() => {
   return items.slice(0, 4);
 });
 
-async function loadData() {
-  try {
-    loading = true;
-    const res = await fetch(`${API_BASE}/api/consumer-impact`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    impactData = await res.json();
-    error = null;
-  } catch (e) {
-    error = e.message;
-  } finally {
-    loading = false;
-  }
+function loadData() {
+  // No external API — data is already set above
+  loading = false;
 }
 
 function shareImpact() {

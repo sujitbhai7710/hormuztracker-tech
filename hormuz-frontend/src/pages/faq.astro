@@ -65,13 +65,23 @@ const FAQ_DATA = [
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
-    async function loadFaqData() {
-      try {
-        const [dash, oil] = await Promise.all([
-          fetch(`${API}/api/dashboard`).then(r => r.json()),
-          fetch(`${API}/api/oil`).then(r => r.json()),
-        ]);
+    // Static FAQ data (no external API)
+    const FAQ_API_DATA = {
+      dash: {
+        straitStatus: { status: 'CLOSED', description: 'All commercial shipping suspended since February 28, 2026.' },
+        shipCount: { last24h: 2, normalDaily: 60, percentOfNormal: 3 },
+        oilPrice: { brentPrice: 116.73 },
+        insurance: { warRiskPercent: 3, normalPercent: 0.15, multiplier: 20 },
+      },
+      oil: {
+        brent: 116.73, wti: 113.40, gasoline: 4.44,
+        preCrisis: { brent: 74.50 },
+      }
+    };
+
+    function loadFaqData() {
+      const dash = FAQ_API_DATA.dash;
+      const oil = FAQ_API_DATA.oil;
 
         const el1 = document.getElementById('faq-dynamic-straitStatus');
         if (el1) el1.textContent = `The strait is currently ${dash.straitStatus?.status || 'CLOSED'} to commercial shipping, as it has been since February 28, 2026. ${dash.straitStatus?.description || ''}`;
@@ -97,10 +107,8 @@ const FAQ_DATA = [
           const months = (dayNum / 30).toFixed(1);
           el5.textContent = `The crisis has been ongoing for ${dayNum} days (approximately ${months} months), since February 28, 2026. The strait has been ${dash.straitStatus?.status || 'restricted'} for the entire duration with no resolution in sight.`;
         }
-      } catch (e) { console.error('FAQ data load failed:', e); }
     }
     loadFaqData();
-    setInterval(loadFaqData, 300000);
   </script>
 
   <script type="application/ld+json" set:html={JSON.stringify({

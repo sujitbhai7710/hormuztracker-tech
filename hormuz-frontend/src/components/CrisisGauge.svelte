@@ -3,7 +3,7 @@ import { onMount } from 'svelte';
 import { API_BASE, formatPct } from '../data/api.js';
 
 let severityData = $state(null);
-let loading = $state(true);
+let loading = $state(false);
 let error = $state(null);
 let animatedScore = $state(0);
 
@@ -64,25 +64,14 @@ function describeArc(cx, cy, r, startAngle, endAngle) {
 let needleAngle = $derived((animatedScore / 10) * 180);
 let needlePoint = $derived(polarToCartesian(100, 100, 72, needleAngle));
 
-async function loadData() {
-  try {
-    loading = true;
-    const res = await fetch(`${API_BASE}/api/severity`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    severityData = await res.json();
-    error = null;
-  } catch (e) {
-    error = e.message;
-  } finally {
-    loading = false;
-  }
+function loadData() {
+  // No external API — use default subScores directly
+  severityData = null; // falls back to default subScores
+  loading = false;
 }
 
 onMount(() => {
   loadData();
-  const interval = setInterval(loadData, 120000);
-
-  return () => clearInterval(interval);
 });
 
 $effect(() => {

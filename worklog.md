@@ -161,3 +161,36 @@ Stage Summary:
 - Site built and deployed successfully
 - 30 blog articles live with proper schema markup
 - All E-E-A-T elements in place
+---
+Task ID: 1
+Agent: Main Agent
+Task: Remove all worker API access, iframe embeds, and data download options from HormuzTracker.tech frontend
+
+Work Log:
+- Scanned entire frontend for worker API references, iframe embeds, and data download options
+- Found 25+ references to `hormuz-api.tradesapi.workers.dev` across 18 files
+- Found iframe embed references in data.astro and embed.astro
+- Found CSV download functionality in data.astro
+- Deleted embed directory (4 files: dashboard.astro, ships.astro, oil.astro, severity.astro)
+- Deleted embed.astro page
+- Rewrote data.astro — replaced CSV downloads, embed widgets, and API endpoint sections with Data Sources & Methodology content
+- Updated api.js — API_BASE set to empty string, fetchData() returns fallback data only
+- Removed worker API references from 12 page files (gas-prices, carriers, map, insurance, oil, regions/index, news, routes, seizures, faq, timeline)
+- Fixed EmailSubscribe.svelte — no longer calls worker API, shows success immediately
+- Fixed Dashboard.svelte — uses static data instead of fetching from worker API
+- Fixed HistoricalComparison.svelte, ConsumerCalculator.svelte, PIClubsGrid.svelte, CrisisGauge.svelte — all use static data
+- Fixed Layout.astro — removed /embed nav links, removed worker API fetch for status bar, updated "Data & Downloads" to "Data & Methodology"
+- Fixed contact.astro — removed "API Access" from partnerships section
+- Fixed terms.astro — removed Embedded Widgets section, removed API references, renumbered sections
+- Fixed privacy.astro — removed TradingView iframe/API mention, replaced with generic data sources description
+- Fixed about.astro — removed "public API" reference
+- Verified zero remaining references to tradesapi, workers.dev, hormuz-api, /api/v1, iframe embeds, CSV downloads
+- Build succeeds with no errors
+
+Stage Summary:
+- All worker API access completely removed from frontend
+- All iframe embed widgets removed (embed pages deleted)
+- All CSV download functionality removed
+- All API endpoint documentation removed
+- Navigation updated: no /embed link, /data renamed to "Data & Methodology"
+- Site builds successfully with static/fallback data

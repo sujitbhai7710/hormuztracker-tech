@@ -3,7 +3,7 @@ import { onMount } from 'svelte';
 import { API_BASE, formatCurrency, formatNum } from '../data/api.js';
 
 let clubsData = $state(null);
-let loading = $state(true);
+let loading = $state(false);
 let error = $state(null);
 let hoveredClub = $state(-1);
 
@@ -89,19 +89,10 @@ function getStatusStyle(status) {
   }
 }
 
-async function loadData() {
-  try {
-    loading = true;
-    const res = await fetch(`${API_BASE}/api/pi-clubs`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    clubsData = await res.json();
-    error = null;
-  } catch (e) {
-    error = e.message;
-    clubsData = null;
-  } finally {
-    loading = false;
-  }
+function loadData() {
+  // No external API — use default data directly
+  clubsData = null; // uses defaultClubs in template
+  loading = false;
 }
 
 onMount(() => {

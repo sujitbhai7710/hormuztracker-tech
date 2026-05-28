@@ -131,7 +131,7 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    // Static route data (no external API)
     const FALLBACK_ROUTES = [
       { name: 'Gulf → East Asia (China/Japan/Korea)', normalDays: 18, capeDays: 32, extraDays: 14, normalNm: 6400, capeNm: 11500, extraDistance: 5100, extraCostPerVessel: 650000, status: 'RESTRICTED' },
       { name: 'Gulf → Europe (Rotterdam)', normalDays: 15, capeDays: 27, extraDays: 12, normalNm: 5500, capeNm: 10200, extraDistance: 4700, extraCostPerVessel: 550000, status: 'RESTRICTED' },
@@ -150,15 +150,8 @@ import Layout from '../layouts/Layout.astro';
       return 'text-crisis-amber bg-crisis-amber/10';
     }
 
-    async function loadRoutes() {
-      try {
-        const res = await fetch(`${API}/api/routes`);
-        routes = await res.json();
-        if (!Array.isArray(routes) || routes.length === 0) routes = FALLBACK_ROUTES;
-      } catch (e) {
-        console.error('Routes API failed, using fallback:', e);
-        routes = FALLBACK_ROUTES;
-      }
+    function loadRoutes() {
+      routes = FALLBACK_ROUTES;
 
       const sel = document.getElementById('route-select');
       const tbody = document.getElementById('route-tbody');

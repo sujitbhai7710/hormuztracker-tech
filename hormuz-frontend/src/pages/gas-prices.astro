@@ -193,16 +193,8 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
-
-    // Fetch consumer impact data from API
-    async function loadData() {
-      try {
-        const res = await fetch(`${API}/api/consumer-impact`);
-        const data = await res.json();
-        if (data?.countries) return data;
-      } catch(e) { console.warn('API fetch failed, using fallback'); }
-      // Fallback data matching the API
+    // Static consumer impact data (no external API)
+    function loadData() {
       return {
         countries: [
           { name: 'United States', code: 'US', fuelType: 'Gasoline', preCrisisPrice: 2.97, currentPrice: 4.12, unit: '$/gallon', increasePercent: 38.7, monthlyExtraSpend: 58 },
@@ -220,23 +212,22 @@ import Layout from '../layouts/Layout.astro';
 
     const flagMap = { US: '🇺🇸', GB: '🇬🇧', DE: '🇩🇪', JP: '🇯🇵', KR: '🇰🇷', IN: '🇮🇳', CN: '🇨🇳', AU: '🇦🇺' };
 
-    loadData().then(data => {
-      const countries = data.countries;
-      const tbody = document.getElementById('fuel-table');
-      tbody.innerHTML = countries.map(c => {
-        const flag = flagMap[c.code] || '🌍';
-        const pctClass = c.increasePercent > 35 ? 'text-crisis-red' : c.increasePercent > 25 ? 'text-crisis-orange' : 'text-crisis-amber';
-        const currencySymbol = c.unit.split('/')[0];
-        return `<tr class="border-b border-ops-800/50">
-          <td class="py-2 text-white font-medium">${flag} ${c.name}</td>
-          <td class="text-right text-slate-400">${c.fuelType}</td>
-          <td class="text-right text-slate-400 font-mono">${c.preCrisisPrice}</td>
-          <td class="text-right text-white font-bold font-mono">${c.currentPrice}</td>
-          <td class="text-right ${pctClass} font-bold">+${c.increasePercent}%</td>
-          <td class="text-right text-crisis-red font-mono">+${currencySymbol}${c.monthlyExtraSpend}/mo</td>
-        </tr>`;
-      }).join('');
-    });
+    const data = loadData();
+    const countries = data.countries;
+    const tbody = document.getElementById('fuel-table');
+    tbody.innerHTML = countries.map(c => {
+      const flag = flagMap[c.code] || '🌍';
+      const pctClass = c.increasePercent > 35 ? 'text-crisis-red' : c.increasePercent > 25 ? 'text-crisis-orange' : 'text-crisis-amber';
+      const currencySymbol = c.unit.split('/')[0];
+      return `<tr class="border-b border-ops-800/50">
+        <td class="py-2 text-white font-medium">${flag} ${c.name}</td>
+        <td class="text-right text-slate-400">${c.fuelType}</td>
+        <td class="text-right text-slate-400 font-mono">${c.preCrisisPrice}</td>
+        <td class="text-right text-white font-bold font-mono">${c.currentPrice}</td>
+        <td class="text-right ${pctClass} font-bold">+${c.increasePercent}%</td>
+        <td class="text-right text-crisis-red font-mono">+${currencySymbol}${c.monthlyExtraSpend}/mo</td>
+      </tr>`;
+    }).join('');
 
     // Calculator
     const countryMultiplier = { us: 0.387, uk: 0.268, eu: 0.274, jp: 0.280, in: 0.163, kr: 0.280, au: 0.254, sg: 0.275 };

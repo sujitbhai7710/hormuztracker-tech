@@ -137,7 +137,7 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
+    // Static insurance data (no external API)
     const FALLBACK_INS = {
       level: 'EXTREME', warRiskPercent: 3.5, normalPercent: 0.15, multiplier: 23,
       piClubs: [
@@ -150,16 +150,8 @@ import Layout from '../layouts/Layout.astro';
       ]
     };
 
-    async function loadInsurance() {
-      let ins;
-      try {
-        const res = await fetch(`${API}/api/insurance`);
-        ins = await res.json();
-        if (!ins || !ins.level) ins = FALLBACK_INS;
-      } catch (e) {
-        console.error('Insurance API failed, using fallback:', e);
-        ins = FALLBACK_INS;
-      }
+    function loadInsurance() {
+      const ins = FALLBACK_INS;
 
       document.getElementById('risk-level').textContent = ins.level || 'EXTREME';
       document.getElementById('war-risk').textContent = (ins.warRiskPercent || 3.5) + '%';

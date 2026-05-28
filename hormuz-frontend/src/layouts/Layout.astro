@@ -246,8 +246,7 @@ function isActive(href: string): string {
               <a href="/regions" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Regions & Exposure</a>
               <a href="/exposure" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Trade Exposure</a>
               <a href="/seizures" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Vessel Seizures</a>
-              <a href="/data" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Data & Downloads</a>
-              <a href="/embed" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Embed Widgets</a>
+              <a href="/data" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Data & Methodology</a>
               <hr class="my-1 border-ops-700/50" />
               <a href="/blog" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Analysis Blog</a>
               <a href="/glossary" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-ops-800/50">Glossary</a>
@@ -299,8 +298,7 @@ function isActive(href: string): string {
         <a href="/historical" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Historical Comparison</a>
         <hr class="my-2 border-ops-700/50" />
         <a href="/blog" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Blog</a>
-        <a href="/data" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Data</a>
-        <a href="/embed" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Embed</a>
+        <a href="/data" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Data & Methodology</a>
         <a href="/glossary" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Glossary</a>
         <a href="/methodology" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">Methodology</a>
         <a href="/faq" class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-ops-800">FAQ</a>
@@ -356,8 +354,7 @@ function isActive(href: string): string {
         <div>
           <h3 class="text-sm font-semibold text-slate-300 mb-3">Resources</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="/data" class="text-slate-500 hover:text-slate-300 transition-colors">Data & Downloads</a></li>
-            <li><a href="/embed" class="text-slate-500 hover:text-slate-300 transition-colors">Embed Widgets</a></li>
+            <li><a href="/data" class="text-slate-500 hover:text-slate-300 transition-colors">Data & Methodology</a></li>
             <li><a href="/glossary" class="text-slate-500 hover:text-slate-300 transition-colors">Maritime Glossary</a></li>
             <li><a href="/methodology" class="text-slate-500 hover:text-slate-300 transition-colors">Methodology</a></li>
             <li><a href="/faq" class="text-slate-500 hover:text-slate-300 transition-colors">FAQ</a></li>
@@ -394,17 +391,7 @@ function isActive(href: string): string {
       a.addEventListener('click', () => menu?.classList.add('hidden'));
     });
 
-    // Update strait status bar from API
-    fetch('https://hormuz-api.tradesapi.workers.dev/api/severity')
-      .then(r => r.json())
-      .then(data => {
-        const bar = document.getElementById('strait-status-bar');
-        if (bar && data) {
-          const status = typeof data.straitStatus === 'string' ? data.straitStatus : data.straitStatus?.status;
-          if (status) bar.textContent = 'STRAIT ' + status;
-        }
-      })
-      .catch(() => {});
+    // Strait status is set statically — no external API calls
   </script>
 </body>
 </html>

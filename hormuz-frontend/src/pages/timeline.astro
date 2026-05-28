@@ -36,8 +36,22 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
-    let allEvents = [];
+    // Static timeline data (no external API)
+    const TIMELINE_DATA = [
+      { date: 'Feb 28, 2026', type: 'ESCALATION', title: 'Strait of Hormuz Closed', description: 'Iran announces closure of the Strait of Hormuz to commercial shipping following escalation of tensions. All vessels ordered to divert.' },
+      { date: 'Mar 1, 2026', type: 'ECONOMIC', title: 'Brent Crude Surges 20%', description: 'Oil prices spike as markets react to the Hormuz closure. Brent jumps from $74.50 to $89.20 in a single session.' },
+      { date: 'Mar 1, 2026', type: 'MILITARY', title: 'US 5th Fleet Deployed', description: 'The US Navy deploys additional vessels to the Persian Gulf region as part of Operation Freedom of Navigation.' },
+      { date: 'Mar 3, 2026', type: 'ESCALATION', title: 'Carriers Suspend Transit', description: 'All nine major container carriers announce suspension of Hormuz transit. Vessels rerouted via Cape of Good Hope.' },
+      { date: 'Mar 10, 2026', type: 'ECONOMIC', title: 'P&I Clubs Withdraw Coverage', description: 'All six major Protection and Indemnity clubs cancel Hormuz transit insurance. War risk premiums surge to 3%+ of hull value.' },
+      { date: 'Mar 20, 2026', type: 'MILITARY', title: 'First Vessel Seizure', description: 'Iran seizes Marshall Islands-flagged tanker MV Pacific Voyager in international waters near the strait.' },
+      { date: 'Apr 1, 2026', type: 'DIPLOMATIC', title: 'Oman Mediation Begins', description: 'Oman initiates back-channel talks between Iran and Western powers aimed at establishing a safe transit corridor.' },
+      { date: 'Apr 5, 2026', type: 'MILITARY', title: 'US Retaliatory Seizure', description: 'US Navy detains Iranian-flagged cargo vessel MV Shiraz in the Arabian Sea in a tit-for-tat response.' },
+      { date: 'Apr 15, 2026', type: 'ECONOMIC', title: 'SPR Drawdown Announced', description: 'The US announces a Strategic Petroleum Reserve drawdown of 30 million barrels to stabilize domestic prices.' },
+      { date: 'Apr 25, 2026', type: 'ESCALATION', title: 'LNG Carrier Seized', description: 'Iran seizes Bermuda-flagged LNG carrier MV Brave Explorer, marking a significant escalation in the seizure campaign.' },
+      { date: 'May 24, 2026', type: 'DIPLOMATIC', title: 'Beijing Summit', description: 'China hosts an emergency summit bringing together Iran, Saudi Arabia, UAE, and Oman to discuss a safe transit corridor.' },
+      { date: 'Jun 1, 2026', type: 'DE-ESCALATION', title: 'Humanitarian Corridor Proposed', description: 'UN proposes a humanitarian shipping corridor for essential goods, though military and energy shipments remain contested.' },
+    ];
+    let allEvents = TIMELINE_DATA;
     const typeColors = {
       ESCALATION: 'bg-crisis-red',
       MILITARY: 'bg-red-700',
@@ -53,14 +67,10 @@ import Layout from '../layouts/Layout.astro';
       'DE-ESCALATION': 'border-crisis-green/20'
     };
 
-    async function loadTimeline() {
-      try {
-        const events = await fetch(`${API}/api/timeline`).then(r => r.json());
-        // Ensure we have enough events; the API should return 12+
-        allEvents = events;
-        document.getElementById('event-count').textContent = `${events.length} events loaded`;
+    function loadTimeline() {
+        allEvents = TIMELINE_DATA;
+        document.getElementById('event-count').textContent = `${allEvents.length} events loaded`;
         renderTimeline('ALL');
-      } catch (e) { console.error('Timeline load failed:', e); }
     }
 
     function renderTimeline(filter) {

@@ -105,18 +105,9 @@ function getSpikeTextClass(spike) {
 }
 
 async function loadData() {
-  try {
-    loading = true;
-    const res = await fetch(`${API_BASE}/api/historical`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    historicalData = await res.json();
-    error = null;
-  } catch (e) {
-    error = e.message;
-    historicalData = null;
-  } finally {
-    loading = false;
-  }
+  // No external API — use default data directly
+  loading = false;
+  historicalData = null; // uses defaultEvents in template
 }
 
 function toggleExpand(index) {

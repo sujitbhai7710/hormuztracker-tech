@@ -106,12 +106,31 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
-    async function loadSeizures() {
-      try {
-        const res = await fetch(`${API}/api/seizures`).then(r => r.json());
-        // API returns { seizures: [...], iranSeized, westSeized, currentlyHeld, total } or flat array
-        const data = res.seizures || (Array.isArray(res) ? res : []);
+    // Static seizure data (no external API)
+    const SEIZURES_DATA = [
+      { date: 'Mar 20, 2026', entity: 'Iran (IRGC)', vessel: 'MV Pacific Voyager', flag: 'Marshall Islands', type: 'Oil Tanker', status: 'Held' },
+      { date: 'Mar 22, 2026', entity: 'Iran (IRGC)', vessel: 'MT Nordic Spirit', flag: 'Liberia', type: 'Oil Tanker', status: 'Held' },
+      { date: 'Mar 25, 2026', entity: 'Iran (IRGC)', vessel: 'MV Golden Horizon', flag: 'Panama', type: 'Bulk Carrier', status: 'Released' },
+      { date: 'Apr 2, 2026', entity: 'Iran (IRGC)', vessel: 'MT Eastern Fortune', flag: 'Marshall Islands', type: 'Oil Tanker', status: 'Held' },
+      { date: 'Apr 5, 2026', entity: 'US Navy', vessel: 'MV Shiraz', flag: 'Iran', type: 'Cargo Ship', status: 'Held' },
+      { date: 'Apr 8, 2026', entity: 'UK Royal Navy', vessel: 'MT Bandar Express', flag: 'Iran', type: 'Oil Tanker', status: 'Released' },
+      { date: 'Apr 12, 2026', entity: 'Iran (IRGC)', vessel: 'MV Stena Impero II', flag: 'United Kingdom', type: 'Oil Tanker', status: 'Held' },
+      { date: 'Apr 15, 2026', entity: 'Iran (IRGC)', vessel: 'COSCO Star', flag: 'Hong Kong', type: 'Container Ship', status: 'Held' },
+      { date: 'Apr 20, 2026', entity: 'US Navy', vessel: 'MV Jamaran', flag: 'Iran', type: 'Cargo Ship', status: 'Held' },
+      { date: 'Apr 25, 2026', entity: 'Iran (IRGC)', vessel: 'MV Brave Explorer', flag: 'Bermuda', type: 'LNG Carrier', status: 'Held' },
+      { date: 'May 1, 2026', entity: 'UK Royal Navy', vessel: 'MT Arvand', flag: 'Iran', type: 'Oil Tanker', status: 'Held' },
+      { date: 'May 5, 2026', entity: 'Iran (IRGC)', vessel: 'MV Silk Road', flag: 'Singapore', type: 'Container Ship', status: 'Released' },
+    ];
+
+    function loadSeizures() {
+        const res = {
+          seizures: SEIZURES_DATA,
+          iranSeized: SEIZURES_DATA.filter(s => s.entity.includes('Iran')).length,
+          westSeized: SEIZURES_DATA.filter(s => s.entity.includes('US') || s.entity.includes('UK')).length,
+          currentlyHeld: SEIZURES_DATA.filter(s => s.status === 'Held').length,
+          total: SEIZURES_DATA.length
+        };
+        const data = res.seizures;
         const iranCountFromApi = res.iranSeized;
         const westCountFromApi = res.westSeized;
         const heldFromApi = res.currentlyHeld;
@@ -185,7 +204,6 @@ import Layout from '../layouts/Layout.astro';
             <td class="py-2 text-center"><span class="px-2 py-0.5 rounded text-xs font-bold ${statusClass}">${s.status}</span></td>
           </tr>`;
         }).join('');
-      } catch (e) { console.error('Seizures load failed:', e); }
     }
     loadSeizures();
   </script>

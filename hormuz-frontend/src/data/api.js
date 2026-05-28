@@ -1,18 +1,10 @@
-// API Base URL — The Worker API that scrapes and caches data
-export const API_BASE = 'https://hormuz-api.tradesapi.workers.dev';
+// API Base URL — No external API; all data is local/fallback
+export const API_BASE = '';
 
-// Fetch helper with error handling
+// Fetch helper — returns fallback data only (no external API calls)
 export async function fetchData(endpoint, fallback = null) {
-  try {
-    const res = await fetch(`${API_BASE}${endpoint}`, {
-      headers: { 'Accept': 'application/json' },
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (e) {
-    console.warn(`API fetch failed for ${endpoint}:`, e.message);
-    return fallback;
-  }
+  // No external API calls — return fallback data only
+  return fallback;
 }
 
 // Format number with commas

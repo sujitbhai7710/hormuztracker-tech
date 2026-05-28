@@ -61,7 +61,8 @@ import Layout from '../layouts/Layout.astro';
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const API_BASE = 'https://hormuz-api.tradesapi.workers.dev';
+    // Static AIS data (no external API)
+    const AIS_DATA = { shipsDetected: 3, tankers: 1, cargo: 1, other: 1 };
 
     async function initMap() {
       const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([26.0, 56.5], 8);
@@ -99,27 +100,21 @@ import Layout from '../layouts/Layout.astro';
       L.polyline([[25.5, 55.5], [25.0, 56.3]], { color: '#22c55e', weight: 3, dashArray: '10,5' })
         .addTo(map).bindPopup('<b>ADCOP Pipeline</b><br>1.5M bbl/day capacity');
 
-      // Fetch AIS data
-      try {
-        const res = await fetch(`${API_BASE}/api/ais`);
-        const data = await res.json();
-        const shipCount = data.shipsDetected || 0;
-        document.getElementById('map-status').textContent = `${shipCount} vessels detected · Data refreshes every 5 min`;
+      // Show ship markers from static data
+      const data = AIS_DATA;
+      const shipCount = data.shipsDetected || 0;
+      document.getElementById('map-status').textContent = `${shipCount} vessels detected · Static data`;
 
-        // Show ship markers (approximate positions near the strait)
-        for (let i = 0; i < Math.min(shipCount, 10); i++) {
-          const lat = 25.8 + Math.random() * 1.0;
-          const lng = 56.0 + Math.random() * 0.8;
-          const isTanker = i < data.tankers;
-          const isCargo = i >= data.tankers && i < data.tankers + data.cargo;
-          const color = isTanker ? '#f97316' : isCargo ? '#3b82f6' : '#8b5cf6';
+      for (let i = 0; i < Math.min(shipCount, 10); i++) {
+        const lat = 25.8 + Math.random() * 1.0;
+        const lng = 56.0 + Math.random() * 0.8;
+        const isTanker = i < data.tankers;
+        const isCargo = i >= data.tankers && i < data.tankers + data.cargo;
+        const color = isTanker ? '#f97316' : isCargo ? '#3b82f6' : '#8b5cf6';
 
-          L.circleMarker([lat, lng], { radius: 5, color: color, fillColor: color, fillOpacity: 0.8, weight: 1 })
-            .addTo(map)
-            .bindPopup(`<b>${isTanker ? 'Tanker' : isCargo ? 'Cargo' : 'Other'}</b><br>Transiting Strait area`);
-        }
-      } catch (e) {
-        document.getElementById('map-status').textContent = 'AIS data temporarily unavailable';
+        L.circleMarker([lat, lng], { radius: 5, color: color, fillColor: color, fillOpacity: 0.8, weight: 1 })
+          .addTo(map)
+          .bindPopup(`<b>${isTanker ? 'Tanker' : isCargo ? 'Cargo' : 'Other'}</b><br>Transiting Strait area`);
       }
     }
 

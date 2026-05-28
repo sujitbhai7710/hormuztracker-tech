@@ -21,11 +21,20 @@ import Layout from '../../layouts/Layout.astro';
   </div>
 
   <script>
-    const API = 'https://hormuz-api.tradesapi.workers.dev';
-    async function loadRegions() {
-      try {
-        const res = await fetch(`${API}/api/regions`).then(r => r.json());
-        const regions = Array.isArray(res) ? res : (res.regions || []);
+    // Static region data (no external API)
+    const REGIONS_DATA = [
+      { name: 'Japan', slug: 'japan', severity: 'CRITICAL', oilDependencyPercent: 88, lngDependency: 35, description: '88% of crude oil imports transit Hormuz. Strategic reserves provide ~90 days of coverage. LNG imports from Qatar severely disrupted.' },
+      { name: 'South Korea', slug: 'south-korea', severity: 'CRITICAL', oilDependencyPercent: 73, lngDependency: 42, description: '73% crude oil dependency on Hormuz route. Major refining sector impacted. Diversifying to US and Russian crude.' },
+      { name: 'China', slug: 'china', severity: 'HIGH', oilDependencyPercent: 40, lngDependency: 18, description: '40% of crude imports via Hormuz. Overland pipelines from Russia provide partial alternative. SPR provides ~60 days coverage.' },
+      { name: 'India', slug: 'india', severity: 'HIGH', oilDependencyPercent: 52, lngDependency: 25, description: '52% crude dependency on Gulf route. Increased Russian oil imports help offset. Strategic reserves limited to ~30 days.' },
+      { name: 'European Union', slug: 'eu', severity: 'MODERATE', oilDependencyPercent: 25, lngDependency: 30, description: '25% crude via Hormuz, but 30% LNG dependency on Qatar. TTF gas prices surged 85%. Southern Europe most exposed.' },
+      { name: 'United States', slug: 'us', severity: 'LOW', oilDependencyPercent: 8, description: 'Only 8% crude imports via Hormuz. Net energy exporter. Price impact through global market correlation. SPR drawdown capability.' },
+      { name: 'Singapore', slug: 'singapore', severity: 'HIGH', oilDependencyPercent: 65, description: 'Major refining hub dependent on Gulf crude. 65% of feedstock transits Hormuz. Bunkering operations severely impacted.' },
+      { name: 'Australia', slug: 'australia', severity: 'MODERATE', oilDependencyPercent: 30, lngDependency: 22, description: '30% crude via Hormuz. LNG exports partially offset by domestic supply. Fuel prices up 25%+ since crisis began.' },
+    ];
+
+    function loadRegions() {
+        const regions = REGIONS_DATA;
         const sevColors = { CRITICAL: 'border-l-crisis-red', HIGH: 'border-l-crisis-orange', MODERATE: 'border-l-crisis-amber', LOW: 'border-l-crisis-green' };
         const sevText = { CRITICAL: 'text-crisis-red', HIGH: 'text-crisis-orange', MODERATE: 'text-crisis-amber', LOW: 'text-crisis-green' };
 
@@ -50,7 +59,6 @@ import Layout from '../../layouts/Layout.astro';
             </div>
           </a>
         `).join('');
-      } catch (e) { console.error('Regions load failed:', e); }
     }
     loadRegions();
   </script>
