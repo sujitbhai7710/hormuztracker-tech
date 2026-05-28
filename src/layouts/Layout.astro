@@ -23,8 +23,10 @@ import '../styles/global.css';
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content="Strait of Hormuz, Hormuz monitor, oil crisis, shipping disruption, tanker tracking, Brent crude, WTI, war risk insurance, maritime security, Middle East crisis, energy prices, LNG" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Hormuz Watch" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="google-adsense-account" content="ca-pub-8421191784631095" />
+    <meta name="author" content="HormuzTracker Editorial Team" />
     
     <!-- Canonical -->
     {canonicalURL && <link rel="canonical" href={canonicalURL} />}
@@ -42,6 +44,11 @@ import '../styles/global.css';
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
     
+    <!-- AdSense Preconnect (speed optimization) -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,6 +70,9 @@ import '../styles/global.css';
         "query-input": "required name=search_term_string"
       }
     })} />
+
+    <!-- AdSense Auto Ads — loaded last in head with async to avoid blocking render -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8421191784631095" crossorigin="anonymous"></script>
   </head>
   <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
     <!-- Navigation -->
@@ -172,7 +182,7 @@ import '../styles/global.css';
           <div class="flex space-x-4 mt-4 sm:mt-0">
             <a href="/methodology" class="text-sm text-slate-500 hover:text-slate-300">Methodology</a>
             <a href="/glossary" class="text-sm text-slate-500 hover:text-slate-300">Glossary</a>
-            <a href="/data" class="text-sm text-slate-500 hover:text-slate-300">Data</a>
+
           </div>
         </div>
       </div>
